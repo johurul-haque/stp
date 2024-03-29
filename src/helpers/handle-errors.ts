@@ -15,7 +15,7 @@ export function appError(error: AppError): ErrorResponse {
   return {
     status: error.status,
     message: error.message,
-    errorDetails: error,
+    errorDetails: { ...error, stack: getStack(error.stack) },
   };
 }
 
@@ -23,7 +23,7 @@ export function serverError(error: Error): ErrorResponse {
   return {
     status: 500,
     message: error.message,
-    errorDetails: error,
+    errorDetails: { ...error, stack: getStack(error.stack) },
   };
 }
 
@@ -65,10 +65,7 @@ export function prismaKnownRequestError(
   return {
     status: 409,
     message: error.name,
-    errorDetails: {
-      sources,
-      stack: getStack(error.stack),
-    },
+    errorDetails: { ...error, stack: getStack(error.stack) },
   };
 }
 
@@ -78,6 +75,6 @@ export function prismaValidationError(
   return {
     status: 403,
     message: error.name,
-    errorDetails: error,
+    errorDetails: { ...error, stack: getStack(error.stack) },
   };
 }
