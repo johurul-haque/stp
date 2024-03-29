@@ -1,6 +1,5 @@
 import { db } from '@/config/db';
 import { AppError } from '@/utils';
-import { excludeFields } from '@/utils/exclude-fields';
 import { generateToken } from '@/utils/generate-token';
 import { compare } from 'bcrypt';
 import { LoginPayload, RegisterPayload } from './user.interface';
@@ -30,14 +29,8 @@ export async function login(payload: LoginPayload) {
 
   const token = generateToken({ email: user.email, userId: user.id });
 
-  const excludedFields = excludeFields(user, [
-    'createdAt',
-    'updatedAt',
-    'password',
-  ]);
-
   return {
-    ...excludedFields,
+    ...user,
     token,
   };
 }

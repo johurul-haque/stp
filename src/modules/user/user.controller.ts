@@ -13,6 +13,12 @@ export const registerUser = catchAsync(async (req, res) => {
   });
 });
 
-export const loginUser = catchAsync((req, res) => {
-    
-})
+export const loginUser = catchAsync(async (req, res) => {
+  const result = await userServices.login(req.body);
+
+  sendResponse(res, {
+    statusCode: 200,
+    message: 'User logged in successfully',
+    data: excludeFields(result, ['createdAt', 'updatedAt', 'password']),
+  });
+});
