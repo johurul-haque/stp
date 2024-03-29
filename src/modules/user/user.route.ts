@@ -1,6 +1,8 @@
-/* 
-import { Router } from 'express'
-import {} from './foo.controller';
+import { Router } from 'express';
+import { registerUser } from './user.controller';
 
-const router = Router(); 
-*/
+const router = Router();
+
+router.post('/register', registerUser);
+
+export const UserRoutes = router;
