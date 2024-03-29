@@ -12,3 +12,7 @@ export const registerUser = catchAsync(async (req, res) => {
     data: excludeFields(result, ['password']),
   });
 });
+
+export const loginUser = catchAsync((req, res) => {
+    
+})

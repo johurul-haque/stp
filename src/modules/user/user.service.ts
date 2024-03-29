@@ -1,5 +1,9 @@
 import { db } from '@/config/db';
-import { RegisterPayload } from './user.interface';
+import { AppError } from '@/utils';
+import { excludeFields } from '@/utils/exclude-fields';
+import { generateToken } from '@/utils/generate-token';
+import { compare } from 'bcrypt';
+import { LoginPayload, RegisterPayload } from './user.interface';
 
 export async function createUser(payload: RegisterPayload) {
   const { profile, ...user } = payload;
@@ -13,4 +17,27 @@ export async function createUser(payload: RegisterPayload) {
 
     return userData;
   });
+}
+
+export async function login(payload: LoginPayload) {
+  const user = await db.user.findFirst({ where: { email: payload.email } });
+
+  if (!user) throw new AppError(404, 'User not found');
+
+  const isPasswordMatching = await compare(payload.password, user.password);
+
+  if (!isPasswordMatching) throw new AppError(401, 'Password mismatch!');
+
+  const token = generateToken({ email: user.email, userId: user.id });
+
+  const excludedFields = excludeFields(user, [
+    'createdAt',
+    'updatedAt',
+    'password',
+  ]);
+
+  return {
+    ...excludedFields,
+    token,
+  };
 }

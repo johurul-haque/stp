@@ -17,3 +17,13 @@ export const registerPayload = z.object({
     { required_error: 'Profile field is required.' }
   ),
 });
+
+export const loginPayload = registerPayload.pick({
+  email: true,
+  password: true,
+});
+
+export const jwtPayload = z.object({
+  userId: z.string().uuid(),
+  email: z.string().email(),
+});
