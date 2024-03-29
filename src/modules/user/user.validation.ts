@@ -18,9 +18,11 @@ export const registerPayload = z.object({
   ),
 });
 
-export const loginPayload = registerPayload.pick({
-  email: true,
-  password: true,
+export const loginPayload = z.object({
+  email: z
+    .string({ required_error: 'Email must be a valid email address.' })
+    .email({ message: 'Email must be a valid email address.' }),
+  password: z.string({ required_error: 'Password field is required.' }),
 });
 
 export const jwtPayload = z.object({

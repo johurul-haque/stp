@@ -12,4 +12,4 @@ router.post(
   createTrip
 );
 
-export const tripRoutes = router;
+export const TripRoutes = router;

@@ -78,9 +78,6 @@ export function prismaValidationError(
   return {
     status: 403,
     message: error.name,
-    errorDetails: {
-      sources: [],
-      stack: getStack(error.stack),
-    },
+    errorDetails: error,
   };
 }

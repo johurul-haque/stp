@@ -1,4 +1,5 @@
 import * as handle from '@helpers/handle-errors';
+import { Prisma } from '@prisma/client';
 import { AppError } from '@utils';
 import { NextFunction, Request, Response } from 'express';
 import { ErrorResponse } from 'interface/errors';
@@ -21,6 +22,14 @@ export function globalCatch(
     const zError = handle.zodError(error);
 
     errorResponse = { ...errorResponse, ...zError };
+  } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    const result = handle.prismaKnownRequestError(error);
+
+    errorResponse = { ...errorResponse, ...result };
+  } else if (error instanceof Prisma.PrismaClientValidationError) {
+    const result = handle.prismaValidationError(error);
+
+    errorResponse = { ...errorResponse, ...result };
   } else if (error instanceof AppError) {
     const appError = handle.appError(error);
 
