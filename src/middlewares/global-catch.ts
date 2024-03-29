@@ -8,10 +8,7 @@ let errorResponse: ErrorResponse = {
   success: false,
   status: 500,
   message: 'Internal server error',
-  error: {
-    sources: [],
-    stack: undefined,
-  },
+  errorDetails: 'Something went wrong',
 };
 
 export function globalCatch(
@@ -31,10 +28,7 @@ export function globalCatch(
   } else if (error instanceof Error) {
     const serverError = handle.serverError(error);
 
-    errorResponse = {
-      ...errorResponse,
-      ...serverError,
-    };
+    errorResponse = { ...errorResponse, ...serverError };
   }
 
   const { status, ...response } = errorResponse;

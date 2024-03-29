@@ -1,14 +1,6 @@
-type ErrorSources = {
-  path: string | number;
-  message: string;
-}[];
-
 export interface ErrorResponse {
-  success?: boolean;
   status: number;
+  success?: false;
   message: string;
-  error: {
-    sources: [] | ErrorSources;
-    stack: string | undefined;
-  };
+  errorDetails: any;
 }
