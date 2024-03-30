@@ -2,7 +2,7 @@ import { db } from '@/config/db';
 import { AppError } from '@/utils';
 import { generateToken } from '@/utils/generate-token';
 import { compare } from 'bcrypt';
-import { LoginPayload, RegisterPayload } from './user.interface';
+import { JWTPayload, LoginPayload, RegisterPayload } from './user.interface';
 
 export async function createUser(payload: RegisterPayload) {
   const { profile, ...user } = payload;
@@ -33,4 +33,12 @@ export async function login(payload: LoginPayload) {
     ...user,
     token,
   };
+}
+
+export async function getUser(jwtPayload: JWTPayload) {
+  const user = await db.user.findUnique({ where: { id: jwtPayload.userId } });
+
+  if (!user) throw new AppError(404, 'User not found');
+
+  return user;
 }
