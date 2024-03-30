@@ -11,3 +11,16 @@ export const createTrip = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+export const handleTripPairRequest = catchAsync(async (req, res) => {
+  const result = await tripServices.tripPairRequest(
+    req.body,
+    req.params.tripId
+  );
+
+  sendResponse(res, {
+    statusCode: 201,
+    message: 'Travel buddy request sent successfully',
+    data: result,
+  });
+});

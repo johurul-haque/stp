@@ -11,3 +11,7 @@ export const createTripPayload = z.object({
   budget: z.number(requiredError('Budget')),
   activities: z.string(requiredError('Activities')).array(),
 });
+
+export const tripPairRequestPayload = z.object({
+  userId: z.string().uuid(),
+});

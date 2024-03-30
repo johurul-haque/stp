@@ -56,8 +56,19 @@ model TravelPairRequest {
   tripId String
   userId String
 
+  status TravelPairRequestStatus
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   user User @relation(references: [id], fields: [userId])
   trip Trip @relation(references: [id], fields: [tripId])
 
   @@map("travelPairRequests")
+}
+
+enum TravelPairRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
