@@ -31,3 +31,10 @@ export const jwtPayload = z.object({
   userId: z.string().uuid(),
   email: z.string().email(),
 });
+
+export const updateUserProfilePayload = z
+  .object({
+    name: z.string(),
+    email: z.string().email(),
+  })
+  .partial();

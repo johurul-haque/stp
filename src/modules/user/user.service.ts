@@ -2,7 +2,12 @@ import { db } from '@/config/db';
 import { AppError } from '@/utils';
 import { generateToken } from '@/utils/generate-token';
 import { compare } from 'bcrypt';
-import { JWTPayload, LoginPayload, RegisterPayload } from './user.interface';
+import {
+  JWTPayload,
+  LoginPayload,
+  RegisterPayload,
+  UpdateUserProfilePayload,
+} from './user.interface';
 
 export async function createUser(payload: RegisterPayload) {
   const { profile, ...user } = payload;
@@ -41,4 +46,14 @@ export async function getUser(jwtPayload: JWTPayload) {
   if (!user) throw new AppError(404, 'User not found');
 
   return user;
+}
+
+export async function updateUserProfile(
+  payload: UpdateUserProfilePayload,
+  jwtPayload: JWTPayload
+) {
+  return db.user.update({
+    where: { id: jwtPayload.userId },
+    data: payload,
+  });
 }

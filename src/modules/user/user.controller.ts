@@ -32,3 +32,13 @@ export const getUserProfile = catchAsync(async (req, res) => {
     data: excludeFields(result, ['password']),
   });
 });
+
+export const handleProfileUpdate = catchAsync(async (req, res) => {
+  const result = await userServices.updateUserProfile(req.body, req.jwtPayload);
+
+  sendResponse(res, {
+    statusCode: 200,
+    message: 'User profile updated successfully',
+    data: excludeFields(result, ['password']),
+  });
+});
