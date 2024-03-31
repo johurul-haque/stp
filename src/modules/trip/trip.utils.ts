@@ -5,32 +5,29 @@ import { z } from 'zod';
 const toNumber = z.coerce.number();
 
 export function generateFilters(query: Query) {
-  const { searchTerm, minBudget, maxBudget, ...restQueries } = query;
+  const { searchTerm, minBudget, maxBudget, destination, ...dates } = query;
 
   let filters: Prisma.TripWhereInput = {};
 
   if (searchTerm) {
-    const OR = [];
+    const OR: Prisma.TripWhereInput[] = [];
 
     if (Number(searchTerm)) {
       OR.push({
         budget: {
-          equals: toNumber.parse(query.searchTerm),
+          equals: toNumber.parse(searchTerm),
         },
       });
     } else {
       OR.push({
         destination: {
-          contains: query.searchTerm,
+          contains: searchTerm,
           mode: 'insensitive',
         },
       });
     }
 
-    filters = {
-      ...filters,
-      ...OR,
-    };
+    filters = { ...filters, OR };
   }
 
   if (minBudget) {
@@ -47,12 +44,22 @@ export function generateFilters(query: Query) {
     };
   }
 
-  if (Object.keys(restQueries).length) {
+  if (destination) {
     filters = {
       ...filters,
-      AND: Object.keys(restQueries).map((field) => ({
+      destination: {
+        contains: destination,
+        mode: 'insensitive',
+      },
+    };
+  }
+
+  if (Object.keys(dates).length) {
+    filters = {
+      ...filters,
+      AND: Object.keys(dates).map((field) => ({
         [field]: {
-          equals: restQueries[field],
+          equals: dates[field],
         },
       })),
     };
