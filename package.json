@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "main.ts",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "ts-node-dev -r tsconfig-paths/register src/main.ts",
     "prebuild": "rimraf dist",
     "build": "npx tsc --project tsconfig.json",
