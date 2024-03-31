@@ -16,9 +16,13 @@ export const getTravelPairs = catchAsync(async (req, res) => {
 });
 
 export const handleTravelPairResponse = catchAsync(async (req, res) => {
+  const buddyId = uuid.parse(req.params.buddyId);
+
+  const result = await tripPairServices.travelPairResponse(req.body, buddyId);
+
   sendResponse(res, {
     statusCode: 200,
     message: 'Travel buddy request responded successfully',
-    
+    data: result,
   });
 });

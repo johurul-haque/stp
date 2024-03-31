@@ -7,9 +7,10 @@ import { travelPairResponsePayload } from './trip-pairs.validation';
 const router = Router();
 
 router.get('/:tripId', verifyToken, getTravelPairs);
-router.put('/:pairId/respond', [
-  verifyToken,
-  validateRequest(travelPairResponsePayload),
-], handleTravelPairResponse);
+router.put(
+  '/:buddyId/respond',
+  [verifyToken, validateRequest(travelPairResponsePayload)],
+  handleTravelPairResponse
+);
 
 export const TripPairsRoutes = router;
