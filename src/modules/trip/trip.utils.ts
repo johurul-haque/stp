@@ -10,14 +10,26 @@ export function generateFilters(query: Query) {
   let filters: Prisma.TripWhereInput = {};
 
   if (searchTerm) {
-    filters = {
-      ...filters,
-      OR: ['destination', 'budget'].map((field) => ({
-        [field]: {
+    const OR = [];
+
+    if (Number(searchTerm)) {
+      OR.push({
+        budget: {
+          equals: toNumber.parse(query.searchTerm),
+        },
+      });
+    } else {
+      OR.push({
+        destination: {
           contains: query.searchTerm,
           mode: 'insensitive',
         },
-      })),
+      });
+    }
+
+    filters = {
+      ...filters,
+      ...OR,
     };
   }
 
