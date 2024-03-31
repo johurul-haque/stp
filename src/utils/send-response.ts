@@ -4,6 +4,7 @@ type Options<T> = {
   statusCode?: number;
   success?: true;
   message: string;
+  meta?: Record<string, unknown>;
   data?: T;
 };
 
