@@ -8,6 +8,7 @@ import {
   RegisterPayload,
   UpdateUserProfilePayload,
 } from './user.interface';
+import { findUserOrThrow } from './user.utils';
 
 export async function createUser(payload: RegisterPayload) {
   const { profile, ...user } = payload;
@@ -24,7 +25,7 @@ export async function createUser(payload: RegisterPayload) {
 }
 
 export async function login(payload: LoginPayload) {
-  const user = await db.user.findFirst({ where: { email: payload.email } });
+  const user = await db.user.findUnique({ where: { email: payload.email } });
 
   if (!user) throw new AppError(404, 'User not found');
 
@@ -41,11 +42,7 @@ export async function login(payload: LoginPayload) {
 }
 
 export async function getUser(jwtPayload: JWTPayload) {
-  const user = await db.user.findUnique({ where: { id: jwtPayload.userId } });
-
-  if (!user) throw new AppError(404, 'User not found');
-
-  return user;
+  return findUserOrThrow(jwtPayload.userId);
 }
 
 export async function updateUserProfile(

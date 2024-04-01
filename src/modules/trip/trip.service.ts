@@ -1,8 +1,8 @@
 import { db } from '@/config/db';
 import { Query } from '@/interface/query';
-import { AppError } from '@/utils';
 import { z } from 'zod';
 import { JWTPayload } from '../user/user.interface';
+import { findUserOrThrow } from '../user/user.utils';
 import { CreateTripPayload, TripPairRequestPayload } from './trip.interface';
 import { generateFilters } from './trip.utils';
 
@@ -10,9 +10,7 @@ export async function create(
   payload: CreateTripPayload,
   jwtPayload: JWTPayload
 ) {
-  const user = await db.user.findFirst({ where: { id: jwtPayload.userId } });
-
-  if (!user) throw new AppError(404, 'User not found');
+  const user = await findUserOrThrow(jwtPayload.userId);
 
   return db.trip.create({
     data: {
@@ -26,9 +24,7 @@ export async function tripPairRequest(
   payload: TripPairRequestPayload,
   tripId: string
 ) {
-  const user = await db.user.findFirst({ where: { id: payload.userId } });
-
-  if (!user) throw new AppError(404, 'User not found');
+  const user = await findUserOrThrow(payload.userId);
 
   return db.travelPairRequest.create({
     data: {
