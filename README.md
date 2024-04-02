@@ -25,8 +25,8 @@ npm start
 ## Tech stack
 - **TypeScript** - Static type checking
 - **Express.js** - Route handling and middleware
-- **MongoDB** - Storing and managing data
-- **Mongoose** - Data modeling and query building
+- **PostgreSQL** - Storing and managing data
+- **Prisma** - Data modeling and querying
 - **Zod** - Validating and parsing incoming and inferring types
 - **JSON Web Token** - Authenticating users
 
