@@ -1,7 +1,6 @@
+import { atma } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { TreePalm } from 'lucide-react';
-import { Atma } from 'next/font/google';
-import Link from 'next/link';
 
 type LogoProps = {
   className?: {
@@ -10,14 +9,11 @@ type LogoProps = {
   };
 };
 
-const atma = Atma({ subsets: ['latin'], weight: ['600', '700'] });
-
 export function Logo({ className }: LogoProps) {
   return (
-    <Link
-      href={'/'}
+    <div
       className={cn(
-        'relative z-20 flex gap-1.5 items-start select-none',
+        'relative z-20 flex gap-1.5 items-start select-none font-bold max-md:text-lg text-xl tracking-wider',
         className?.wrapper
       )}
     >
@@ -28,12 +24,13 @@ export function Logo({ className }: LogoProps) {
           className?.logo
         )}
       />
+
       <abbr
         title="Social Travel Platform"
-        className={`${atma.className} font-bold text-lg md:text-xl tracking-wider text-green-950 dark:text-green-100 no-underline`}
+        className={`${atma.className} bg-gradient-to-t dark:from-green-300/90 dark:to-green-50/85 text-transparent bg-clip-text inline-block text-green-950 no-underline antialiased`}
       >
         STP
       </abbr>
-    </Link>
+    </div>
   );
 }

@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
-import { Inter, Manrope } from 'next/font/google';
+import { inter } from '@/lib/fonts';
+import type { Metadata } from 'next';
 import './globals.css';
-
-const manrope = Manrope({ subsets: ['latin'] });
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Social Travel Platform | Find travel companions',
