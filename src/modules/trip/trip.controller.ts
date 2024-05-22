@@ -7,7 +7,7 @@ export const createTrip = catchAsync(async (req, res) => {
   const result = await tripServices.create(req.body, req.jwtPayload);
 
   sendResponse(res, {
-    statusCode: 201,
+    status: 201,
     message: 'Trip created successfully',
     data: result,
   });
@@ -20,7 +20,7 @@ export const handleTripPairRequest = catchAsync(async (req, res) => {
   );
 
   sendResponse(res, {
-    statusCode: 201,
+    status: 201,
     message: 'Travel buddy request sent successfully',
     data: result,
   });
@@ -30,7 +30,7 @@ export const handleGetAllTrips = catchAsync(async (req, res) => {
   const result = await tripServices.getAllTrips(req.query as Query);
 
   sendResponse(res, {
-    statusCode: 200,
+    status: 200,
     message: 'Trips retrieved successfully',
     ...result,
   });

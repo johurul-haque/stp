@@ -9,7 +9,7 @@ let errorResponse: ErrorResponse = {
   success: false,
   status: 500,
   message: 'Internal server error',
-  errorDetails: 'Something went wrong',
+  error: 'Something went wrong',
 };
 
 export function globalCatch(

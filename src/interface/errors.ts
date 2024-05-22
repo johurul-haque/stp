@@ -1,6 +1,6 @@
-export interface ErrorResponse {
+export type ErrorResponse = {
   status: number;
   success?: false;
   message: string;
-  errorDetails: any;
-}
+  error: unknown;
+};

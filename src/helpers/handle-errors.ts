@@ -15,7 +15,7 @@ export function appError(error: AppError): ErrorResponse {
   return {
     status: error.status,
     message: error.message,
-    errorDetails: { ...error, stack: getStack(error.stack) },
+    error: { ...error, stack: getStack(error.stack) },
   };
 }
 
@@ -23,7 +23,7 @@ export function serverError(error: Error): ErrorResponse {
   return {
     status: 500,
     message: error.message,
-    errorDetails: { ...error, stack: getStack(error.stack) },
+    error: { ...error, stack: getStack(error.stack) },
   };
 }
 
@@ -40,7 +40,7 @@ export function zodError(error: ZodError): ErrorResponse {
   return {
     status: 403,
     message,
-    errorDetails: { issues },
+    error: { issues },
   };
 }
 
@@ -65,7 +65,7 @@ export function prismaKnownRequestError(
   return {
     status: 409,
     message: error.name,
-    errorDetails: { ...error, stack: getStack(error.stack) },
+    error: { ...error, stack: getStack(error.stack) },
   };
 }
 
@@ -75,6 +75,6 @@ export function prismaValidationError(
   return {
     status: 403,
     message: error.name,
-    errorDetails: { ...error, stack: getStack(error.stack) },
+    error: { ...error, stack: getStack(error.stack) },
   };
 }

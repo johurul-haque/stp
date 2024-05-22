@@ -1,7 +1,7 @@
 import { Response } from 'express';
 
 type Options<T> = {
-  statusCode?: number;
+  status?: number;
   success?: true;
   message: string;
   meta?: Record<string, unknown>;
@@ -10,11 +10,10 @@ type Options<T> = {
 
 export function sendResponse<T>(
   res: Response,
-  { statusCode = 200, success = true, ...rest }: Options<T>
+  { status = 200, success = true, ...rest }: Options<T>
 ) {
-  return res.status(statusCode).json({
+  return res.status(status).json({
     success,
-    statusCode,
     ...rest,
   });
 }
