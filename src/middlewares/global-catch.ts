@@ -1,7 +1,7 @@
 import * as handle from '@helpers/handle-errors';
 import { Prisma } from '@prisma/client';
 import { AppError } from '@utils';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ErrorResponse } from 'interface/errors';
 import { ZodError } from 'zod';
 
@@ -15,7 +15,8 @@ let errorResponse: ErrorResponse = {
 export function globalCatch(
   error: ZodError | AppError | Error,
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) {
   if (error instanceof ZodError) {
     const zError = handle.zodError(error);

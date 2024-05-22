@@ -20,12 +20,15 @@ export const registerPayload = z.object({
   ),
 });
 
-export const loginPayload = z.object({
-  email: z
-    .string({ required_error: 'Email must be a valid email address.' })
-    .email({ message: 'Email must be a valid email address.' }),
-  password: z.string(requiredError('Password')),
-});
+export const loginPayload = z
+  .object({
+    email: z.string().email().optional(),
+    username: z.string().optional(),
+    password: z.string(requiredError('Password')),
+  })
+  .refine(({ username, email }) => username || email, {
+    message: 'Either username or email must be provided',
+  });
 
 export const jwtPayload = z.object({
   userId: z.string().uuid(),

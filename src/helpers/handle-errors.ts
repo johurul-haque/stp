@@ -35,7 +35,11 @@ export function zodError(error: ZodError): ErrorResponse {
     };
   });
 
-  const message = issues.map((issue) => issue.message).join(' ');
+  const message = issues
+    .map((issue) =>
+      `${issue.field ?? ''} ${issue.message.toLowerCase()}.`.trim()
+    )
+    .join(' ');
 
   return {
     status: 403,
@@ -75,6 +79,10 @@ export function prismaValidationError(
   return {
     status: 403,
     message: error.name,
-    error: { ...error, stack: getStack(error.stack) },
+    error: {
+      ...error,
+      message: env.IS_DEV ? error.message : undefined,
+      stack: getStack(error.stack),
+    },
   };
 }
