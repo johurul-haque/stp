@@ -4,7 +4,8 @@ import { z } from 'zod';
 export const env = z
   .object({
     PORT: z.number().default(8080),
-    MONGODB_URI: z.string().url(),
-    IS_DEV: z.boolean().default(process.env.NODE_ENV !== 'production'),
+    DATABASE_URL: z.string(),
+    JWT_SECRET: z.string(),
+    IS_DEV: z.any().transform((val) => val === 'development'),
   })
   .parse(process.env);

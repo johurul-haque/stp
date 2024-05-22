@@ -1,71 +1,58 @@
-## Getting Started
-After installing all of the dependencies change the `.env.example` file `.env` and add the necessary variables.
+# **Travel Buddy Matching Assignment**
 
-```ini
-DATABASE_URL="postgres://..."
+## **Assignment Requirements:**
 
-NODE_ENV='development'
-JWT_SECRET='secret'
-```
+### **Technology Stack:**
 
-Use the following scripts to spin up your app.
+- **Programming Language:** TypeScript
+- **Web Framework:** Express.js
+- **Object Relational Mapping (ORM):** Prisma with PostgreSQL
+- **Authentication:** JWT (JSON Web Tokens)
 
-> ⚠️ Only use npm while building your app
-```bash
-# dev server
-npm run dev
+## **Models:**
 
-# production build
-npm run build
+### **1. User Model:**
 
-# running in production
-npm start
-```
+- **Fields:**
+    - **id (String):** A distinctive identifier for each user.
+    - **name (String):** The name of the user.
+    - **email (String):** The email address of the user.
+    - **p*assword (St*ring):** The hashed password of the user.
+    - **createdAt (DateTime):** The timestamp indicates when the user was created.
+    - **updatedAt (DateTime):** The timestamp indicates when the user was last updated.
 
-## Tech stack
-- **TypeScript** - Static type checking
-- **Express.js** - Route handling and middleware
-- **PostgreSQL** - Storing and managing data
-- **Prisma** - Data modeling and querying
-- **Zod** - Validating and parsing incoming and inferring types
-- **JSON Web Token** - Authenticating users
+### **2. Trip Model:**
 
-## Models:
+- **Fields:**
+    - **id (String):** A distinctive identifier for each trip.
+    - **userId (String):** A reference to the user who created the trip.
+    - **destination (String):** The destination of the trip.
+    - **startDate (String):** The start date of the trip.
+    - **endDate (String):** The end date of the trip.
+    - **budget (Number):** The budget for the trip.
+    - **activities (String[]):** An array of activities planned for the trip.
+    - **createdAt (DateTime):** The timestamp indicates when the trip was created.
+    - **updatedAt (DateTime):** The timestamp indicates when the trip was last updated.
 
-### User
-- **id (String):** A distinctive identifier for each user.
-- **name (String):** The name of the user.
-- **email (String):** The email address of the user.
-- **password (String):** The hashed password of the user.
-- **createdAt (DateTime):** The timestamp indicates when the user was created.
-- **updatedAt (DateTime):** The timestamp indicates when the user was last updated.
+### **3. Travel Buddy Request Model:**
 
-### Trip
-- **id (String):** A distinctive identifier for each trip.
-- **userId (String):** A reference to the user who created the trip.
-- **destination (String):** The destination of the trip.
-- **startDate (String):** The start date of the trip.
-- **endDate (String):** The end date of the trip.
-- **budget (Number):** The budget for the trip.
-- **activities (String[]):** An array of activities planned for the trip.
-- **createdAt (DateTime):** The timestamp indicates when the trip was created.
-- **updatedAt (DateTime):** The timestamp indicates when the trip was last updated.
+- **Fields:**
+    - **id (String):** A distinctive identifier for each travel buddy pairing.
+    - **tripId (String):** A reference to the trip associated with the travel buddy pairing.
+    - **userId (String):** A reference to the user who is a potential travel buddy.
+    - **status (String):** The status of the travel buddy pairing (e.g., PENDING, APPROVED, REJECTED).
+    - **createdAt (DateTime):** The timestamp indicates when the travel buddy pairing was created.
+    - **updatedAt (DateTime):** The timestamp indicates when the travel buddy pairing was last updated.
 
-### Travel Buddy Request
-- **id (String):** A distinctive identifier for each travel buddy pairing.
-- **tripId (String):** A reference to the trip associated with the travel buddy pairing.
-- **userId (String):** A reference to the user who is a potential travel buddy.
-- **status (String):** The status of the travel buddy pairing (e.g., PENDING, APPROVED, REJECTED).
-- **createdAt (DateTime):** The timestamp indicates when the travel buddy pairing was created.
-- **updatedAt (DateTime):** The timestamp indicates when the travel buddy pairing was last updated.
+### **4. UserProfile Model:**
 
-### Profile
-- **id (String):** A distinctive identifier for each user profile.
-- **userId (String):** A reference to the user associated with the profile.
-- **bio (String):** A brief bio or description of the user.
-- **age (Integer):** Age of the user.
-- **createdAt (Date):** The timestamp indicating when the user profile was created.
-- **updatedAt (Date):** The timestamp indicating when the user profile was last updated.
+- **Fields:**
+    - **id (String):** A distinctive identifier for each user profile.
+    - **userId (String):** A reference to the user associated with the profile.
+    - **bio (String):** A brief bio or description of the user.
+    - **age (Integer):** Age of the user.
+    - **createdAt (Date):** The timestamp indicating when the user profile was created.
+    - **updatedAt (Date):** The timestamp indicating when the user profile was last updated.
 
 ## Relational Description: 
 
@@ -85,7 +72,11 @@ npm start
 4. **UserProfile Model:**
    - One-to-One relationship with User (each profile belongs to one user).
 
-### **Sample Error Responses**
+## **Error Handling:**
+
+Implement proper error handling throughout the application. Use global error handling middleware to catch and handle errors, providing appropriate error responses with status codes and error messages.
+
+### **Sample Error Response:**
 
 - For Validation Error (Zod):
 
@@ -134,11 +125,15 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ## **Endpoints:**
 
+**N.B.** For now, no role is required, allowing anyone to perform any operation without restrictions.
+
+**`POST /api/register:`  The request method like GET, PUT, PATCH, DELETE, POST should not be included in the route path. Follow the pattern as shown in the example for every endpoint: `"/api/register"`**
+
 ### **1. User Registration**
 
 - **Endpoint:** **`POST /api/register`**
-
-**Request Body:**
+- **Request Body:**
+- **Note**: You may need to use transaction for creating user and user profile altogether
 
 ```json
 {
@@ -152,7 +147,8 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 }
 ```
 
-**Response** (Response should not include the password):
+- **Response** (Response should not include the password):
+- Note: In response you don’t need to send the user profile info, just send the user info
 
 ```json
 {
@@ -171,9 +167,8 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **2. User Login**
 
-`POST /api/login`
-
-**Request Body:**
+- **Endpoint:** **`POST /api/login`**
+- **Request Body:**
 
 ```json
 {
@@ -182,7 +177,7 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 }
 ```
 
-**Response:**
+- **Response:**
 
 ```json
 {
@@ -200,11 +195,10 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **3. Create a Trip**
 
-`POST /api/trips`
-
-**Headers:** `Authorization: <JWT_TOKEN>`
-
-**Request Body:**
+- **Endpoint:** **`POST /api/trips`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Request Body:**
 
 ```json
 {
@@ -216,7 +210,7 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 }
 ```
 
-**Response:**
+- **Response:**
 
 ```json
 {
@@ -239,22 +233,22 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **4. Get Paginated and Filtered Trips**
 
-`GET /api/trips`
+- **Endpoint:** **`GET /api/trips`**
 
-**Query Parameters**
+**Query Parameters for API Requests:**
 
-- `destination`: Filter trips by destination.
-  
-- `startDate`: Filter trips by start date.
-- `endDate`: Filter trips by end date.
-- `budget`: Filter trips by budget range. Example: ?minBudget=100&maxBudget=10000
-- `searchTerm`: Searches for trips based on a keyword or phrase. Only applicable to the following fields: `destination`, `budget`, etc.
-- `page`: Specifies the page number for paginated results. Default is 1. Example: ?page=2
-- `limit`: Sets the number of data per page. Default is 10. Example: ?limit=5
-- `sortBy`: Specifies the field by which the results should be sorted. Only applicable to the following fields: `destination`, `budget`. Example: ?sortBy=budget
-- `sortOrder`: Determines the sorting order, either 'asc' (ascending) or 'desc' (descending). Example: ?sortOrder=desc
-  
-**Response:**
+When interacting with the API, you can utilize the following query parameters to customize and filter the results according to your preferences.
+
+- `destination`: (Optional) Filter trips by destination.
+- `startDate`: (Optional) Filter trips by start date.
+- `endDate`: (Optional) Filter trips by end date.
+- `budget`: (Optional) Filter trips by budget range. Example: ?minBudget=100&maxBudget=10000
+- `searchTerm`: (Optional) Searches for trips based on a keyword or phrase. Only applicable to the following fields: `destination`, `budget`, etc.
+- `page`: (Optional) Specifies the page number for paginated results. Default is 1. Example: ?page=2
+- `limit`: (Optional) Sets the number of data per page. Default is 10. Example: ?limit=5
+- `sortBy`: (Optional) Specifies the field by which the results should be sorted. Only applicable to the following fields: `destination`, `budget`. Example: ?sortBy=budget
+- `sortOrder`: (Optional) Determines the sorting order, either 'asc' (ascending) or 'desc' (descending). Example: ?sortOrder=desc
+- **Response:**
 
 ```json
 {
@@ -285,11 +279,10 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **5. Send Travel Buddy Request**
 
-`POST /api/trip/:tripId/request`
-
-**Headers:** `Authorization: <JWT_TOKEN>`
-
-**Request Body:**
+- **Endpoint:** **`POST /api/trip/:tripId/request`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Request Body:**
 
 ```json
 {
@@ -297,7 +290,7 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 }
 ```
 
-**Response:**
+- **Response:**
 
 ```json
 {
@@ -317,11 +310,10 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **6. Get Potential Travel Buddies For a Specific Trip**
 
-`GET /api/travel-buddies/:tripId`
-
-**Headers:** `Authorization: <JWT_TOKEN>`
-
-**Response:**
+- **Endpoint:** **`GET /api/travel-buddies/:tripId`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Response:**
 
 ```json
 {
@@ -349,11 +341,10 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **7. Respond to Travel Buddy Request**
 
-`PUT /api/travel-buddies/:buddyId/respond`
-
-**Headers:** `Authorization: <JWT_TOKEN>`
-
-**Request Body:**
+- **Endpoint:** **`PUT /api/travel-buddies/:buddyId/respond`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Request Body:**
 
 ```json
 {
@@ -362,7 +353,7 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 }
 ```
 
-**Response:**
+- **Response:**
 
 ```json
 {
@@ -382,11 +373,10 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **8. Get User Profile**
 
-`GET /api/profile`
-
-**Headers:** `Authorization: <JWT_TOKEN>`
-
-**Response:**
+- **Endpoint:** **`GET /api/profile`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Response:**
 
 ```json
 {
@@ -405,11 +395,10 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 
 ### **9. Update User Profile**
 
-`PUT /api/profile`
-
-**Headers:** `Authorization: <JWT_TOKEN>`
-
-**Request Body:**
+- **Endpoint:** **`PUT /api/profile`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Request Body:**
 
 ```json
 {
@@ -418,7 +407,7 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
 }
 ```
 
-**Response:**
+- **Response:**
 
 ```json
 {
@@ -434,3 +423,5 @@ Error Scenarios: `JWT Expiry`, `Invalid JWT`, `Undefined JWT`, `Not Authorized U
     }
 }
 ```
+
+This endpoint allows users to update their profile information such as name and email.

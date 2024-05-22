@@ -1,10 +1,10 @@
 import { env } from '@/config/env';
 import app from 'app';
-import mongoose from 'mongoose';
+import { db } from './config/db';
 
 (async function () {
   try {
-    await mongoose.connect(env.MONGODB_URI);
+    await db.$connect();
 
     app.listen(env.PORT, () => {
       console.log(`Server listening on ${env.PORT}`);
