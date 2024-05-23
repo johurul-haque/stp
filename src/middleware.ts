@@ -12,19 +12,26 @@ export async function middleware(request: NextRequest) {
 
   if (!cookie) return;
 
-  const url = `${process.env.BASE_API_URL}/profile`;
-  const res = await fetch(url, {
-    headers: {
-      Authorization: cookie.value,
-    },
-  });
+  try {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/profile`;
+    const res = await fetch(url, {
+      headers: {
+        Authorization: cookie.value,
+      },
+    });
 
-  if (res.status === 401 && !authRoutes.includes(path)) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+    if (res.status === 401 && !authRoutes.includes(path)) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
 
-  if (!path.startsWith('/dashboard') && res.status === 200) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    if (!path.startsWith('/dashboard') && res.status === 200) {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+  } catch (error) {
+    // If server crashes the dashboard page will show the error fallback page
+    if (!path.startsWith('/dashboard')) {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
   }
 }
 
