@@ -5,7 +5,7 @@ export default async function Page() {
 
   return (
     <main className="container">
-      <pre>{JSON.stringify(user.data, null, 2)}</pre>
+      <pre>{JSON.stringify(user?.data, null, 2)}</pre>
     </main>
   );
 }

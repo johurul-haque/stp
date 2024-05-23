@@ -1,5 +1,6 @@
 'use client';
 
+import { logout } from '@/actions/logout';
 import gradient from '@/assets/gradient.svg';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,12 +15,9 @@ import {
 import { User } from '@/types/user';
 import { LogOut, Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { DeleteAccountModal } from './delete-account';
 
 export function UserProfile({ user }: { user: User }) {
-  const router = useRouter();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,9 +53,8 @@ export function UserProfile({ user }: { user: User }) {
           <button
             className="w-full"
             onClick={() => {
-              console.log('Logout');
+              logout();
             }}
-            // disabled={isLoading}
           >
             Log out
             <DropdownMenuShortcut>
