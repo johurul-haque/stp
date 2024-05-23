@@ -1,5 +1,5 @@
-import { setAccessToken } from '@/lib/actions';
 import { clientFetch } from '@/lib/axios/client-fetch';
+import { setAccessToken } from '@/lib/cookies';
 import { SetStateActionType } from '@/types/set-state-action';
 import { AxiosError } from 'axios';
 import { RegisterResponse } from './response-type';
