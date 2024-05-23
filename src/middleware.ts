@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
 
   if (!cookie) return;
 
-  const url = `${process.env.BASE_API_URL}/users/profile`;
+  const url = `${process.env.BASE_API_URL}/profile`;
   const res = await fetch(url, {
     headers: {
       Authorization: cookie.value,
@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  if (!path.startsWith('/dashboard')) {
+  if (!path.startsWith('/dashboard') && res.status === 200) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 }
