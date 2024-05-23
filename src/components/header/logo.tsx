@@ -6,6 +6,7 @@ type LogoProps = {
   className?: {
     wrapper?: string;
     logo?: string;
+    abbr?: string;
   };
 };
 
@@ -27,7 +28,10 @@ export function Logo({ className }: LogoProps) {
 
       <abbr
         title="Social Travel Platform"
-        className={`${atma.className} bg-gradient-to-t dark:from-green-300/90 dark:to-green-50/85 text-transparent bg-clip-text inline-block text-green-950 no-underline antialiased`}
+        className={cn(
+          `${atma.className} bg-gradient-to-t from-green-900 to-green-600 dark:from-green-300/90 dark:to-green-50/85 text-transparent bg-clip-text inline-block no-underline antialiased`,
+          className?.abbr
+        )}
       >
         STP
       </abbr>

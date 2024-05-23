@@ -12,11 +12,9 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { SetStateActionType } from '@/types/set-state-action';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { onSubmit } from './on-submit';
 import { loginSchema } from './schema';
 
 type LoginFormProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -27,46 +25,19 @@ export function LoginForm({ className, setError }: LoginFormProps) {
   const [isShowing, setIsShowing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
-
   const form = useForm<loginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
-  const login = async (values: loginSchema) => {
-    setIsLoading(true);
-
-    const payload = {
-      password: values.password,
-      email: undefined,
-      username: undefined,
-    };
-
-    const { success } = z.string().email().safeParse(values.handle);
-
-    if (success) {
-      payload.email = values.handle as any;
-    } else {
-      payload.username = values.handle as any;
-    }
-
-    try {
-      const res = await axios.post('/api/login', payload);
-
-      console.log(res.data);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log(error.response?.data);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className={cn('grid gap-6', className)}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(login)} className="grid gap-3">
+        <form
+          onSubmit={form.handleSubmit((values) =>
+            onSubmit({ values, setIsLoading, setError })
+          )}
+          className="grid gap-3"
+        >
           <FormField
             control={form.control}
             name="handle"
