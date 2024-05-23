@@ -9,30 +9,16 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
-  name      String
-  email     String?  @unique
-  username  String?  @unique
+  email     String   @unique
+  username  String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  profile   Profile?
   Trip      Trip[]
 
   TravelPairRequest TravelPairRequest[]
 
   @@map("users")
-}
-
-model Profile {
-  id        String   @id @default(uuid())
-  userId    String   @unique
-  bio       String
-  age       Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(references: [id], fields: [userId])
-
-  @@map("profiles")
 }
 
 model Trip {

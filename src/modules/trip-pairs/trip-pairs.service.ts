@@ -10,7 +10,7 @@ export async function getPairs(tripId: string) {
   return result.map((pair) => ({
     ...pair,
     user: {
-      name: pair.user.name,
+      name: pair.user.username,
       email: pair.user.email,
     },
   }));

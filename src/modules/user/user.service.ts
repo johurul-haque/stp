@@ -1,4 +1,5 @@
 import { db } from '@/config/db';
+import { handleUniqueConstraints } from '@/helpers/handle-unique-constraints';
 import { AppError } from '@/utils';
 import { excludeFields } from '@/utils/exclude-fields';
 import { generateToken } from '@/utils/generate-token';
@@ -12,24 +13,18 @@ import {
 import { findUserOrThrow } from './user.utils';
 
 export async function createUser(payload: RegisterPayload) {
-  const { profile, ...data } = payload;
+  try {
+    const user = await db.user.create({ data: payload });
 
-  const user = await db.$transaction(async (tsc) => {
-    const userData = await tsc.user.create({ data });
+    const access_token = generateToken({ userId: user.id });
 
-    await tsc.profile.create({
-      data: { ...profile, userId: userData.id },
-    });
-
-    return userData;
-  });
-
-  const access_token = generateToken({ userId: user.id });
-
-  return {
-    user: excludeFields(user, ['password']),
-    access_token,
-  };
+    return {
+      user: excludeFields(user, ['password']),
+      access_token,
+    };
+  } catch (error) {
+    handleUniqueConstraints(error);
+  }
 }
 
 export async function login(payload: LoginPayload) {
@@ -37,11 +32,11 @@ export async function login(payload: LoginPayload) {
     where: { OR: [{ email: payload.email }] },
   });
 
-  if (!user) throw new AppError(404, 'User not found');
+  if (!user) throw new AppError(404, "User doesn't exist!");
 
-  const isPasswordMatching = await compare(payload.password, user.password);
+  const isMatching = await compare(payload.password, user.password);
 
-  if (!isPasswordMatching) throw new AppError(401, 'Password mismatch!');
+  if (!isMatching) throw new AppError(401, 'Incorrect password!');
 
   const access_token = generateToken({ userId: user.id });
 
