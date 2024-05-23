@@ -1,6 +1,6 @@
 import { User } from '@/types/user';
 
-export type LoginResponse = {
+export type RegisterResponse = {
   user: User;
   access_token: string;
 };

@@ -2,12 +2,11 @@ import { setAccessToken } from '@/lib/actions';
 import { clientFetch } from '@/lib/axios/client-fetch';
 import { SetStateActionType } from '@/types/set-state-action';
 import { AxiosError } from 'axios';
-import { z } from 'zod';
-import { LoginResponse } from './response-type';
-import { loginSchema } from './schema';
+import { RegisterResponse } from './response-type';
+import { registerSchema } from './schema';
 
 type ParamsType = {
-  values: loginSchema;
+  values: registerSchema;
   setIsLoading: SetStateActionType<boolean>;
   setError: SetStateActionType<string | undefined>;
 };
@@ -15,23 +14,11 @@ type ParamsType = {
 export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
   setIsLoading(true);
 
-  const payload = {
-    password: values.password,
-    email: undefined,
-    username: undefined,
-  };
-
-  const { success } = z.string().email().safeParse(values.handle);
-
-  if (success) {
-    payload.email = values.handle as any;
-  } else {
-    payload.username = values.handle as any;
-  }
+  const { confirm_password, ...payload } = values;
 
   try {
-    const { data } = await clientFetch.post<LoginResponse>(
-      '/api/login',
+    const { data } = await clientFetch.post<RegisterResponse>(
+      '/api/register',
       payload
     );
 

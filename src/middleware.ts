@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  if (res.status !== 200 && !authRoutes.includes(path)) {
+  if (res.status === 401 && !authRoutes.includes(path)) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
