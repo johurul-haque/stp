@@ -9,6 +9,7 @@ import {
   LoginPayload,
   RegisterPayload,
   UpdateUserProfilePayload,
+  deleteProfilePayload,
 } from './user.interface';
 import { findUserOrThrow } from './user.utils';
 
@@ -58,4 +59,17 @@ export async function updateUserProfile(
     where: { id: jwtPayload.userId },
     data: payload,
   });
+}
+
+export async function deleteProfile(
+  payload: deleteProfilePayload,
+  jwtPayload: JWTPayload
+) {
+  const user = await findUserOrThrow(jwtPayload.userId);
+
+  const isMatching = await compare(payload.password, user.password);
+
+  if (!isMatching) throw new AppError(401, 'Incorrect password!');
+
+  return db.user.delete({ where: { id: user.id } });
 }

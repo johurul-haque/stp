@@ -42,3 +42,13 @@ export const handleProfileUpdate = catchAsync(async (req, res) => {
     data: excludeFields(result, ['password']),
   });
 });
+
+export const handleDeleteProfile = catchAsync(async (req, res) => {
+  const result = await userServices.deleteProfile(req.body, req.jwtPayload);
+
+  sendResponse(res, {
+    status: 200,
+    message: 'Profile deleted successfully',
+    data: excludeFields(result, ['password']),
+  });
+});

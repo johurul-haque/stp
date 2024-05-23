@@ -3,11 +3,13 @@ import { verifyToken } from '@/middlewares/verify-token';
 import { Router } from 'express';
 import {
   getUserProfile,
+  handleDeleteProfile,
   handleProfileUpdate,
   loginUser,
   registerUser,
 } from './user.controller';
 import {
+  deleteProfilePayload,
   loginPayload,
   registerPayload,
   updateUserProfilePayload,
@@ -23,6 +25,11 @@ router.put(
   '/profile',
   [verifyToken, validateRequest(updateUserProfilePayload)],
   handleProfileUpdate
+);
+router.delete(
+  '/profile',
+  [verifyToken, validateRequest(deleteProfilePayload)],
+  handleDeleteProfile
 );
 
 export const UserRoutes = router;
