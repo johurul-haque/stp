@@ -17,7 +17,7 @@ const NAV_LINKS: NavLinks[] = [
   },
 ];
 
-export function NavBar() {
+export function NavBar({ session }: { session: boolean }) {
   const pathname = usePathname();
 
   return (
@@ -36,6 +36,20 @@ export function NavBar() {
           {label}
         </Link>
       ))}
+
+      {session && (
+        <Link
+          href={'/dashboard'}
+          className={cn(
+            'underline-offset-2 decoration-wavy decoration-green-700',
+            {
+              underline: '/dashboard' === pathname,
+            }
+          )}
+        >
+          Dashboard
+        </Link>
+      )}
     </nav>
   );
 }

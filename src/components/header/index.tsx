@@ -19,7 +19,7 @@ export async function Header() {
         />
       </Link>
 
-      <NavBar />
+      <NavBar session={!!user} />
 
       {user ? (
         <UserProfile user={user.data} />
