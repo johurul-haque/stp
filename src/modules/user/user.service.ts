@@ -1,5 +1,6 @@
 import { db } from '@/config/db';
 import { AppError } from '@/utils';
+import { excludeFields } from '@/utils/exclude-fields';
 import { generateToken } from '@/utils/generate-token';
 import { compare } from 'bcrypt';
 import {
@@ -11,21 +12,30 @@ import {
 import { findUserOrThrow } from './user.utils';
 
 export async function createUser(payload: RegisterPayload) {
-  const { profile, ...user } = payload;
+  const { profile, ...data } = payload;
 
-  return await db.$transaction(async (transactionClient) => {
-    const userData = await transactionClient.user.create({ data: user });
+  const user = await db.$transaction(async (tsc) => {
+    const userData = await tsc.user.create({ data });
 
-    await transactionClient.profile.create({
+    await tsc.profile.create({
       data: { ...profile, userId: userData.id },
     });
 
     return userData;
   });
+
+  const access_token = generateToken({ userId: user.id });
+
+  return {
+    user: excludeFields(user, ['password']),
+    access_token,
+  };
 }
 
 export async function login(payload: LoginPayload) {
-  const user = await db.user.findUnique({ where: { email: payload.email } });
+  const user = await db.user.findFirst({
+    where: { OR: [{ email: payload.email }] },
+  });
 
   if (!user) throw new AppError(404, 'User not found');
 
@@ -33,11 +43,11 @@ export async function login(payload: LoginPayload) {
 
   if (!isPasswordMatching) throw new AppError(401, 'Password mismatch!');
 
-  const token = generateToken({ email: user.email, userId: user.id });
+  const access_token = generateToken({ userId: user.id });
 
   return {
-    ...user,
-    token,
+    user: excludeFields(user, ['password']),
+    access_token,
   };
 }
 

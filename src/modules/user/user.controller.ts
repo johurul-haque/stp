@@ -9,7 +9,7 @@ export const registerUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     status: 201,
     message: 'User registered successfully',
-    data: excludeFields(result, ['password']),
+    data: result,
   });
 });
 
@@ -19,7 +19,7 @@ export const loginUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     status: 200,
     message: 'User logged in successfully',
-    data: excludeFields(result, ['createdAt', 'updatedAt', 'password']),
+    data: result,
   });
 });
 
