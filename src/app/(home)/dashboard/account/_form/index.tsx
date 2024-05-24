@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { updateProfile } from '@/actions/update-profile';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,10 +15,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 import { User } from '@/types/user';
 import { profileFormSchema } from './schema';
 
-export function AccountForm({ user }: { user?: User }) {
+type AccountFormProps = { user?: User };
+
+export function AccountForm({ user }: AccountFormProps) {
+  const { toast } = useToast();
+
   const form = useForm<profileFormSchema>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -26,9 +32,21 @@ export function AccountForm({ user }: { user?: User }) {
     },
   });
 
-  function onSubmit(data: profileFormSchema) {
-    console.log(data);
-  }
+  const onSubmit = async (data: profileFormSchema) => {
+    try {
+      await updateProfile(data);
+
+      toast({
+        title: 'Success 🎉',
+        description: 'Profile updated successfully',
+      });
+    } catch (error) {
+      toast({
+        title: 'Uh oh!',
+        description: (error as Error)?.message || 'Something went wrong',
+      });
+    }
+  };
 
   return (
     <Form {...form}>

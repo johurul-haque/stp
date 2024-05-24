@@ -43,7 +43,7 @@ export function NavBar({ session }: { session: boolean }) {
           className={cn(
             'underline-offset-2 decoration-wavy decoration-green-700',
             {
-              underline: '/dashboard' === pathname,
+              underline: pathname.startsWith('/dashboard'),
             }
           )}
         >

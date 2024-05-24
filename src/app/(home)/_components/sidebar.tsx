@@ -8,24 +8,12 @@ import { cn } from '@/lib/utils';
 
 const sidebarNavItems = [
   {
-    title: 'Dashboard',
+    title: 'General',
     href: '/dashboard',
   },
   {
     title: 'Account',
     href: '/dashboard/account',
-  },
-  {
-    title: 'Appearance',
-    href: '/examples/forms/appearance',
-  },
-  {
-    title: 'Notifications',
-    href: '/examples/forms/notifications',
-  },
-  {
-    title: 'Display',
-    href: '/examples/forms/display',
   },
 ];
 
@@ -37,7 +25,7 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
   return (
     <nav
       className={cn(
-        'flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1',
+        'flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 max-w-full overflow-x-auto',
         className
       )}
       {...props}
