@@ -36,8 +36,8 @@ export const updateUserProfilePayload = z
   })
   .partial()
   .refine(({ username, email }) => username || email, {
-    message: 'Either username or email must be provided',
-  });;
+    message: 'Nothing to update',
+  });
 
 export const deleteProfilePayload = z.object({
   password: z.string(),
