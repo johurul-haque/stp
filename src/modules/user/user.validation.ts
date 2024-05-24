@@ -43,13 +43,18 @@ export const deleteProfilePayload = z.object({
   password: z.string(),
 });
 
-export const resetPasswordPayload = z.object({
-  current_password: z
-    .string()
-    .trim()
-    .min(4, 'Password must be at least 4 characters.'),
-  new_password: z
-    .string()
-    .trim()
-    .min(4, 'Password must be at least 4 characters.'),
-});
+export const resetPasswordPayload = z
+  .object({
+    current_password: z
+      .string()
+      .trim()
+      .min(4, 'Password must be at least 4 characters'),
+    new_password: z
+      .string()
+      .trim()
+      .min(4, 'Password must be at least 4 characters'),
+  })
+  .refine(
+    (data) => data.current_password !== data.new_password,
+    "New password can't be the same as current password"
+  );
