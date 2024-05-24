@@ -13,8 +13,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { User } from '@/types/user';
-import { LogOut, Trash2 } from 'lucide-react';
+import { LogOut, Settings, Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { DeleteAccountModal } from './delete-account';
 
 export function UserProfile({ user }: { user: User }) {
@@ -46,6 +47,17 @@ export function UserProfile({ user }: { user: User }) {
             </p>
           </div>
         </DropdownMenuLabel>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <Link href={'/dashboard/account'} className="w-full">
+            Account settings
+            <DropdownMenuShortcut>
+              <Settings className="size-4 stroke-current" />
+            </DropdownMenuShortcut>
+          </Link>
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 

@@ -6,8 +6,14 @@ export const registerSchema = z
   .object({
     username: z.string().trim().regex(usernameRegex, 'Invalid username.'),
     email: z.string().email(),
-    password: z.string().trim().min(4),
-    confirm_password: z.string().trim().min(4),
+    password: z
+      .string()
+      .trim()
+      .min(4, 'Password must be at least 4 characters.'),
+    confirm_password: z
+      .string()
+      .trim()
+      .min(4, 'Password must be at least 4 characters.'),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Password doesn't match",
