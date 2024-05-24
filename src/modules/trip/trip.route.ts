@@ -14,13 +14,13 @@ router.get('/trips', handleGetAllTrips);
 
 router.post(
   '/trips',
-  [verifyToken, validateRequest(createTripPayload)],
+  [verifyToken(), validateRequest(createTripPayload)],
   createTrip
 );
 
 router.post(
   '/trip/:tripId/request',
-  [verifyToken, validateRequest(tripPairRequestPayload)],
+  [verifyToken(), validateRequest(tripPairRequestPayload)],
   handleTripPairRequest
 );
 

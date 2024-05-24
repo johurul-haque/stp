@@ -1,4 +1,5 @@
 import { hashPassword } from '@/utils/hash-password';
+import { Role } from '@prisma/client';
 import { z } from 'zod';
 
 function requiredError(fieldName: string) {
@@ -25,13 +26,18 @@ export const loginPayload = z
 
 export const jwtPayload = z.object({
   userId: z.string().uuid(),
+  role: z.nativeEnum(Role)
 });
 
 export const updateUserProfilePayload = z
   .object({
     username: z.string(),
+    email: z.string().email(),
   })
-  .partial();
+  .partial()
+  .refine(({ username, email }) => username || email, {
+    message: 'Either username or email must be provided',
+  });;
 
 export const deleteProfilePayload = z.object({
   password: z.string(),

@@ -20,15 +20,15 @@ const router = Router();
 router.post('/register', validateRequest(registerPayload), registerUser);
 router.post('/login', validateRequest(loginPayload), loginUser);
 
-router.get('/profile', verifyToken, getUserProfile);
+router.get('/profile', verifyToken(), getUserProfile);
 router.put(
   '/profile',
-  [verifyToken, validateRequest(updateUserProfilePayload)],
+  [verifyToken(), validateRequest(updateUserProfilePayload)],
   handleProfileUpdate
 );
 router.delete(
   '/profile',
-  [verifyToken, validateRequest(deleteProfilePayload)],
+  [verifyToken(), validateRequest(deleteProfilePayload)],
   handleDeleteProfile
 );
 

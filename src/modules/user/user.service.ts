@@ -17,7 +17,7 @@ export async function createUser(payload: RegisterPayload) {
   try {
     const user = await db.user.create({ data: payload });
 
-    const access_token = generateToken({ userId: user.id });
+    const access_token = generateToken({ userId: user.id, role: user.role });
 
     return {
       user: excludeFields(user, ['password']),
@@ -39,7 +39,7 @@ export async function login(payload: LoginPayload) {
 
   if (!isMatching) throw new AppError(401, 'Incorrect password!');
 
-  const access_token = generateToken({ userId: user.id });
+  const access_token = generateToken({ userId: user.id, role: user.role });
 
   return {
     user: excludeFields(user, ['password']),
