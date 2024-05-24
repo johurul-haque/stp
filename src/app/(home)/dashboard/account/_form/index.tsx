@@ -17,11 +17,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { User } from '@/types/user';
+import { useState } from 'react';
 import { profileFormSchema } from './schema';
 
 type AccountFormProps = { user?: User };
 
 export function AccountForm({ user }: AccountFormProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<profileFormSchema>({
@@ -33,7 +35,11 @@ export function AccountForm({ user }: AccountFormProps) {
   });
 
   const onSubmit = async (data: profileFormSchema) => {
+    setIsLoading(true);
+
     if (data.email === user?.email && data.username === user?.username) {
+      setIsLoading(false);
+
       return toast({
         title: 'Up to date',
         description: 'Nothing to update.',
@@ -52,15 +58,18 @@ export function AccountForm({ user }: AccountFormProps) {
         title: 'Uh oh!',
         description: (error as Error)?.message || 'Something went wrong',
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="username"
+          disabled={isLoading}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
@@ -79,6 +88,7 @@ export function AccountForm({ user }: AccountFormProps) {
         <FormField
           control={form.control}
           name="email"
+          disabled={isLoading}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>

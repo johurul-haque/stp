@@ -1,9 +1,11 @@
 'use client';
 
+import { resetPassword } from '@/actions/reset-password';
 import { AlertDestructive } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import * as D from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
+import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,7 +13,6 @@ import { PasswordField } from './password-field';
 import { changePasswordForm } from './schema';
 
 export function ChangePasswordModal({ children }: { children: ReactNode }) {
-  const [isShowing, setIsShowing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,8 +22,24 @@ export function ChangePasswordModal({ children }: { children: ReactNode }) {
     resolver: zodResolver(changePasswordForm),
   });
 
-  const onSubmit = async (values: changePasswordForm) => {
-    console.log(values);
+  const onSubmit = async ({
+    new_password,
+    current_password,
+  }: changePasswordForm) => {
+    setIsLoading(true);
+
+    try {
+      await resetPassword({ current_password, new_password });
+
+      toast({
+        title: 'Success 🎉',
+        description: 'Password successfully changed',
+      });
+    } catch (error) {
+      setError((error as Error).message || 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -36,6 +53,8 @@ export function ChangePasswordModal({ children }: { children: ReactNode }) {
             Fill in the required fields. Click confirm when you are done.
           </D.DialogDescription>
         </D.DialogHeader>
+
+        {error && <AlertDestructive message={error} />}
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-3">
@@ -59,8 +78,6 @@ export function ChangePasswordModal({ children }: { children: ReactNode }) {
               name="confirm_new_password"
               isLoading={isLoading}
             />
-
-            {error && <AlertDestructive message={error} />}
 
             <D.DialogFooter className="mt-3">
               <Button

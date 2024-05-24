@@ -85,15 +85,19 @@ export function RegisterForm({
             )}
           />
 
-          {passwordFields.map((name, i) => (
-            <PasswordField
-              form={form}
-              name={name}
-              index={i}
-              isLoading={isLoading}
-              key={name}
-            />
-          ))}
+          <PasswordField
+            form={form}
+            name={'password'}
+            label="Password"
+            isLoading={isLoading}
+          />
+
+          <PasswordField
+            form={form}
+            name={'confirm_password'}
+            label="Confirm password"
+            isLoading={isLoading}
+          />
 
           <Button disabled={isLoading} type="submit" className="w-full mt-3">
             Continue

@@ -1,4 +1,3 @@
-import { Eye, EyeClosed } from '@/components/icons';
 import {
   FormControl,
   FormField,
@@ -14,13 +13,13 @@ import { registerSchema } from './schema';
 export function PasswordField({
   form,
   name,
-  index,
   isLoading,
+  label,
 }: {
   form: UseFormReturn<registerSchema, any, undefined>;
   name: 'password' | 'confirm_password';
-  index: number;
   isLoading: boolean;
+  label: string;
 }) {
   const [isShowing, setIsShowing] = useState(false);
 
@@ -30,7 +29,7 @@ export function PasswordField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{index > 0 && 'Confirm'} Password</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <div className="relative">
             <FormControl>
               <Input
@@ -43,13 +42,14 @@ export function PasswordField({
             </FormControl>
             <button
               type="button"
+              title={isShowing ? 'Hide password' : 'Show password'}
               onClick={() => setIsShowing(!isShowing)}
               className="absolute translate-y-1/2 bottom-1/2 right-3"
             >
               <span className="sr-only">
                 {isShowing ? 'Hide' : 'Show'} password
               </span>
-              {isShowing ? <EyeClosed /> : <Eye />}
+              {isShowing ? '👀' : '🫣'}
             </button>
           </div>
           <FormMessage />

@@ -1,7 +1,6 @@
 import { deleteProfile } from '@/actions/delete-profile';
 import * as D from '@/components/ui/dialog';
 import { FormEvent, ReactNode, useState } from 'react';
-import { Eye, EyeClosed } from '../icons';
 import { AlertDestructive } from '../ui/alert';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -63,15 +62,7 @@ export function DeleteAccountModal({ children }: { children: ReactNode }) {
               <span className="sr-only">
                 {isPasswordShowing ? 'Hide' : 'Show'} password
               </span>
-
-              {isPasswordShowing ? (
-                <EyeClosed />
-              ) : (
-                <Eye
-                  aria-hidden={true}
-                  className="stroke-gray-500 hover:stroke-gray-600"
-                />
-              )}
+              {isPasswordShowing ? '👀' : '🫣'}
             </button>
           </div>
 

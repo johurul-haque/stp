@@ -1,4 +1,3 @@
-import { Eye, EyeClosed } from '@/components/icons';
 import {
   FormControl,
   FormField,
@@ -43,13 +42,14 @@ export function PasswordField({
             </FormControl>
             <button
               type="button"
+              title={isShowing ? 'Hide password' : 'Show password'}
               onClick={() => setIsShowing(!isShowing)}
               className="absolute translate-y-1/2 bottom-1/2 right-3"
             >
               <span className="sr-only">
                 {isShowing ? 'Hide' : 'Show'} password
               </span>
-              {isShowing ? <EyeClosed /> : <Eye />}
+              {isShowing ? '👀' : '🫣'}
             </button>
           </div>
           <FormMessage />
