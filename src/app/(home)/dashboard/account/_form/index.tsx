@@ -33,6 +33,13 @@ export function AccountForm({ user }: AccountFormProps) {
   });
 
   const onSubmit = async (data: profileFormSchema) => {
+    if (data.email === user?.email && data.username === user?.username) {
+      return toast({
+        title: 'Up to date',
+        description: 'Nothing to update.',
+      });
+    }
+
     try {
       await updateProfile(data);
 

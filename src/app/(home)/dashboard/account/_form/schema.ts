@@ -10,10 +10,11 @@ export const profileFormSchema = z.object({
     })
     .max(30, {
       message: 'Username must not be longer than 30 characters.',
-    }),
+    })
+    .regex(usernameRegex, 'Invalid username.'),
   email: z
     .string({
-      required_error: 'Please select an email to display.',
+      required_error: 'Invalid email address.',
     })
     .email(),
 });
