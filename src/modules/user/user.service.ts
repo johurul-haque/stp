@@ -10,6 +10,7 @@ import {
   RegisterPayload,
   UpdateUserProfilePayload,
   deleteProfilePayload,
+  resetPasswordPayload,
 } from './user.interface';
 import { findUserOrThrow } from './user.utils';
 
@@ -43,6 +44,23 @@ export async function login(payload: LoginPayload) {
 
   return {
     user: excludeFields(user, ['password']),
+    access_token,
+  };
+}
+
+export async function resetPassword(
+  payload: resetPasswordPayload,
+  jwtPayload: JWTPayload
+) {
+  const user = await findUserOrThrow(jwtPayload.userId);
+
+  const isMatching = await compare(payload.current_password, user.password);
+
+  if (!isMatching) throw new AppError(401, 'Current password is incorrect.');
+
+  const access_token = generateToken({ userId: user.id, role: user.role });
+
+  return {
     access_token,
   };
 }

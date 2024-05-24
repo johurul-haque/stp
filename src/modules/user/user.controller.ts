@@ -17,9 +17,17 @@ export const loginUser = catchAsync(async (req, res) => {
   const result = await userServices.login(req.body);
 
   sendResponse(res, {
-    status: 200,
     message: 'User logged in successfully',
     data: result,
+  });
+});
+
+export const handleResetPassword = catchAsync(async (req, res) => {
+  const result = await userServices.resetPassword(req.body, req.jwtPayload);
+
+  sendResponse(res, {
+    message: 'Password successfully reset',
+    data: result
   });
 });
 

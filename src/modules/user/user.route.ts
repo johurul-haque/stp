@@ -5,6 +5,7 @@ import {
   getUserProfile,
   handleDeleteProfile,
   handleProfileUpdate,
+  handleResetPassword,
   loginUser,
   registerUser,
 } from './user.controller';
@@ -12,6 +13,7 @@ import {
   deleteProfilePayload,
   loginPayload,
   registerPayload,
+  resetPasswordPayload,
   updateUserProfilePayload,
 } from './user.validation';
 
@@ -19,6 +21,11 @@ const router = Router();
 
 router.post('/register', validateRequest(registerPayload), registerUser);
 router.post('/login', validateRequest(loginPayload), loginUser);
+router.post(
+  '/reset-password',
+  [verifyToken(), validateRequest(resetPasswordPayload)],
+  handleResetPassword
+);
 
 router.get('/profile', verifyToken(), getUserProfile);
 router.put(
