@@ -31,7 +31,7 @@ export function NavBar() {
             key={href}
             href={href}
             className={buttonVariants({
-              variant: isPathMatching ? 'default' : 'secondary',
+              variant: isPathMatching ? 'default' : 'outline',
               size: 'sm',
             })}
           >

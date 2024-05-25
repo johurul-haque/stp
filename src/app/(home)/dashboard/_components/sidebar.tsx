@@ -8,12 +8,12 @@ import { cn } from '@/lib/utils';
 
 const sidebarNavItems = [
   {
-    title: 'General',
+    label: 'General',
     href: '/dashboard',
     nested: true,
   },
   {
-    title: 'Account',
+    label: 'Account',
     href: '/dashboard/account',
   },
 ];
@@ -32,9 +32,15 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
       {...props}
     >
       {sidebarNavItems.map((item) => {
-        const isPathMatching = item.nested
-          ? pathname.startsWith(item.href)
-          : pathname === item.href;
+        const handleNestedMatching = [
+          '/dashboard/your-posts',
+          '/dashboard/sent-requests',
+        ].filter((item) => item === pathname);
+
+        const isPathMatching =
+          item.label !== 'General'
+            ? pathname === item.href
+            : handleNestedMatching.length || pathname === item.href;
 
         return (
           <Link
@@ -48,7 +54,7 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
               'justify-start'
             )}
           >
-            {item.title}
+            {item.label}
           </Link>
         );
       })}

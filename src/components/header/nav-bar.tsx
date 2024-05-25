@@ -28,9 +28,9 @@ export function NavBar({ session }: { session: boolean }) {
           href={href}
           className={cn(
             'underline-offset-2 decoration-wavy decoration-green-700',
-            {
-              underline: href === pathname,
-            }
+            href === pathname
+              ? 'underline'
+              : 'hover:underline decoration-neutral-300 dark:decoration-neutral-600'
           )}
         >
           {label}
