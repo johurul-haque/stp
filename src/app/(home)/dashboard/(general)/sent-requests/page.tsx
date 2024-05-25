@@ -1,6 +1,6 @@
 import { getUser } from '@/lib/api/get-user';
 
-export default async function Page() {
+export default async function SentRequestsPage() {
   const user = await getUser();
 
   return (

@@ -10,6 +10,7 @@ const sidebarNavItems = [
   {
     title: 'General',
     href: '/dashboard',
+    nested: true,
   },
   {
     title: 'Account',
@@ -30,21 +31,27 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
       )}
       {...props}
     >
-      {sidebarNavItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={cn(
-            buttonVariants({ variant: 'ghost' }),
-            pathname === item.href
-              ? 'dark:bg-neutral-800 bg-neutral-100'
-              : 'hover:bg-transparent hover:dark:bg-transparent hover:underline',
-            'justify-start'
-          )}
-        >
-          {item.title}
-        </Link>
-      ))}
+      {sidebarNavItems.map((item) => {
+        const isPathMatching = item.nested
+          ? pathname.startsWith(item.href)
+          : pathname === item.href;
+
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              isPathMatching
+                ? 'dark:bg-neutral-800 bg-neutral-100'
+                : 'hover:bg-transparent hover:dark:bg-transparent hover:underline',
+              'justify-start'
+            )}
+          >
+            {item.title}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
