@@ -13,10 +13,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { User } from '@/types/user';
-import { LogOut, Settings, Trash2 } from 'lucide-react';
+import { LogOut, PlusIcon, Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { DeleteAccountModal } from '../../app/(home)/dashboard/account/_components/delete-account';
 
 export function UserProfile({ user }: { user: User }) {
   return (
@@ -51,6 +50,15 @@ export function UserProfile({ user }: { user: User }) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
+          <Link href={'/dashboard/trips/create'} className="w-full">
+            Post trip plan
+            <DropdownMenuShortcut>
+              <PlusIcon className="size-4 stroke-current" />
+            </DropdownMenuShortcut>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild>
           <Link href={'/dashboard/account'} className="w-full">
             Account settings
             <DropdownMenuShortcut>
@@ -63,7 +71,7 @@ export function UserProfile({ user }: { user: User }) {
 
         <DropdownMenuItem asChild>
           <button
-            className="w-full"
+            className="w-full text-rose-600 focus:bg-rose-100 focus:text-rose-600"
             onClick={() => {
               logout();
             }}
@@ -74,18 +82,6 @@ export function UserProfile({ user }: { user: User }) {
             </DropdownMenuShortcut>
           </button>
         </DropdownMenuItem>
-
-        <DeleteAccountModal>
-          <DropdownMenuItem
-            onSelect={(e) => e.preventDefault()}
-            className="w-full text-rose-600 focus:bg-rose-100 focus:text-rose-600"
-          >
-            Delete account
-            <DropdownMenuShortcut>
-              <Trash2 className="size-4 stroke-current" />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DeleteAccountModal>
       </DropdownMenuContent>
     </DropdownMenu>
   );
