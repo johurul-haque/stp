@@ -19,17 +19,17 @@ export default async function SentRequestsPage() {
 
       <Separator />
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6 mt-6">
+      <div className="grid sm:grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6 mt-6">
         {data.map((_, i) => (
           <article key={i} className="border rounded-md overflow-clip">
-            <dl className="grid grid-cols-2 gap-2 px-4 pt-4">
+            <dl className="grid grid-cols-2 gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
               <dt className="sr-only">Destination</dt>
-              <dd className="flex items-start gap-3">
+              <dd className="flex items-start gap-2">
                 <MapPinIcon
                   aria-hidden
-                  className="text-gray-600 flex-shrink-0"
+                  className="text-gray-500 flex-shrink-0"
                 />
-                <span className="line-clamp-2">Germany</span>
+                <span className="line-clamp-2 font-medium">Germany</span>
               </dd>
 
               <dt className="sr-only">Status</dt>
@@ -71,7 +71,7 @@ export default async function SentRequestsPage() {
             </dl>
             <Link
               href={'/'}
-              className="text-center py-2 border-t mt-4 text-sm bg-gray-100 hover:bg-gray-200/70 transition-colors flex justify-center gap-1 items-center group"
+              className="text-center py-2 border-t mt-4 text-sm bg-gray-100 hover:bg-gray-200/70 transition-colors flex justify-center gap-1 items-center group lowercase font-mono"
             >
               Trip Details
               <ChevronRight className="size-5 text-gray-600 group-hover:translate-x-0.5 transition-transform" />
