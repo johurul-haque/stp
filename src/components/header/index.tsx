@@ -8,6 +8,8 @@ import { UserProfile } from './user-profile';
 export async function Header() {
   const user = await getUser();
 
+  if (!user) throw new Error();
+
   return (
     <header className="container py-4 lg:py-5 relative flex justify-between items-center">
       <Link href={'/'}>

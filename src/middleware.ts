@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
     }
   } catch (error) {
     // If server crashes the dashboard page will show the error fallback page
-    if (!path.startsWith('/dashboard')) {
+    if (!path.startsWith('/dashboard') && !authRoutes.includes(path)) {
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }
   }

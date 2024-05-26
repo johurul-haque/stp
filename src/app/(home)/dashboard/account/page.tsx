@@ -8,6 +8,8 @@ import { AccountForm } from './_components/form';
 export default async function SettingsAccountPage() {
   const user = await getUser();
 
+  if (!user) throw new Error();
+
   return (
     <div className="space-y-6">
       <div>

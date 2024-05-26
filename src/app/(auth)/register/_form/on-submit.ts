@@ -1,7 +1,7 @@
 import { clientFetch } from '@/lib/axios/client-fetch';
+import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { setAccessToken } from '@/lib/cookies';
 import { SetStateActionType } from '@/types/set-state-action';
-import { AxiosError } from 'axios';
 import { RegisterResponse } from './response-type';
 import { registerSchema } from './schema';
 
@@ -24,11 +24,7 @@ export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
 
     setAccessToken(data.access_token);
   } catch (error) {
-    if (error instanceof AxiosError) {
-      setError(error.response?.data.message ?? error.response?.data);
-    } else {
-      setError('Something went wrong!');
-    }
+    handleAxiosErrors(error, setError);
   } finally {
     setIsLoading(false);
   }

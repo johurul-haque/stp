@@ -17,8 +17,6 @@ import { onSubmit } from './on-submit';
 import { PasswordField } from './password-field';
 import { registerSchema } from './schema';
 
-const passwordFields = ['password', 'confirm_password'] as const;
-
 type RegisterFormProps = React.HTMLAttributes<HTMLDivElement> & {
   setError: SetStateActionType<string | undefined>;
 };

@@ -1,4 +1,3 @@
-import { Eye, EyeClosed } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -67,8 +66,8 @@ export function LoginForm({ className, setError }: LoginFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
+                <div className="relative">
+                  <FormControl>
                     <Input
                       className="transition-all"
                       type={isShowing ? 'text' : 'password'}
@@ -76,18 +75,18 @@ export function LoginForm({ className, setError }: LoginFormProps) {
                       disabled={isLoading}
                       {...field}
                     />
-                    <button
-                      type="button"
-                      onClick={() => setIsShowing(!isShowing)}
-                      className="absolute translate-y-1/2 bottom-1/2 right-3"
-                    >
-                      <span className="sr-only">
-                        {isShowing ? 'Hide' : 'Show'} password
-                      </span>
-                      {isShowing ? <EyeClosed /> : <Eye />}
-                    </button>
-                  </div>
-                </FormControl>
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setIsShowing(!isShowing)}
+                    className="absolute translate-y-1/2 bottom-1/2 right-3"
+                  >
+                    <span className="sr-only">
+                      {isShowing ? 'Hide' : 'Show'} password
+                    </span>
+                    {isShowing ? '👀' : '🫣'}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
