@@ -16,7 +16,7 @@ import { User } from '@/types/user';
 import { LogOut, Settings, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { DeleteAccountModal } from './delete-account';
+import { DeleteAccountModal } from '../../app/(home)/dashboard/account/_components/delete-account';
 
 export function UserProfile({ user }: { user: User }) {
   return (

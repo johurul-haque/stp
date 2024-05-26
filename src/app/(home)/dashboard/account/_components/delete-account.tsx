@@ -1,10 +1,12 @@
+'use client';
+
 import { deleteProfile } from '@/actions/delete-profile';
+import { AlertDestructive } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import * as D from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { FormEvent, ReactNode, useState } from 'react';
-import { AlertDestructive } from '../ui/alert';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
 
 export function DeleteAccountModal({ children }: { children: ReactNode }) {
   const [isPasswordShowing, setIsPasswordShowing] = useState(false);

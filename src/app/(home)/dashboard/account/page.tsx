@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { getUser } from '@/lib/api/get-user';
-import { AccountForm } from './_form';
-import { ChangePasswordModal } from './_form/change-password/modal';
+import { ChangePasswordModal } from './_components/change-password/modal';
+import { DeleteAccountModal } from './_components/delete-account';
+import { AccountForm } from './_components/form';
 
 export default async function SettingsAccountPage() {
   const user = await getUser();
@@ -24,9 +25,20 @@ export default async function SettingsAccountPage() {
         </div>
         <ChangePasswordModal>
           <Button size={'sm'} variant={'secondary'}>
-            Reset
+            Proceed
           </Button>
         </ChangePasswordModal>
+      </div>
+
+      <div className="border border-rose-200 dark:border-neutral-800 rounded-md p-3 flex justify-between items-center">
+        <div className="pl-2">
+          <h2 className="font-medium">Delete account?</h2>
+        </div>
+        <DeleteAccountModal>
+          <Button size={'sm'} variant={'destructive'}>
+            Proceed
+          </Button>
+        </DeleteAccountModal>
       </div>
     </div>
   );

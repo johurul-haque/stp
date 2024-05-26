@@ -1,7 +1,7 @@
 'use server';
 
+import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { serverFetch } from '@/lib/axios/server-fetch';
-import { AxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -13,9 +13,7 @@ export async function deleteProfile(password: string) {
 
     cookies().delete('access_token');
   } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(error.response?.data.message || error.response?.data);
-    }
+    handleAxiosErrors(error);
   }
 
   redirect('/login');
