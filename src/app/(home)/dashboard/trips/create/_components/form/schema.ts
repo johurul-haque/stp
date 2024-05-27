@@ -1,23 +1,30 @@
-'use client';
-
 import { z } from 'zod';
 
 export const createTripFormSchema = z.object({
-  destination: z.string(),
-  description: z.string(),
+  destination: z.string({
+    required_error: 'Please provide a destination of the trip.',
+  }),
+  description: z
+    .string()
+    .min(40, 'Description must be at least 40 characters.')
+    .max(200, 'Description must be at in-between 200 characters.'),
   travel_type: z.string(),
   date: z.object(
     {
-      from: z.date(requiredErr('start date.')),
-      to: z.date(requiredErr('end date.')),
+      from: z.date(requiredErr('start date of the trip.')),
+      to: z.date(requiredErr('end date of the trip.')),
     },
-    requiredErr('start and end date.')
+    requiredErr('start and end date of the trip.')
   ),
   images: z
-    .custom<File>()
+    .custom<File[]>()
+    .transform((fileList) => Object.values(fileList || {}))
     .refine(isValidImageFile, 'Invalid image format.')
-    .refine(checkImageSize, 'Max image size is 10MB')
-    .transform((fileList) => Object.values(fileList) as File[]),
+    .refine(checkImageSize, 'Max size per image is 7MB.')
+    .refine(
+      (files) => files.length < 7,
+      'You can upload a maximum of 7 images.'
+    ),
 });
 
 export type createTripFormSchema = z.infer<typeof createTripFormSchema>;
@@ -28,18 +35,16 @@ function requiredErr(value: string) {
   };
 }
 
-function isValidImageFile(fileList: File) {
-  const filesArray = Object.values(fileList);
-  const validFiles = filesArray.filter(
+export function isValidImageFile(fileList: File[]) {
+  const validFiles = fileList.filter(
     (file) => file instanceof File && file.type?.startsWith('image/')
   );
 
-  return validFiles.length === filesArray.length;
+  return validFiles.length === fileList.length;
 }
 
-function checkImageSize(fileList: File) {
-  const filesArray = Object.values(fileList);
-  const validSize = filesArray.filter((file) => file.size <= 10 * 1024 * 1024);
+function checkImageSize(fileList: File[]) {
+  const validSize = fileList.filter((file) => file.size <= 7 * 1024 * 1024);
 
-  return validSize.length === filesArray.length;
+  return validSize.length === fileList.length;
 }
