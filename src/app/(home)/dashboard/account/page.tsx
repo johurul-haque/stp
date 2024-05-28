@@ -5,10 +5,8 @@ import { ChangePasswordModal } from './_components/change-password/modal';
 import { DeleteAccountModal } from './_components/delete-account';
 import { AccountForm } from './_components/form';
 
-export default async function SettingsAccountPage() {
+export default async function AccountSettingsPage() {
   const user = await getUser();
-
-  if (!user) throw new Error();
 
   return (
     <div className="space-y-6">
