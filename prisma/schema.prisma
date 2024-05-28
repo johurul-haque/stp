@@ -16,7 +16,8 @@ model User {
   status    Status   @default(ACTIVE)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Trip      Trip[]
+
+  Trip Trip[]
 
   TravelPairRequest TravelPairRequest[]
 
@@ -27,13 +28,16 @@ model Trip {
   id          String   @id @default(uuid())
   userId      String
   destination String
+  description String
+  images      String[]
+  travelType  String
   startDate   String
   endDate     String
-  budget      Int
-  activities  String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(references: [id], fields: [userId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(references: [id], fields: [userId])
 
   TravelPairRequest TravelPairRequest[]
 
