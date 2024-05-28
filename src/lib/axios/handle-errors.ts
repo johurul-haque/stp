@@ -1,20 +1,26 @@
 import { SetStateActionType } from '@/types/set-state-action';
 import { AxiosError } from 'axios';
 
-/**
- * @description This function is for checking if it's instance of AxiosError and throwing back an error with a message.
- */
-export function handleAxiosErrors(
-  error: unknown,
-  setError?: SetStateActionType<string | undefined>
-) {
+type OptionsType = {
+  setError?: SetStateActionType<string | undefined>;
+  returnMessage?: boolean;
+};
+
+export function handleAxiosErrors(error: unknown, options?: OptionsType) {
   if (error instanceof AxiosError) {
     const message =
       error.response?.data.message ||
-      error.response?.data ||
-      'Something went wrong on our side. Hire Johurul(😎) to fix this.';
+      (error.response?.data?.includes('DOCTYPE html')
+        ? 'Something went wrong! Hire Johurul(😎) to fix this.'
+        : error.response?.data);
 
-    if (setError) return setError(message);
+    if (options?.setError) {
+      options.setError(message);
+    }
+
+    if (options?.returnMessage) {
+      return message;
+    }
 
     throw new Error(message);
   }

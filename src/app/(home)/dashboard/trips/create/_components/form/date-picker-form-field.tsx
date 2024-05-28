@@ -15,15 +15,17 @@ import { createTripFormSchema } from './schema';
 
 type Props = {
   field: ControllerRenderProps<createTripFormSchema, 'date'>;
+  disabled: boolean;
 };
 
-export function DatePickerField({ field }: Props) {
+export function DatePickerField({ field, disabled }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <FormControl>
           <Button
             variant={'outline'}
+            disabled={disabled}
             className={cn('justify-start text-left font-normal w-full', {
               'dark:text-neutral-400 text-neutral-600/90':
                 !field.value?.from && !field.value?.to,

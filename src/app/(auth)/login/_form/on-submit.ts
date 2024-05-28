@@ -37,7 +37,7 @@ export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
 
     setAccessToken(data.access_token);
   } catch (error) {
-    handleAxiosErrors(error, setError);
+    handleAxiosErrors(error, { setError });
   } finally {
     setIsLoading(false);
   }

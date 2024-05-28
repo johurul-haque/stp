@@ -1,12 +1,7 @@
-'use client';
-
 import { Separator } from '@/components/ui/separator';
-import { useState } from 'react';
 import { CreateTripForm } from './_components/form/create-trip';
 
 export default function CreateTripPage() {
-  const [error, setError] = useState('');
-
   return (
     <div className="space-y-6">
       <div>
@@ -18,7 +13,7 @@ export default function CreateTripPage() {
       </div>
       <Separator />
 
-      <CreateTripForm setError={setError} />
+      <CreateTripForm />
     </div>
   );
 }

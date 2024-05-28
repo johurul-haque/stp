@@ -2,17 +2,16 @@
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input, inputBaseStyles } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { SetStateActionType } from '@/types/set-state-action';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X } from 'lucide-react';
 import Link from 'next/link';
@@ -22,17 +21,14 @@ import { DatePickerField } from './date-picker-form-field';
 import { onSubmit } from './on-submit';
 import { createTripFormSchema, isValidImageFile } from './schema';
 
-type RegisterFormProps = React.HTMLAttributes<HTMLDivElement> & {
-  setError: SetStateActionType<string>;
-};
+type RegisterFormProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function CreateTripForm({
-  className,
-  setError,
-  ...props
-}: RegisterFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
+export type RequestStatus = 'uploading-image' | 'submitting-data';
+
+export function CreateTripForm({ className, ...props }: RegisterFormProps) {
+  const [requestStatus, setRequestStatus] = useState<RequestStatus>();
   const [objectUrls, setObjectUrls] = useState<string[]>([]);
+  const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
   const form = useForm<createTripFormSchema>({
     resolver: zodResolver(createTripFormSchema),
@@ -47,7 +43,12 @@ export function CreateTripForm({
   return (
     <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-5">
+        <form
+          onSubmit={form.handleSubmit((values) => {
+            onSubmit({ values, setRequestStatus, setImageUploadProgress });
+          })}
+          className="grid gap-5"
+        >
           <FormField
             control={form.control}
             name="destination"
@@ -58,7 +59,7 @@ export function CreateTripForm({
                   <Input
                     className="transition-all"
                     placeholder="UAE"
-                    disabled={isLoading}
+                    disabled={!!requestStatus}
                     {...field}
                   />
                 </FormControl>
@@ -90,6 +91,7 @@ export function CreateTripForm({
                 <FormLabel>Description</FormLabel>
                 <FormControl>
                   <textarea
+                    disabled={!!requestStatus}
                     className={cn(inputBaseStyles(), 'h-32')}
                     placeholder="A 3 days trip to UAE. Will be traveling through some exotic places."
                     minLength={40}
@@ -97,7 +99,7 @@ export function CreateTripForm({
                   />
                 </FormControl>
                 <FormDescription>
-                  Description must be in between 40-200 characters.
+                  Description must be in between 40-400 characters.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -110,7 +112,7 @@ export function CreateTripForm({
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Travel Date</FormLabel>
-                <DatePickerField field={field} />
+                <DatePickerField disabled={!!requestStatus} field={field} />
                 <FormDescription>
                   Select the start and end date of the trip.
                 </FormDescription>
@@ -129,6 +131,7 @@ export function CreateTripForm({
                   <Input
                     type="file"
                     accept=".jpg, .jpeg, .png, .svg, .webp"
+                    disabled={!!requestStatus}
                     onChange={(e) => {
                       const filesArray = Object.values(e.target.files || {});
 
@@ -149,18 +152,26 @@ export function CreateTripForm({
                   />
                 </FormControl>
                 <FormDescription>
-                  Select upto 7 images with 16:9 aspect ratio. Each image size can only be 7MB at maximum.
+                  Select upto 7 images with 16:9 aspect ratio. Each image size
+                  can only be 7MB at maximum.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4">
+          <div
+            className={cn(
+              'grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4',
+              !!requestStatus && 'pointer-events-none'
+            )}
+          >
             {objectUrls.map((url, index) => (
               <div key={url} className="relative">
                 <Button
                   size={'sm'}
+                  disabled={!!requestStatus}
+                  title="Unselect image"
                   variant={'outline'}
                   onClick={() => {
                     setObjectUrls((prev) =>
@@ -196,13 +207,18 @@ export function CreateTripForm({
           <div className="mt-3 flex justify-center sm:justify-end items-center gap-4">
             <Link
               href={'/dashboard/trips'}
-              aria-disabled={isLoading}
+              aria-disabled={!!requestStatus}
               className={buttonVariants({ variant: 'secondary' })}
             >
               Cancel and go back
             </Link>
-            <Button disabled={isLoading} type="submit">
-              Save
+
+            <Button disabled={!!requestStatus} type="submit">
+              {requestStatus === 'uploading-image' && 'Uploading image...'}
+
+              {requestStatus === 'submitting-data' && 'Submitting...'}
+
+              {!requestStatus && 'Save'}
             </Button>
           </div>
         </form>
