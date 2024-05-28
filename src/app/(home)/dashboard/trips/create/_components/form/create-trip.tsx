@@ -45,7 +45,7 @@ export function CreateTripForm({ className, ...props }: RegisterFormProps) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((values) => {
-            onSubmit({ values, setRequestStatus, setImageUploadProgress });
+            onSubmit({ values, setRequestStatus });
           })}
           className="grid gap-5"
         >
@@ -71,7 +71,7 @@ export function CreateTripForm({ className, ...props }: RegisterFormProps) {
 
           <FormField
             control={form.control}
-            name="travel_type"
+            name="travelType"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Travel type</FormLabel>
@@ -93,7 +93,7 @@ export function CreateTripForm({ className, ...props }: RegisterFormProps) {
                   <textarea
                     disabled={!!requestStatus}
                     className={cn(inputBaseStyles(), 'h-32')}
-                    placeholder="A 3 days trip to UAE. Will be traveling through some exotic places."
+                    placeholder="A 3-day trip to UAE. We'll be traveling through some exotic places."
                     minLength={40}
                     {...field}
                   />

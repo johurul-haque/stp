@@ -1,3 +1,4 @@
+import { createTrip } from '@/actions/create-trip';
 import { toast } from '@/components/ui/use-toast';
 import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { SetStateActionType } from '@/types/set-state-action';
@@ -8,30 +9,36 @@ import { createTripFormSchema } from './schema';
 type OnSubmitParams = {
   values: createTripFormSchema;
   setRequestStatus: SetStateActionType<RequestStatus | undefined>;
-  setImageUploadProgress: SetStateActionType<number>;
 };
 
-export async function onSubmit({
-  values,
-  setRequestStatus,
-  setImageUploadProgress,
-}: OnSubmitParams) {
+export async function onSubmit({ values, setRequestStatus }: OnSubmitParams) {
   setRequestStatus('uploading-image');
 
-  const { images: imageFiles, ...restPayload } = values;
+  const { images: imageFiles, date, ...data } = values;
 
   try {
-    const uploadFunctions = imageFiles.map((file) =>
-      handleUpload(file, setImageUploadProgress)
-    );
+    const uploadFunctions = imageFiles.map(handleUpload);
 
     const result = await Promise.all(uploadFunctions);
 
     const secureUrls = result.map((response) => response.data.secure_url);
 
     setRequestStatus('submitting-data');
+
+    const payload = {
+      ...data,
+      images: secureUrls,
+      startDate: date.from,
+      endDate: date.to,
+    };
+
+    await createTrip(payload);
   } catch (error) {
-    const message = handleAxiosErrors(error, { returnMessage: true });
+    let message = handleAxiosErrors(error, { returnMessage: true });
+
+    if (error instanceof Error) {
+      message = error.message;
+    }
 
     toast({
       title: 'Uh oh! Could not process your request.',
@@ -43,10 +50,7 @@ export async function onSubmit({
   }
 }
 
-async function handleUpload(
-  image: File,
-  setProgress: SetStateActionType<number>
-) {
+async function handleUpload(image: File) {
   const formData = new FormData();
 
   formData.append('file', image);
@@ -56,11 +60,5 @@ async function handleUpload(
     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
   );
 
-  return axios.post('/upload-images', formData, {
-    onUploadProgress: (ev) => {
-      if (ev.progress === 1) {
-        setProgress((prev) => prev + 1);
-      }
-    },
-  });
+  return axios.post('/upload-image', formData);
 }

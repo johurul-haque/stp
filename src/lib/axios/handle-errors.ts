@@ -9,7 +9,7 @@ type OptionsType = {
 export function handleAxiosErrors(error: unknown, options?: OptionsType) {
   if (error instanceof AxiosError) {
     const message =
-      error.response?.data.message ||
+      error.response?.data?.message ||
       (error.response?.data?.includes('DOCTYPE html')
         ? 'Something went wrong! Hire Johurul(😎) to fix this.'
         : error.response?.data);

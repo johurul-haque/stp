@@ -1,6 +1,6 @@
 'use server';
 
-import { profileFormSchema } from '@/app/(home)/dashboard/account/_form/schema';
+import { profileFormSchema } from '@/app/(home)/dashboard/account/_components/form/schema';
 import { serverFetch } from '@/lib/axios/server-fetch';
 import { AxiosError } from 'axios';
 import { revalidatePath } from 'next/cache';
