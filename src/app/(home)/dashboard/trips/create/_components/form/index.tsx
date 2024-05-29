@@ -28,7 +28,6 @@ export type RequestStatus = 'uploading-image' | 'submitting-data';
 export function CreateTripForm({ className, ...props }: RegisterFormProps) {
   const [requestStatus, setRequestStatus] = useState<RequestStatus>();
   const [objectUrls, setObjectUrls] = useState<string[]>([]);
-  const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
   const form = useForm<createTripFormSchema>({
     resolver: zodResolver(createTripFormSchema),

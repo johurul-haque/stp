@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator';
-import { CreateTripForm } from './_components/form/create-trip';
+import { CreateTripForm } from './_components/form';
 
 export default function CreateTripPage() {
   return (
