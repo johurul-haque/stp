@@ -35,15 +35,9 @@ export function zodError(error: ZodError): ErrorResponse {
     };
   });
 
-  const message = issues
-    .map((issue) =>
-      `${issue.field ?? ''} ${issue.message.toLowerCase()}.`.trim()
-    )
-    .join(' ');
-
   return {
     status: 403,
-    message,
+    message: 'Zod validation error',
     error: { issues },
   };
 }

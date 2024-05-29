@@ -1,26 +1,11 @@
 import { Query } from '@/interface/query';
 import { Prisma } from '@prisma/client';
-import { z } from 'zod';
-
-const toNumber = z.coerce.number();
+import { queryValidator } from './trip.validation';
 
 export function generateFilters(query: Query) {
-  const { searchTerm, minBudget, maxBudget, destination, ...dates } = query;
+  const { destination, startDate, endDate } = queryValidator().parse(query);
 
   let filters: Prisma.TripWhereInput = {};
-
-  if (searchTerm) {
-    const OR: Prisma.TripWhereInput[] = [];
-
-    OR.push({
-      destination: {
-        contains: searchTerm,
-        mode: 'insensitive',
-      },
-    });
-
-    filters = { ...filters, OR };
-  }
 
   if (destination) {
     filters = {
@@ -32,14 +17,25 @@ export function generateFilters(query: Query) {
     };
   }
 
-  if (Object.keys(dates).length) {
+  if (startDate) {
     filters = {
       ...filters,
-      AND: Object.keys(dates).map((field) => ({
-        [field]: {
-          equals: dates[field],
+      AND: {
+        startDate: {
+          contains: startDate,
         },
-      })),
+      },
+    };
+  }
+
+  if (endDate) {
+    filters = {
+      ...filters,
+      AND: {
+        startDate: {
+          contains: endDate,
+        },
+      },
     };
   }
 

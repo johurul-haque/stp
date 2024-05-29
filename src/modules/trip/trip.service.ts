@@ -37,16 +37,16 @@ export async function tripPairRequest(
 
 export async function getAllTrips(query: Query) {
   const pagination = {
-    page: Number(query.page) || 1,
-    limit: Number(query.limit) || 10,
+    page: Number(query._page) || 1,
+    limit: Number(query._limit) || 10,
   };
 
-  if (query.sortOrder) {
-    z.enum(['asc', 'desc']).parse(query.sortOrder);
+  if (query.sort_order) {
+    z.enum(['asc', 'desc']).parse(query.sort_order);
   }
 
   const orderBy = {
-    [query.sortBy || 'createdAt']: query.sortOrder || 'desc',
+    [query.sort_by || 'createdAt']: query.sort_order || 'desc',
   };
 
   const { filters } = generateFilters(query);
@@ -60,7 +60,7 @@ export async function getAllTrips(query: Query) {
 
   const meta = {
     ...pagination,
-    total: await db.trip.count({ where: filters }),
+    total: await db.trip.count(),
   };
 
   return { meta, data };
