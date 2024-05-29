@@ -1,13 +1,13 @@
 'use client';
 
-import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
   {
-    label: 'Your posts',
-    href: '/dashboard/your-posts',
+    label: 'Manage trips',
+    href: '/dashboard/manage-trips',
     startsWith: true,
   },
   {
@@ -20,7 +20,7 @@ export function NavBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="mb-4 space-x-3">
+    <nav className="inline-flex items-center justify-center rounded-md bg-[hsl(240_4.8%_95.9%)] dark:bg-[hsl(240_3.7%_15.9%)] p-1 dark:text-[hsl(240_5%_64.9%)] text-[hsl(240_3.8%_46.1%)] mb-4">
       {NAV_ITEMS.map(({ label, href, startsWith }) => {
         const isPathMatching = startsWith
           ? href.includes(pathname)
@@ -30,10 +30,13 @@ export function NavBar() {
           <Link
             key={href}
             href={href}
-            className={buttonVariants({
-              variant: isPathMatching ? 'default' : 'outline',
-              size: 'sm',
-            })}
+            className={cn(
+              'inline-flex items-center justify-center whitespace-nowrap rounded px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+              {
+                'bg-white dark:bg-[hsl(240_10%_3.9%)] shadow-sm text-[hsl(240_10%_3.9%)] dark:text-[hsl(0_0%_98%)]':
+                  isPathMatching,
+              }
+            )}
           >
             {label}
           </Link>
