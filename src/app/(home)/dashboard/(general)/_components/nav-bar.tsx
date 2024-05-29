@@ -20,7 +20,7 @@ export function NavBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="inline-flex items-center justify-center rounded-md bg-[hsl(240_4.8%_95.9%)] dark:bg-[hsl(240_3.7%_15.9%)] p-1 dark:text-[hsl(240_5%_64.9%)] text-[hsl(240_3.8%_46.1%)] mb-4">
+    <nav className="inline-flex items-center justify-center rounded-md bg-[hsl(240_4.8%_95.9%)] dark:bg-neutral-800 p-1 dark:text-[hsl(240_5%_64.9%)] text-[hsl(240_3.8%_46.1%)] mb-4">
       {NAV_ITEMS.map(({ label, href, startsWith }) => {
         const isPathMatching = startsWith
           ? href.includes(pathname)
