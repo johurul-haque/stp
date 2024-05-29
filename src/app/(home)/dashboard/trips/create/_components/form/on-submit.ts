@@ -3,7 +3,7 @@ import { toast } from '@/components/ui/use-toast';
 import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { SetStateActionType } from '@/types/set-state-action';
 import axios from 'axios';
-import type { RequestStatus } from './create-trip';
+import type { RequestStatus } from '.';
 import { createTripFormSchema } from './schema';
 
 type OnSubmitParams = {
