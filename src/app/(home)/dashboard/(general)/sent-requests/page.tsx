@@ -9,7 +9,7 @@ export default async function SentRequestsPage() {
   return (
     <main>
       <div className="my-6">
-        <h1 className="text-lg font-medium mb-1">Sent requests status</h1>
+        <h1 className="text-lg font-medium mb-0.5">Sent requests status</h1>
         <p className="text-sm">
           {
             "Status of the requests you've sent to a particular trip to join as a companion."
@@ -30,7 +30,7 @@ export default async function SentRequestsPage() {
               <dd className="flex items-start gap-2">
                 <MapPinIcon
                   aria-hidden
-                  className="text-gray-500 dark:text-neutral-800 flex-shrink-0"
+                  className="text-gray-500 dark:text-neutral-700 flex-shrink-0"
                 />
                 <span className="line-clamp-2 font-medium">Germany</span>
               </dd>
@@ -70,7 +70,7 @@ export default async function SentRequestsPage() {
               <dd className="flex gap-3 col-span-full text-sm text-neutral-700/80 dark:text-neutral-600">
                 <PlaneIcon
                   aria-hidden
-                  className="text-gray-400 dark:text-neutral-800 size-5"
+                  className="text-gray-400 dark:text-neutral-700 size-5"
                 />
                 <span>by {'johurul_haque'}</span>
               </dd>

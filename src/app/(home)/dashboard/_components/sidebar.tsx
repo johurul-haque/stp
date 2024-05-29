@@ -33,7 +33,7 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
     >
       {sidebarNavItems.map((item) => {
         const handleNestedMatching = [
-          '/dashboard/your-posts',
+          '/dashboard/manage-trips',
           '/dashboard/sent-requests',
         ].filter((item) => item === pathname);
 
