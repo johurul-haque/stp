@@ -22,7 +22,7 @@ export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
       payload
     );
 
-    setAccessToken(data.access_token);
+   await setAccessToken(data.access_token);
   } catch (error) {
     handleAxiosErrors(error, { setError });
   } finally {
