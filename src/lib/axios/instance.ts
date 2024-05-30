@@ -6,6 +6,10 @@ export const instance = axios.create({
     const result = JSON.parse(response);
 
     if (result?.success) {
+      if (result.meta) {
+        return { meta: result.meta, data: result.data };
+      }
+
       return result.data;
     }
 

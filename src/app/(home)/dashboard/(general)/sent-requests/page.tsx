@@ -30,7 +30,7 @@ export default async function SentRequestsPage() {
               <dd className="flex items-start gap-2">
                 <MapPinIcon
                   aria-hidden
-                  className="text-gray-500 dark:text-neutral-700 flex-shrink-0"
+                  className="text-neutral-400 dark:text-neutral-700 flex-shrink-0"
                 />
                 <span className="line-clamp-2 font-medium">Germany</span>
               </dd>
@@ -70,7 +70,7 @@ export default async function SentRequestsPage() {
               <dd className="flex gap-3 col-span-full text-sm text-neutral-700/80 dark:text-neutral-600">
                 <PlaneIcon
                   aria-hidden
-                  className="text-gray-400 dark:text-neutral-700 size-5"
+                  className="text-neutral-400/80 dark:text-neutral-700 size-5"
                 />
                 <span>by {'johurul_haque'}</span>
               </dd>

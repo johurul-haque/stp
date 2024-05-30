@@ -30,7 +30,7 @@ export default async function AccountSettingsPage() {
         </ChangePasswordModal>
       </div>
 
-      <div className="border border-rose-200 dark:border-neutral-800 rounded-md p-3 flex justify-between items-center">
+      <div className="border border-rose-200 dark:border-rose-950 rounded-md p-3 flex justify-between items-center">
         <div className="pl-2">
           <h2 className="font-medium">Delete account?</h2>
         </div>
