@@ -27,7 +27,10 @@ export const handleTripPairRequest = catchAsync(async (req, res) => {
 });
 
 export const handleGetAllTrips = catchAsync(async (req, res) => {
-  const result = await tripServices.getAllTrips(req.query as Query);
+  const result = await tripServices.getAllTrips(
+    req.query as Query,
+    req.jwtPayload
+  );
 
   sendResponse(res, {
     status: 200,

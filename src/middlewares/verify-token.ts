@@ -4,7 +4,7 @@ import { AppError, catchAsync } from '@/utils';
 import { Role } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
-export function verifyToken(role?: Role) {
+export function verifyToken(role?: Role, optional?: boolean) {
   return catchAsync((req, _, next) => {
     try {
       const bearerToken = req.headers.authorization;
@@ -19,6 +19,8 @@ export function verifyToken(role?: Role) {
 
       return next();
     } catch (error) {
+      if (optional) return next();
+
       throw new AppError(401, 'Unauthorized Access');
     }
   });

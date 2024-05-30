@@ -35,7 +35,7 @@ export async function tripPairRequest(
   });
 }
 
-export async function getAllTrips(query: Query) {
+export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
   const pagination = {
     page: Number(query._page) || 1,
     limit: Number(query._limit) || 10,
@@ -52,7 +52,7 @@ export async function getAllTrips(query: Query) {
   const { filters } = generateFilters(query);
 
   const data = await db.trip.findMany({
-    where: filters,
+    where: { ...filters, userId: jwtPayload?.userId },
     skip: Math.abs(pagination.page - 1) * pagination.limit,
     take: pagination.limit,
     orderBy,

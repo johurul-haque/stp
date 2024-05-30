@@ -10,7 +10,7 @@ import { createTripPayload, tripPairRequestPayload } from './trip.validation';
 
 const router = Router();
 
-router.get('/trips', handleGetAllTrips);
+router.get('/trips', [verifyToken(undefined, true)], handleGetAllTrips);
 
 router.post(
   '/trips',
