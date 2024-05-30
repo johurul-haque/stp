@@ -75,9 +75,10 @@ export default async function SentRequestsPage() {
                 <span>by {'johurul_haque'}</span>
               </dd>
             </dl>
+
             <Link
               href={'/'}
-              className="text-center py-2 border-t dark:border-0 mt-4 text-sm bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-800/60 hover:bg-gray-200/70 transition-colors flex justify-center gap-1 items-center group lowercase font-mono dark:text-neutral-300 dark:hover:text-neutral-400"
+              className="text-center py-2 border-t dark:border-0 mt-4 text-sm bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800/60 hover:bg-neutral-200/70 transition-colors flex justify-center gap-1 items-center group lowercase font-mono dark:text-neutral-300 dark:hover:text-neutral-400"
             >
               Trip Details
               <ChevronRight className="size-5 text-gray-600 dark:text-neutral-600 group-hover:translate-x-0.5 transition-transform" />

@@ -1,4 +1,4 @@
-export type Trips = {
+export type Trip = {
   id: string;
   userId: string;
   destination: string;
@@ -17,5 +17,5 @@ export type AllTripsResponse = {
     limit: number;
     total: number;
   };
-  data: Trips[];
+  data: Trip[];
 };
