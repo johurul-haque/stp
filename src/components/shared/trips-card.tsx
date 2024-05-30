@@ -13,10 +13,10 @@ import Link from 'next/link';
 
 export function TripsCards({ data }: { data: Trip[] }) {
   return (
-    <div className="grid sm:grid-cols-[repeat(auto-fill,30rem)] justify-center gap-6 mt-6">
+    <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] 2xl:grid-cols-[repeat(auto-fill,31rem)] justify-center gap-6 mt-6">
       {[...data, ...data, ...data].map((trip) => (
-        <article key={trip.id} className="flex flex-col justify-between">
-          <div className="border border-b-0 dark:border-neutral-800 rounded-md rounded-b-none p-4 grid grid-cols-2 gap-4 items-start">
+        <article key={trip.id} className="flex flex-col">
+          <div className="border border-b-0 dark:border-neutral-800 rounded-md rounded-b-none p-4 grid 2xl:grid-cols-2 gap-4 items-start flex-1">
             <dl className="grid gap-1.5">
               <dt className="sr-only">Destination</dt>
               <dd className="flex items-start gap-2">
@@ -25,7 +25,7 @@ export function TripsCards({ data }: { data: Trip[] }) {
                   size={20}
                   className="text-neutral-400 dark:text-neutral-700 flex-shrink-0"
                 />
-                <span className="line-clamp-2 dark:text-neutral-300">
+                <span className="line-clamp-2 tracking-wide max-xl:text-sm dark:text-neutral-300">
                   {trip.destination}
                 </span>
               </dd>
@@ -51,7 +51,7 @@ export function TripsCards({ data }: { data: Trip[] }) {
               </dd>
             </dl>
 
-            <div className="relative overflow-clip rounded group">
+            <div className="relative overflow-clip rounded group max-2xl:-order-1">
               <Image
                 src={trip.images[0]}
                 className="aspect-video object-cover max-w-full"

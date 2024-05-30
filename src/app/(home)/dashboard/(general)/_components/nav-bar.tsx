@@ -46,19 +46,6 @@ export function NavBar() {
           );
         })}
       </div>
-
-      {'/dashboard/manage-trips'.includes(pathname) && (
-        <Link
-          href={'/dashboard/trips/create'}
-          className={buttonVariants({
-            size: 'sm',
-            className: 'flex gap-x-1.5',
-          })}
-        >
-          <BadgePlusIcon className="size-5" />
-          Create trip plan
-        </Link>
-      )}
     </nav>
   );
 }
