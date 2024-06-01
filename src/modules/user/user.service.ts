@@ -4,7 +4,7 @@ import { AppError } from '@/utils';
 import { excludeFields } from '@/utils/exclude-fields';
 import { generateToken } from '@/utils/generate-token';
 import { compare } from 'bcrypt';
-import {
+import type {
   JWTPayload,
   LoginPayload,
   RegisterPayload,
@@ -31,7 +31,7 @@ export async function createUser(payload: RegisterPayload) {
 
 export async function login(payload: LoginPayload) {
   const user = await db.user.findFirst({
-    where: { OR: [{ email: payload.email }] },
+    where: { OR: [{ email: payload.email }, { username: payload.username }] },
   });
 
   if (!user) throw new AppError(404, "User doesn't exist!");
