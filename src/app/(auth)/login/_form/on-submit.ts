@@ -12,21 +12,25 @@ type ParamsType = {
   setError: SetStateActionType<string | undefined>;
 };
 
+type Payload = {
+  password: string;
+  email?: string;
+  username?: string;
+};
+
 export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
   setIsLoading(true);
 
-  const payload = {
+  const payload: Payload = {
     password: values.password,
-    email: undefined,
-    username: undefined,
   };
 
   const { success } = z.string().email().safeParse(values.handle);
 
   if (success) {
-    payload.email = values.handle as any;
+    payload.email = values.handle;
   } else {
-    payload.username = values.handle as any;
+    payload.username = values.handle;
   }
 
   try {
