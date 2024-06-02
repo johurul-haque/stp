@@ -31,32 +31,3 @@ function convertDateTime(value: string) {
   const offset = date.getTimezoneOffset() * 60 * 1000;
   return new Date(date.getTime() + offset).toISOString();
 }
-
-export function queryValidator() {
-  return z
-    .object({
-      destination: z.string(),
-      startDate: z
-        .string()
-        .refine(isValidDate, 'startDate must be in YYYY-MM-DD format'),
-      endDate: z
-        .string()
-        .refine(isValidDate, 'endDate must be in YYYY-MM-DD format'),
-    })
-    .partial();
-}
-
-function isValidDate(value: string) {
-  const regex = /^\d{4}-\d{2}-\d{2}$/;
-  if (!regex.test(value)) return false;
-
-  const [year, month, day] = value.split('-').map(Number);
-
-  if (month < 1 || month > 12) return false;
-
-  const daysInMonth = new Date(year, month, 0).getDate();
-
-  if (day < 1 || day > daysInMonth) return false;
-
-  return true;
-}

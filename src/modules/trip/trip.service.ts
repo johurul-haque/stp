@@ -38,7 +38,7 @@ export async function tripPairRequest(
 export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
   const pagination = {
     page: Number(query._page) || 1,
-    limit: Number(query._limit) || 10,
+    limit: Number(query._limit) || 1,
   };
 
   if (query.sort_order) {
@@ -60,7 +60,7 @@ export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
 
   const meta = {
     ...pagination,
-    total: await db.trip.count(),
+    total: await db.trip.count({ where: filters }),
   };
 
   return { meta, data };
