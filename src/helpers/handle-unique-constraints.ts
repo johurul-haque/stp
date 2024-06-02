@@ -6,7 +6,16 @@ export function handleUniqueConstraints(error: unknown) {
     error instanceof PrismaClientKnownRequestError &&
     error.code === 'P2002'
   ) {
-    console.log(error);
-    throw new AppError(409, 'Unique key violation');
+    if (
+      error.meta &&
+      'target' in error.meta &&
+      Array.isArray(error.meta.target)
+    ) {
+      const field = error.meta.target[0];
+
+      throw new AppError(409, `${field} already taken 🥲`);
+    }
+
+    throw new AppError(409, 'User already exists!');
   }
 }
