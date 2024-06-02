@@ -1,9 +1,16 @@
 'use client';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cva } from 'class-variance-authority';
 import { SearchIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+import { Badge } from '../ui/badge';
 
 const groupStyles = cva(
   'flex gap-2 items-center h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-neutral-500 has-[input:focus-visible]:outline-none has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-neutral-950 has-[input:focus-visible]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:placeholder:text-neutral-400 dark:has-[input:focus-visible]:ring-neutral-300 max-w-sm'
@@ -45,6 +52,23 @@ export function SearchInput() {
         onChange={(e) => handleChange(e.target.value)}
         defaultValue={searchParams.get('query')?.toString()}
       />
+
+      <SearchTip />
     </div>
+  );
+}
+
+function SearchTip() {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <Badge variant={'outline'}>?</Badge>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Use YYYY-MM-DD format for date searches.</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
