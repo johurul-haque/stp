@@ -1,13 +1,21 @@
+import { SearchInput } from '@/components/shared/search-input';
 import { TripsCards } from '@/components/shared/trips-card';
 import { buttonVariants } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { getAllTrips } from '@/lib/api/get-all-trips';
 import { BadgePlusIcon } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
-export default async function ManageTripsPage() {
-  const trips = await getAllTrips();
+type PageProps = {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+};
+
+export default async function ManageTripsPage({ searchParams }: PageProps) {
+  const query = searchParams?.query || '';
+  const currentPage = searchParams?.page || '1';
 
   return (
     <main>
@@ -21,7 +29,8 @@ export default async function ManageTripsPage() {
       <Separator />
 
       <div className="flex max-sm:flex-col justify-between items-center mt-6 gap-x-6 gap-y-4">
-        <Input type="search" placeholder="Search trips" className="max-w-xs" />
+        <SearchInput />
+
         <Link
           href={'/dashboard/trips/create'}
           className={buttonVariants({
@@ -34,7 +43,9 @@ export default async function ManageTripsPage() {
         </Link>
       </div>
 
-      <TripsCards data={trips.data} />
+      <Suspense key={query + currentPage}>
+        <TripsCards query={query} />
+      </Suspense>
     </main>
   );
 }

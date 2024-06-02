@@ -1,6 +1,4 @@
-'use client';
-
-import { Trip } from '@/types/trips';
+import { getAllTrips } from '@/lib/api/get-all-trips';
 import { format } from 'date-fns';
 import {
   CalendarDaysIcon,
@@ -11,13 +9,14 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-export function TripsCards({
-  data,
-  isPrivate = true,
-}: {
-  data: Trip[];
+type CardProps = {
   isPrivate?: boolean;
-}) {
+  query?: string;
+};
+
+export async function TripsCards({ isPrivate = true, query }: CardProps) {
+  const { data } = await getAllTrips({ _q: query });
+
   return (
     <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] 2xl:grid-cols-[repeat(auto-fill,minmax(31rem,1fr))] justify-center gap-6 mt-6">
       {[...data, ...data, ...data].map((trip) => (
@@ -77,10 +76,7 @@ export function TripsCards({
                 </div>
               )}
 
-              <button
-                onClick={() => console.log('clicked')}
-                className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100"
-              >
+              <button className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100">
                 View image(s)
               </button>
             </div>

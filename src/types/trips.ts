@@ -11,7 +11,7 @@ export type Trip = {
   updatedAt: Date;
 };
 
-export type AllTripsResponse = {
+export type getAllTripsResponse = {
   meta: {
     page: number;
     limit: number;

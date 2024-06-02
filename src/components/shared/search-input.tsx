@@ -1,0 +1,50 @@
+'use client';
+
+import { cva } from 'class-variance-authority';
+import { SearchIcon } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
+
+const groupStyles = cva(
+  'flex gap-2 items-center h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-neutral-500 has-[input:focus-visible]:outline-none has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-neutral-950 has-[input:focus-visible]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:placeholder:text-neutral-400 dark:has-[input:focus-visible]:ring-neutral-300 max-w-sm'
+);
+
+export function SearchInput() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleChange = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (searchParams.get('page')) {
+      params.delete('page');
+    }
+
+    if (term) {
+      params.set('query', term);
+    } else {
+      params.delete('query');
+    }
+
+    replace(`${pathname}?${params.toString()}`);
+  }, 250);
+
+  return (
+    <div className={groupStyles()}>
+      <label htmlFor="query">
+        <SearchIcon className="dark:stroke-neutral-600" size={20} />
+        <span className="sr-only">Search</span>
+      </label>
+
+      <input
+        type="search"
+        id="query"
+        placeholder="Search trips"
+        className="w-full border-0 outline-none bg-transparent placeholder:text-current placeholder:text-neutral-500 dark:placeholder:text-neutral-400"
+        onChange={(e) => handleChange(e.target.value)}
+        defaultValue={searchParams.get('query')?.toString()}
+      />
+    </div>
+  );
+}
