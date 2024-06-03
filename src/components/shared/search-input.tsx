@@ -1,11 +1,10 @@
 'use client';
 
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { cva } from 'class-variance-authority';
 import { SearchIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -63,18 +62,17 @@ export function SearchInput() {
 
 function SearchTip() {
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger>
-          <Badge variant={'outline'}>?</Badge>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>
-            For date searches use <pre className="inline-block">y-m-d</pre>{' '}
-            format.
-          </p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Popover>
+      <PopoverTrigger>
+        <Badge variant={'outline'}>?</Badge>
+      </PopoverTrigger>
+
+      <PopoverContent className="px-3 w-full py-1.5">
+        <p>
+          For date searches use <pre className="inline-block">y-m-d</pre>{' '}
+          format.
+        </p>
+      </PopoverContent>
+    </Popover>
   );
 }
