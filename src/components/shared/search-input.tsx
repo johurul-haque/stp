@@ -13,7 +13,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Badge } from '../ui/badge';
 
 const groupStyles = cva(
-  'flex gap-2 items-center h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-neutral-500 has-[input:focus-visible]:outline-none has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-neutral-950 has-[input:focus-visible]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:placeholder:text-neutral-400 dark:has-[input:focus-visible]:ring-neutral-300 max-w-sm'
+  'flex gap-2 items-center h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white has-[input:focus-visible]:outline-none has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-neutral-950 has-[input:focus-visible]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:has-[input:focus-visible]:ring-neutral-300 max-w-sm'
 );
 
 export function SearchInput() {
@@ -35,12 +35,15 @@ export function SearchInput() {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  }, 250);
+  }, 450);
 
   return (
     <div className={groupStyles()}>
       <label htmlFor="query">
-        <SearchIcon className="dark:stroke-neutral-600" size={20} />
+        <SearchIcon
+          className="dark:text-neutral-600 text-neutral-400"
+          size={20}
+        />
         <span className="sr-only">Search</span>
       </label>
 
@@ -48,7 +51,7 @@ export function SearchInput() {
         type="search"
         id="query"
         placeholder="Search trips"
-        className="w-full border-0 outline-none bg-transparent placeholder:text-current placeholder:text-neutral-500 dark:placeholder:text-neutral-400"
+        className="w-full border-0 outline-none bg-transparent placeholder:text-neutral-500 dark:placeholder:text-neutral-400"
         onChange={(e) => handleChange(e.target.value)}
         defaultValue={searchParams.get('query')?.toString()}
       />
@@ -66,7 +69,10 @@ function SearchTip() {
           <Badge variant={'outline'}>?</Badge>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Use YYYY-MM-DD format for date searches.</p>
+          <p>
+            For date searches use <pre className="inline-block">y-m-d</pre>{' '}
+            format.
+          </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
