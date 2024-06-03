@@ -6,8 +6,8 @@ import {
   PenBoxIcon,
   Trash2Icon,
 } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
+import { PreviewImagesModal } from './preview-images/modal';
 
 type CardProps = {
   isPrivate?: boolean;
@@ -61,25 +61,10 @@ export async function TripsCards({ isPrivate = true, query }: CardProps) {
               </dl>
             </Link>
 
-            <div className="relative overflow-clip rounded group max-2xl:-order-1">
-              <Image
-                src={trip.images[0]}
-                className="aspect-video object-cover max-w-full"
-                alt={`Image for ${trip.destination}`}
-                width={800}
-                height={800}
-              />
-              {!!(trip.images.length - 1) && (
-                <div className="bg-neutral-950/60 py-1 text-xs text-center absolute bottom-0 inset-x-0 text-white">
-                  +{trip.images.length - 1} more{' '}
-                  <span className="sr-only">images</span>
-                </div>
-              )}
-
-              <button className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100">
-                View image(s)
-              </button>
-            </div>
+            <PreviewImagesModal
+              images={trip.images}
+              destination={trip.destination}
+            />
           </div>
 
           <footer className="border dark:border-0 rounded-b-md overflow-clip text-sm divide-x dark:divide-neutral-700 grid grid-cols-2 group font-mono dark:text-neutral-300">

@@ -51,7 +51,7 @@ export function UserProfile({ user }: { user: User }) {
 
         <DropdownMenuItem asChild>
           <Link href={'/dashboard/trips/create'} className="w-full">
-            Post trip plan
+            Create trip
             <DropdownMenuShortcut>
               <PlusIcon className="size-4 stroke-current" />
             </DropdownMenuShortcut>
