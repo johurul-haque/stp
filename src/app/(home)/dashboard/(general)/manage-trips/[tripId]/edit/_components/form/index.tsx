@@ -12,36 +12,54 @@ import {
 } from '@/components/ui/form';
 import { Input, inputBaseStyles } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { Trip } from '@/types/trips';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { DatePickerField } from './date-picker-form-field';
+import { DatePickerField } from '../../../../create/_components/form/date-picker-form-field';
+import { isValidImageFile } from '../../../../create/_components/form/schema';
 import { onSubmit } from './on-submit';
-import { createTripFormSchema, isValidImageFile } from './schema';
+import { updateTripFormSchema } from './schema';
 
 export type RequestStatus = 'uploading-image' | 'submitting-data';
 
-export function CreateTripForm() {
+type PropsType = {
+  trip: Trip;
+};
+
+export function EditTripForm({ trip }: PropsType) {
   const [requestStatus, setRequestStatus] = useState<RequestStatus>();
   const [objectUrls, setObjectUrls] = useState<string[]>([]);
 
-  const form = useForm<createTripFormSchema>({
-    resolver: zodResolver(createTripFormSchema),
+  const form = useForm<updateTripFormSchema>({
+    resolver: zodResolver(updateTripFormSchema),
+    defaultValues: {
+      date: {
+        from: new Date(trip.startDate),
+        to: new Date(trip.endDate),
+      },
+      description: trip.description,
+      destination: trip.destination,
+      travelType: trip.travelType,
+    },
   });
 
   useEffect(() => {
+    setObjectUrls(trip.images);
+
     return () => {
       objectUrls.forEach(URL.revokeObjectURL);
     };
-  }, [objectUrls]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((values) => {
-          onSubmit({ values, setRequestStatus });
+          onSubmit({ values, setRequestStatus, trip });
         })}
         className="grid gap-5"
       >
@@ -108,7 +126,10 @@ export function CreateTripForm() {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Travel Date</FormLabel>
-              <DatePickerField disabled={!!requestStatus} field={field} />
+              <DatePickerField
+                disabled={!!requestStatus}
+                field={field as any}
+              />
               <FormDescription>
                 Select the start and end date of the trip.
               </FormDescription>
@@ -174,7 +195,7 @@ export function CreateTripForm() {
 
                   const imageFiles = form.getValues('images');
 
-                  const filteredFiles = imageFiles.filter(
+                  const filteredFiles = imageFiles?.filter(
                     (_, i) => i !== index
                   );
 

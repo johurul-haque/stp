@@ -76,7 +76,7 @@ export async function TripsCards({ isPrivate = true, query }: CardProps) {
                 </button>
 
                 <Link
-                  href={`trips/${trip.id}/edit`}
+                  href={`/dashboard/manage-trips/${trip.id}/edit`}
                   className="py-2 hover:bg-neutral-200/70 dark:hover:bg-neutral-800/70 dark:hover:text-neutral-400 flex justify-center items-center gap-2 bg-neutral-100 dark:bg-neutral-800 transition-all focus-visible:dark:bg-neutral-800/70 focus-visible:dark:text-neutral-400 focus-visible:bg-neutral-100 outline-none"
                 >
                   <PenBoxIcon size={17} strokeWidth={1.5} />
