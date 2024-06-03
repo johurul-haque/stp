@@ -39,7 +39,7 @@ export default async function ManageTripsPage({ searchParams }: PageProps) {
           })}
         >
           <BadgePlusIcon className="size-5" />
-          Create trip plan
+          Create trip
         </Link>
       </div>
 

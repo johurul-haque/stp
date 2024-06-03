@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { SetStateActionType } from '@/types/set-state-action';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { onSubmit } from './on-submit';
@@ -28,6 +29,9 @@ export function RegisterForm({
 }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
+  const searchParams = useSearchParams();
+  const redirectFrom = searchParams.get('redirect_from');
+
   const form = useForm<registerSchema>({
     resolver: zodResolver(registerSchema),
   });
@@ -37,7 +41,7 @@ export function RegisterForm({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((values) =>
-            onSubmit({ values, setIsLoading, setError })
+            onSubmit({ values, setIsLoading, setError , redirectFrom})
           )}
           className="grid gap-3"
         >

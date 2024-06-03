@@ -1,10 +1,13 @@
 import { SetStateActionType } from '@/types/set-state-action';
 import { AxiosError } from 'axios';
 
-type OptionsType = {
-  setError?: SetStateActionType<string | undefined>;
-  returnMessage?: boolean;
-};
+type OptionsType =
+  | {
+      setError?: SetStateActionType<string | undefined>;
+    }
+  | {
+      returnMessage?: boolean;
+    };
 
 export function handleAxiosErrors(error: unknown, options?: OptionsType) {
   if (error instanceof AxiosError) {
@@ -14,11 +17,11 @@ export function handleAxiosErrors(error: unknown, options?: OptionsType) {
         ? 'Something went wrong! Hire Johurul(😎) to fix this.'
         : error.response?.data);
 
-    if (options?.setError) {
-      options.setError(message);
+    if (options && 'setError' in options) {
+      return options.setError?.(message);
     }
 
-    if (options?.returnMessage) {
+    if (options && 'returnMessage' in options) {
       return message;
     }
 

@@ -10,6 +10,7 @@ type ParamsType = {
   values: loginSchema;
   setIsLoading: SetStateActionType<boolean>;
   setError: SetStateActionType<string | undefined>;
+  redirectFrom: string | null;
 };
 
 type Payload = {
@@ -18,7 +19,12 @@ type Payload = {
   username?: string;
 };
 
-export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
+export async function onSubmit({
+  values,
+  setIsLoading,
+  setError,
+  redirectFrom,
+}: ParamsType) {
   setIsLoading(true);
 
   const payload: Payload = {
@@ -39,7 +45,7 @@ export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
       payload
     );
 
-    await setAccessToken(data.access_token);
+    await setAccessToken(data.access_token, redirectFrom);
   } catch (error) {
     handleAxiosErrors(error, { setError });
   } finally {

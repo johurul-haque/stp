@@ -35,7 +35,7 @@ export function PreviewImagesModal({ images, destination }: PropsType) {
         )}
 
         <DialogTrigger asChild>
-          <button className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100">
+          <button className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/65 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100">
             View image(s)
           </button>
         </DialogTrigger>

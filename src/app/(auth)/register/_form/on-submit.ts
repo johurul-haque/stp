@@ -9,9 +9,10 @@ type ParamsType = {
   values: registerSchema;
   setIsLoading: SetStateActionType<boolean>;
   setError: SetStateActionType<string | undefined>;
+  redirectFrom: string | null
 };
 
-export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
+export async function onSubmit({ values, setIsLoading, setError, redirectFrom }: ParamsType) {
   setIsLoading(true);
 
   const { confirm_password, ...payload } = values;
@@ -22,7 +23,7 @@ export async function onSubmit({ values, setIsLoading, setError }: ParamsType) {
       payload
     );
 
-   await setAccessToken(data.access_token);
+   await setAccessToken(data.access_token, redirectFrom);
   } catch (error) {
     handleAxiosErrors(error, { setError });
   } finally {

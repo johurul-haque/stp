@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const authRoutes = ['/login', '/register'];
 
   if (!cookie && !authRoutes.includes(path)) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return redirectToLogin(path, request.url);
   }
 
   if (!cookie) return;
@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
     });
 
     if ([401, 404].includes(res.status) && !authRoutes.includes(path)) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return redirectToLogin(path, request.url);
     }
 
     if (!path.startsWith('/dashboard') && res.status === 200) {
@@ -30,9 +30,15 @@ export async function middleware(request: NextRequest) {
   } catch (error) {
     // If server crashes the dashboard page will show the error fallback page
     if (!authRoutes.includes(path)) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return redirectToLogin(path, request.url);
     }
   }
+}
+
+function redirectToLogin(redirectFrom: string, url: string) {
+  return NextResponse.redirect(
+    new URL(`/login?redirect_from=${redirectFrom}`, url)
+  );
 }
 
 export const config = {

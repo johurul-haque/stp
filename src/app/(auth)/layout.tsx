@@ -5,16 +5,19 @@ import { buttonVariants } from '@/components/ui/button';
 import { atma } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { ReactNode } from 'react';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
+  const searchParams = useSearchParams();
+  const redirectFrom = searchParams.get('redirect_from');
+
   return (
     <main className="container relative h-[100svh] flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
-        href={pathname === '/register' ? '/login' : '/register'}
+        href={generateHref(pathname, redirectFrom)}
         className={cn(
           buttonVariants({ variant: 'ghost' }),
           'absolute right-4 top-4 md:right-8 md:top-8'
@@ -57,4 +60,16 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       </div>
     </main>
   );
+}
+
+function generateHref(pathname: string, redirect_from: string | null) {
+  let href;
+
+  if (pathname === '/register') {
+    href = '/login';
+  } else {
+    href = '/register';
+  }
+
+  return redirect_from ? `${href}?redirect_from=${redirect_from}` : href;
 }

@@ -12,7 +12,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Badge } from '../ui/badge';
 
 const groupStyles = cva(
-  'flex gap-2 items-center h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white has-[input:focus-visible]:outline-none has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-neutral-950 has-[input:focus-visible]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:has-[input:focus-visible]:ring-neutral-300 max-w-sm'
+  'flex gap-2 items-center h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white outline-none has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-neutral-950 has-[input:focus-visible]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:has-[input:focus-visible]:ring-neutral-300 max-w-sm'
 );
 
 export function SearchInput() {
@@ -64,10 +64,13 @@ function SearchTip() {
   return (
     <Popover>
       <PopoverTrigger>
-        <Badge variant={'outline'}>?</Badge>
+        <span className="sr-only">Tip for date searches</span>
+        <Badge variant={'outline'} className="text-opacity-70">
+          ?
+        </Badge>
       </PopoverTrigger>
 
-      <PopoverContent className="px-3 w-full py-1.5">
+      <PopoverContent className="px-3 w-full py-1.5 text-sm">
         <p>
           For date searches use <pre className="inline-block">y-m-d</pre>{' '}
           format.
