@@ -4,19 +4,32 @@ import { Router } from 'express';
 import {
   createTrip,
   handleGetAllTrips,
+  handleGetSingleTrip,
   handleTripDelete,
   handleTripPairRequest,
+  handleTripUpdate,
 } from './trip.controller';
-import { createTripPayload, tripPairRequestPayload } from './trip.validation';
+import {
+  createTripPayload,
+  tripPairRequestPayload,
+  updateTripPayload,
+} from './trip.validation';
 
 const router = Router();
-
-router.get('/', [verifyToken(undefined, true)], handleGetAllTrips);
 
 router.post(
   '/',
   [verifyToken(), validateRequest(createTripPayload)],
   createTrip
+);
+
+router.get('/', [verifyToken(undefined, true)], handleGetAllTrips);
+router.get('/:tripId', [verifyToken(undefined, true)], handleGetSingleTrip);
+
+router.patch(
+  '/:tripId',
+  [verifyToken(), validateRequest(updateTripPayload)],
+  handleTripUpdate
 );
 
 router.post(

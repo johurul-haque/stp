@@ -6,6 +6,7 @@ import { JWTPayload } from '../user/user.interface';
 import { findUserOrThrow } from '../user/user.utils';
 import { CreateTripPayload, TripPairRequestPayload } from './trip.interface';
 import { generateFilters } from './trip.utils';
+import { updateTripPayload } from './trip.validation';
 
 export async function create(
   payload: CreateTripPayload,
@@ -19,6 +20,24 @@ export async function create(
       userId: user.id,
     },
   });
+}
+
+export async function updateTrip(
+  jwtPayload: JWTPayload,
+  payload: updateTripPayload,
+  tripId: string
+) {
+  try {
+    return await db.trip.update({
+      where: {
+        id: tripId,
+        userId: jwtPayload.role === 'ADMIN' ? undefined : jwtPayload.userId,
+      },
+      data: payload,
+    });
+  } catch (error) {
+    throw new AppError(404, 'Could not find the requested trip!');
+  }
 }
 
 export async function tripPairRequest(
@@ -65,6 +84,14 @@ export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
   };
 
   return { meta, data };
+}
+
+export async function getSingleTrip(tripId: string) {
+  const result = await db.trip.findUnique({ where: { id: tripId } });
+
+  if (!result) throw new AppError(404, 'Could not find the requested trip.');
+
+  return result;
 }
 
 export async function deleteOne(tripId: string, userId: string) {

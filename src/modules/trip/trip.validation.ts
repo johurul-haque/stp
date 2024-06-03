@@ -22,6 +22,9 @@ export const createTripPayload = z.object({
     .transform(convertDateTime),
 });
 
+export const updateTripPayload = createTripPayload.partial();
+export type updateTripPayload = z.infer<typeof updateTripPayload>;
+
 export const tripPairRequestPayload = z.object({
   userId: z.string().uuid(),
 });

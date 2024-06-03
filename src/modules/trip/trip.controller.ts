@@ -13,6 +13,14 @@ export const createTrip = catchAsync(async (req, res) => {
   });
 });
 
+export const handleTripUpdate = catchAsync(async (req, res) => {
+  const result = await tripServices.updateTrip(
+    req.jwtPayload,
+    req.body,
+    req.params.tripId
+  );
+});
+
 export const handleTripPairRequest = catchAsync(async (req, res) => {
   const result = await tripServices.tripPairRequest(
     req.body,
@@ -30,12 +38,22 @@ export const handleGetAllTrips = catchAsync(async (req, res) => {
   const result = await tripServices.getAllTrips(
     req.query as Query,
     req.jwtPayload
-    );
+  );
 
   sendResponse(res, {
     status: 200,
     message: 'Trips retrieved successfully',
     ...result,
+  });
+});
+
+export const handleGetSingleTrip = catchAsync(async (req, res) => {
+  const result = await tripServices.getSingleTrip(req.params.tripId);
+
+  sendResponse(res, {
+    status: 200,
+    message: 'Trip retrieved successfully',
+    data: result,
   });
 });
 
