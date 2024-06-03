@@ -1,5 +1,6 @@
 import { db } from '@/config/db';
 import { Query } from '@/interface/query';
+import { AppError } from '@/utils';
 import { z } from 'zod';
 import { JWTPayload } from '../user/user.interface';
 import { findUserOrThrow } from '../user/user.utils';
@@ -64,4 +65,12 @@ export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
   };
 
   return { meta, data };
+}
+
+export async function deleteOne(tripId: string, userId: string) {
+  try {
+    return await db.trip.delete({ where: { id: tripId, userId } });
+  } catch (error) {
+    throw new AppError(404, 'Record not found!');
+  }
 }

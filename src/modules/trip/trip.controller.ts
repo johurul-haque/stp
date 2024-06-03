@@ -30,11 +30,24 @@ export const handleGetAllTrips = catchAsync(async (req, res) => {
   const result = await tripServices.getAllTrips(
     req.query as Query,
     req.jwtPayload
-  );
+    );
 
   sendResponse(res, {
     status: 200,
     message: 'Trips retrieved successfully',
     ...result,
+  });
+});
+
+export const handleTripDelete = catchAsync(async (req, res) => {
+  const result = await tripServices.deleteOne(
+    req.params.tripId,
+    req.jwtPayload.userId
+  );
+
+  sendResponse(res, {
+    status: 200,
+    message: 'Trip deleted successfully',
+    data: result,
   });
 });

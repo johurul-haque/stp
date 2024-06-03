@@ -5,7 +5,9 @@ import { UserRoutes } from './modules/user/user.route';
 
 const router = Router();
 
-router.use('/', [UserRoutes, TripRoutes]);
-router.use('/travel-buddies', TripPairsRoutes);
+router
+  .use('/', UserRoutes)
+  .use('/trips', TripRoutes)
+  .use('/travel-buddies', TripPairsRoutes);
 
 export default router;
