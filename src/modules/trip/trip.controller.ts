@@ -19,6 +19,11 @@ export const handleTripUpdate = catchAsync(async (req, res) => {
     req.body,
     req.params.tripId
   );
+
+  sendResponse(res, {
+    message: 'Trip updated successfully',
+    data: result,
+  });
 });
 
 export const handleTripPairRequest = catchAsync(async (req, res) => {
@@ -41,7 +46,6 @@ export const handleGetAllTrips = catchAsync(async (req, res) => {
   );
 
   sendResponse(res, {
-    status: 200,
     message: 'Trips retrieved successfully',
     ...result,
   });
@@ -51,7 +55,6 @@ export const handleGetSingleTrip = catchAsync(async (req, res) => {
   const result = await tripServices.getSingleTrip(req.params.tripId);
 
   sendResponse(res, {
-    status: 200,
     message: 'Trip retrieved successfully',
     data: result,
   });
@@ -64,7 +67,6 @@ export const handleTripDelete = catchAsync(async (req, res) => {
   );
 
   sendResponse(res, {
-    status: 200,
     message: 'Trip deleted successfully',
     data: result,
   });
