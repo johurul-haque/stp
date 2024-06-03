@@ -32,7 +32,7 @@ export default async function ManageTripsPage({ searchParams }: PageProps) {
         <SearchInput />
 
         <Link
-          href={'/dashboard/trips/create'}
+          href={'/dashboard/manage-trips/create'}
           className={buttonVariants({
             size: 'sm',
             className: 'flex gap-x-1.5',

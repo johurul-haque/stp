@@ -24,7 +24,7 @@ export function NavBar() {
       <div className="inline-flex items-center justify-center rounded bg-[hsl(240_4.8%_95.9%)] dark:bg-neutral-800 p-1 dark:text-[hsl(240_5%_64.9%)] text-[hsl(240_3.8%_46.1%)]">
         {NAV_ITEMS.map(({ label, href, startsWith }) => {
           const isPathMatching = startsWith
-            ? href.includes(pathname)
+            ? href.startsWith(pathname) || pathname.includes(href)
             : pathname === href;
 
           return (

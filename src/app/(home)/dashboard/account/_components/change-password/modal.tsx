@@ -79,7 +79,7 @@ export function ChangePasswordModal({ children }: { children: ReactNode }) {
               isLoading={isLoading}
             />
 
-            <D.DialogFooter className="mt-3">
+            <D.DialogFooter className="mt-3 ring">
               <Button
                 variant={'secondary'}
                 type="button"

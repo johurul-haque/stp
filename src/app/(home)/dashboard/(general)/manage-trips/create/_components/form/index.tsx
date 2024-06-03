@@ -161,7 +161,7 @@ export function CreateTripForm({ className, ...props }: RegisterFormProps) {
 
           <div
             className={cn(
-              'grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4',
+              'grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] grid-rows-[masonry] gap-4',
               !!requestStatus && 'pointer-events-none'
             )}
           >
