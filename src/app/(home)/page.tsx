@@ -13,7 +13,7 @@ export default async function HomePage({ searchParams }: PageProps) {
       <HeroSection />
       <RecentPosts query={searchParams?.query} />
 
-      {Array.from({ length: 10 }).map((_, i) => (
+      {/* {Array.from({ length: 10 }).map((_, i) => (
         <section
           key={i}
           className="flex-1 min-h-full grid place-items-center content-center"
@@ -24,7 +24,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             with your journey.
           </p>
         </section>
-      ))}
+      ))} */}
     </main>
   );
 }
