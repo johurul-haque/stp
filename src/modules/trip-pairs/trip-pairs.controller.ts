@@ -9,7 +9,6 @@ export const getTravelPairs = catchAsync(async (req, res) => {
   const result = await tripPairServices.getPairs(tripId);
 
   sendResponse(res, {
-    status: 200,
     message: 'Potential travel buddies retrieved successfully',
     data: result,
   });
@@ -21,7 +20,6 @@ export const handleTravelPairResponse = catchAsync(async (req, res) => {
   const result = await tripPairServices.travelPairResponse(req.body, buddyId);
 
   sendResponse(res, {
-    status: 200,
     message: 'Travel buddy request responded successfully',
     data: result,
   });
