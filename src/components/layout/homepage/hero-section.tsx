@@ -6,20 +6,19 @@ import Link from 'next/link';
 
 export function HeroSection() {
   return (
-    <section className="flex-1 grid place-items-center content-center min-h-[81vh] relative">
+    <section className="flex-1 grid place-items-center content-center min-h-[90vh] relative text-center">
       <h1
         className={cn(
           atma.className,
-          'font-bold text-3xl min-[300px]:text-4xl xs:text-5xl sm:text-6xl mb-3 text-emerald-950'
+          'font-bold text-3xl min-[300px]:text-4xl xs:text-5xl sm:text-6xl mb-3 text-emerald-950 dark:text-emerald-100'
         )}
       >
         Find your travel <br /> companions.
       </h1>
-      <div className="relative">
-        <p className="max-w-[18rem] xs:max-w-sm text-sm mx-auto leading-5 font-mono">
-          Find interested people to join you with your journey 🫂.
-        </p>
-      </div>
+
+      <p className="max-w-[18rem] xs:max-w-sm text-sm mx-auto leading-5 font-mono">
+        Find interested people to join you with your journey 🫂.
+      </p>
 
       <div className="flex gap-3 my-4">
         <div className="relative">

@@ -33,7 +33,7 @@ export function SearchInput() {
       params.delete('query');
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 350);
 
   return (

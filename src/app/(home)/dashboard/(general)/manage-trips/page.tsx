@@ -18,7 +18,7 @@ export default async function ManageTripsPage({ searchParams }: PageProps) {
   const currentPage = searchParams?.page || '1';
 
   return (
-    <main>
+    <main className="@container">
       <div className="my-6">
         <h1 className="text-lg font-medium mb-0.5">Manage trips</h1>
         <p className="text-sm">

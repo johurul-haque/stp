@@ -1,7 +1,9 @@
 import { getAllTrips } from '@/lib/api/get-all-trips';
+import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import {
   CalendarDaysIcon,
+  ChevronRight,
   MapPinIcon,
   PenBoxIcon,
   Trash2Icon,
@@ -18,10 +20,10 @@ export async function TripsCards({ isPrivate = true, query }: CardProps) {
   const { data } = await getAllTrips({ _q: query });
 
   return (
-    <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] 2xl:grid-cols-[repeat(auto-fill,minmax(31rem,1fr))] justify-center gap-6 mt-6">
+    <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] @5xl:grid-cols-[repeat(auto-fill,minmax(31rem,1fr))] @6xl:grid-cols-[repeat(auto-fill,31rem)] justify-center gap-6 mt-6">
       {[...data, ...data, ...data].map((trip) => (
-        <article key={trip.id} className="flex flex-col">
-          <div className="border border-b-0 dark:border-neutral-800 rounded-md rounded-b-none p-4 grid 2xl:grid-cols-2 gap-4 items-start flex-1">
+        <article key={trip.id} className="flex flex-col @container">
+          <div className="border border-b-0 dark:border-neutral-800 rounded-md rounded-b-none p-4 grid @md:grid-cols-2 gap-4 items-start flex-1">
             <Link
               href={`/trips/${trip.id}`}
               aria-label="View details of the trip"
@@ -67,8 +69,13 @@ export async function TripsCards({ isPrivate = true, query }: CardProps) {
             />
           </div>
 
-          <footer className="border dark:border-0 rounded-b-md overflow-clip text-sm divide-x dark:divide-neutral-700 grid grid-cols-2 group font-mono dark:text-neutral-300">
-            {isPrivate && (
+          <footer
+            className={cn(
+              'border dark:border-0 rounded-b-md overflow-clip text-sm divide-x dark:divide-neutral-700 group font-mono dark:text-neutral-300',
+              isPrivate && 'grid grid-cols-2 '
+            )}
+          >
+            {isPrivate ? (
               <>
                 <button className="hover:bg-rose-100 hover:text-rose-900 dark:hover:bg-rose-800/60 dark:hover:text-rose-100 py-2 flex justify-center items-center gap-2 bg-neutral-100 dark:bg-neutral-800 transition-all focus-visible:dark:bg-rose-800/60 focus-visible:dark:text-rose-100 focus-visible:bg-rose-100 focus-visible:text-rose-900 outline-none">
                   <Trash2Icon size={17} strokeWidth={1.5} />
@@ -83,6 +90,14 @@ export async function TripsCards({ isPrivate = true, query }: CardProps) {
                   Edit
                 </Link>
               </>
+            ) : (
+              <Link
+                href={`/trips/${trip.id}`}
+                className="text-center py-2 border-t dark:border-0 text-sm bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800/60 hover:bg-neutral-200/70 transition-colors flex justify-center gap-1 items-center group lowercase font-mono dark:text-neutral-300 dark:hover:text-neutral-400"
+              >
+                Trip Details
+                <ChevronRight className="size-5 text-gray-600 dark:text-neutral-600 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
             )}
           </footer>
         </article>
