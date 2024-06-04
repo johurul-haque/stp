@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply h-full;
+  }
+
   body {
-    @apply dark:bg-neutral-950 dark:text-neutral-200;
+    @apply dark:bg-neutral-950 dark:text-neutral-200 h-full flex flex-col;
   }
 }

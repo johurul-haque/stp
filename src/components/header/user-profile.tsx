@@ -50,7 +50,7 @@ export function UserProfile({ user }: { user: User }) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href={'/dashboard/trips/create'} className="w-full">
+          <Link href={'/dashboard/manage-trips/create'} className="w-full">
             Create trip
             <DropdownMenuShortcut>
               <PlusIcon className="size-4 stroke-current" />

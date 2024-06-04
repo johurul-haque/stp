@@ -34,7 +34,7 @@ export function SearchInput() {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  }, 450);
+  }, 350);
 
   return (
     <div className={groupStyles()}>
