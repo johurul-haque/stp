@@ -1,5 +1,6 @@
 import { getAllTrips } from '@/lib/api/get-all-trips';
 import { cn } from '@/lib/utils';
+import { Trip } from '@/types/trips';
 import { format } from 'date-fns';
 import {
   CalendarDaysIcon,
@@ -14,10 +15,13 @@ import { PreviewImagesModal } from './preview-images/modal';
 type CardProps = {
   isPrivate?: boolean;
   query?: string;
+  data?: Trip[];
 };
 
-export async function TripsCards({ isPrivate = true, query }: CardProps) {
-  const { data } = await getAllTrips({ _q: query });
+export async function TripsCards({ isPrivate, query, data }: CardProps) {
+  if (!data) {
+    data = (await getAllTrips({ _q: query })).data;
+  }
 
   return (
     <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] @5xl:grid-cols-[repeat(auto-fill,minmax(31rem,1fr))] @6xl:grid-cols-[repeat(auto-fill,31rem)] justify-center gap-6 mt-6">
@@ -72,7 +76,7 @@ export async function TripsCards({ isPrivate = true, query }: CardProps) {
           <footer
             className={cn(
               'border dark:border-0 rounded-b-md overflow-clip text-sm divide-x dark:divide-neutral-700 group font-mono dark:text-neutral-300',
-              isPrivate && 'grid grid-cols-2 '
+              isPrivate && 'grid grid-cols-2'
             )}
           >
             {isPrivate ? (

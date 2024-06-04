@@ -44,7 +44,7 @@ export default async function ManageTripsPage({ searchParams }: PageProps) {
       </div>
 
       <Suspense key={query + currentPage}>
-        <TripsCards query={query} />
+        <TripsCards isPrivate query={query} />
       </Suspense>
     </main>
   );

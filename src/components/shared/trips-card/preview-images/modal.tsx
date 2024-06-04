@@ -19,7 +19,7 @@ type PropsType = {
 export function PreviewImagesModal({ images, destination }: PropsType) {
   return (
     <Dialog>
-      <div className="relative overflow-clip rounded group max-2xl:-order-1">
+      <div className="relative overflow-clip rounded group max-2xl:-order-1 mt-auto">
         <Image
           src={images[0]}
           className="aspect-video object-cover max-w-full"
@@ -29,13 +29,13 @@ export function PreviewImagesModal({ images, destination }: PropsType) {
         />
 
         {!!(images.length - 1) && (
-          <div className="bg-neutral-950/60 py-1 text-xs text-center absolute bottom-0 inset-x-0 text-white">
+          <div className="bg-neutral-950/65 py-1 text-xs text-center absolute bottom-0 inset-x-0 text-white">
             +{images.length - 1} more <span className="sr-only">images</span>
           </div>
         )}
 
         <DialogTrigger asChild>
-          <button className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/65 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100">
+          <button className="absolute inset-0 text-xs tracking-wider text-neutral-300 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100">
             View image(s)
           </button>
         </DialogTrigger>

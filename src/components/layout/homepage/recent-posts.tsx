@@ -16,7 +16,7 @@ export function RecentPosts({ query = '' }) {
       </div>
 
       <Suspense key={query}>
-        <TripsCards query={query} isPrivate={false} />
+        <TripsCards query={query} />
       </Suspense>
 
       <Link
