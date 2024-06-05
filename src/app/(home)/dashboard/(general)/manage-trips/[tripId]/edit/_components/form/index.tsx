@@ -1,5 +1,6 @@
 'use client';
 
+import { PlateEditor } from '@/components/plate-editor';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Form,
@@ -33,6 +34,13 @@ export function EditTripForm({ trip }: PropsType) {
   const [requestStatus, setRequestStatus] = useState<RequestStatus>();
   const [objectUrls, setObjectUrls] = useState<string[]>([]);
 
+  let isMarkdown: undefined | boolean;
+
+  try {
+    JSON.parse(trip.description);
+    isMarkdown = true;
+  } catch (error) {}
+
   const form = useForm<updateTripFormSchema>({
     resolver: zodResolver(updateTripFormSchema),
     defaultValues: {
@@ -40,7 +48,7 @@ export function EditTripForm({ trip }: PropsType) {
         from: new Date(trip.startDate),
         to: new Date(trip.endDate),
       },
-      description: trip.description,
+      description: isMarkdown ? undefined : trip.description,
       destination: trip.destination,
       travelType: trip.travelType,
     },
@@ -103,15 +111,24 @@ export function EditTripForm({ trip }: PropsType) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
-              <FormControl>
-                <textarea
-                  disabled={!!requestStatus}
-                  className={cn(inputBaseStyles(), 'h-32')}
-                  placeholder="A 3-day trip to UAE. We'll be traveling through some exotic places."
-                  minLength={40}
-                  {...field}
+              {isMarkdown ? (
+                <PlateEditor
+                  readOnly={!!requestStatus}
+                  onChange={field.onChange}
+                  initialValue={trip.description}
                 />
-              </FormControl>
+              ) : (
+                <FormControl>
+                  <textarea
+                    disabled={!!requestStatus}
+                    className={cn(inputBaseStyles(), 'h-32')}
+                    placeholder="A 3-day trip to UAE. We'll be traveling through some exotic places."
+                    minLength={40}
+                    {...field}
+                  />
+                </FormControl>
+              )}
+
               <FormDescription>
                 Description must be in between 40-400 characters.
               </FormDescription>
