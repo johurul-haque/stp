@@ -1,6 +1,5 @@
 'use client';
 
-import { PlateEditor } from '@/components/plate-editor';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Form,
@@ -11,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Input, inputBaseStyles } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X } from 'lucide-react';
@@ -101,12 +100,21 @@ export function CreateTripForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
-              <PlateEditor
+              {/* <PlateEditor
                 readOnly={!!requestStatus}
                 onChange={field.onChange}
-              />
+              /> */}
+              <FormControl>
+                <textarea
+                  disabled={!!requestStatus}
+                  className={cn(inputBaseStyles(), 'h-32')}
+                  placeholder="A 3-day trip to UAE. We'll be traveling through some exotic places."
+                  minLength={40}
+                  {...field}
+                />
+              </FormControl>
               <FormDescription>
-                Description must be at least 40 characters. Supports markdown.
+                Description must be at least 40 characters.
               </FormDescription>
               <FormMessage />
             </FormItem>

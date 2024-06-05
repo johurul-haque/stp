@@ -7,8 +7,6 @@ import { ToggleUserInfo } from './_components/toggle-info';
 export default async function Page() {
   const { data } = await getAllUsers();
 
-  console.log(data);
-
   return (
     <main>
       <div className="my-6">
@@ -75,6 +73,12 @@ export default async function Page() {
           </article>
         ))}
       </div>
+
+      {!data.length && (
+        <h2 className="max-w-xs mx-auto text-center text-xl font-mono font-semibold">
+          There is no other user other than you! 🥲
+        </h2>
+      )}
     </main>
   );
 }

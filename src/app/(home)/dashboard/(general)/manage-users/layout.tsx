@@ -8,7 +8,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   const jwtPayload = jwtDecode(accessToken!.value) as any;
 
-  if (jwtPayload?.role === 'ADMIN') notFound();
+  if (jwtPayload?.role !== 'ADMIN') notFound();
 
   return children;
 }

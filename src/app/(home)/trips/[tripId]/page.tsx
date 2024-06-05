@@ -65,7 +65,7 @@ export default async function TripPage({ params }: PropsType) {
             <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mb-1">
               travel type
             </dt>
-            <dd className="px-4 py-0.5 rounded-full text-sm font-mono text-emerald-900 bg-emerald-100 max-w-fit">
+            <dd className="px-4 py-0.5 rounded-full text-sm font-mono text-emerald-900 bg-emerald-100 dark:bg-emerald-900 dark:text-emerald-200 max-w-fit">
               {trip.data.travelType}
             </dd>
           </div>
@@ -100,7 +100,7 @@ export default async function TripPage({ params }: PropsType) {
                 )}
               </dd>
             ) : (
-              <dd className="flex items-center gap-2 justify-self-end self-start pl-3 pr-4 py-1 border rounded-full max-w-fit">
+              <dd className="flex items-center gap-2 justify-self-end self-start pl-3 pr-4 py-1 border dark:border-neutral-800 rounded-full max-w-fit">
                 <div
                   title={requestStatus.toLowerCase()}
                   className="relative flex size-3"

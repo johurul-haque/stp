@@ -1,10 +1,11 @@
 import { Separator } from '@/components/ui/separator';
+import { getAllSentRequests } from '@/lib/api/get-all-sent-request';
 import { cn } from '@/lib/utils';
-import { ChevronRight, MapPinIcon, PlaneIcon } from 'lucide-react';
+import { ChevronRight, MapPinIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function SentRequestsPage() {
-  const data = [...new Array(15)];
+  const { data } = await getAllSentRequests();
 
   return (
     <main>
@@ -19,10 +20,10 @@ export default async function SentRequestsPage() {
 
       <Separator />
 
-      <div className="grid sm:grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6 mt-6">
-        {data.map((_, i) => (
+      <div className="grid sm:grid-cols-[repeat(auto-fill,minmax(19rem,1fr))] gap-6 mt-6">
+        {data.map((request) => (
           <article
-            key={i}
+            key={request.id}
             className="border dark:border-neutral-800 rounded-md overflow-clip"
           >
             <dl className="grid grid-cols-2 gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
@@ -32,7 +33,9 @@ export default async function SentRequestsPage() {
                   aria-hidden
                   className="text-neutral-400 dark:text-neutral-700 flex-shrink-0"
                 />
-                <span className="line-clamp-2 font-medium">Germany</span>
+                <span className="line-clamp-2 text-sm">
+                  {request.trip.destination}
+                </span>
               </dd>
 
               <dt className="sr-only">Status</dt>
@@ -46,8 +49,8 @@ export default async function SentRequestsPage() {
                     className={cn(
                       'absolute inline-flex size-full animate-ping rounded-full opacity-75',
                       {
-                        'bg-amber-500': true,
-                        'bg-emerald-500': false,
+                        'bg-amber-500': request.status === 'PENDING',
+                        'bg-emerald-500': request.status === 'APPROVED',
                       }
                     )}
                   />
@@ -55,29 +58,20 @@ export default async function SentRequestsPage() {
                     className={cn(
                       'relative inline-flex rounded-full size-full',
                       {
-                        'bg-amber-500': true,
-                        'bg-emerald-500': false,
+                        'bg-amber-500': request.status === 'PENDING',
+                        'bg-emerald-500': request.status === 'APPROVED',
                       }
                     )}
                   />
                 </div>
                 <span className="text-sm capitalize">
-                  {'PENDING'.toLowerCase()}
+                  {request.status.toLowerCase()}
                 </span>
-              </dd>
-
-              <dt className="sr-only">Trip</dt>
-              <dd className="flex gap-3 col-span-full text-sm text-neutral-700/80 dark:text-neutral-600">
-                <PlaneIcon
-                  aria-hidden
-                  className="text-neutral-400/80 dark:text-neutral-700 size-5"
-                />
-                <span>by {'johurul_haque'}</span>
               </dd>
             </dl>
 
             <Link
-              href={'/'}
+              href={`/trips/${request.tripId}`}
               className="text-center py-2 border-t dark:border-0 mt-4 text-sm bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800/60 hover:bg-neutral-200/70 transition-colors flex justify-center gap-1 items-center group lowercase font-mono dark:text-neutral-300 dark:hover:text-neutral-400"
             >
               Trip Details
