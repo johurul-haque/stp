@@ -4,6 +4,7 @@ import { Router } from 'express';
 import {
   getUserProfile,
   handleDeleteProfile,
+  handleGetAllSentRequests,
   handleProfileUpdate,
   handleResetPassword,
   loginUser,
@@ -38,5 +39,7 @@ router.delete(
   [verifyToken(), validateRequest(deleteProfilePayload)],
   handleDeleteProfile
 );
+
+router.get('/sent-requests', [verifyToken()], handleGetAllSentRequests);
 
 export const UserRoutes = router;

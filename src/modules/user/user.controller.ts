@@ -35,7 +35,6 @@ export const getUserProfile = catchAsync(async (req, res) => {
   const result = await userServices.getUser(req.jwtPayload);
 
   sendResponse(res, {
-    status: 200,
     message: 'User profile retrieved successfully',
     data: excludeFields(result, ['password']),
   });
@@ -45,7 +44,6 @@ export const handleProfileUpdate = catchAsync(async (req, res) => {
   const result = await userServices.updateUserProfile(req.body, req.jwtPayload);
 
   sendResponse(res, {
-    status: 200,
     message: 'User profile updated successfully',
     data: excludeFields(result, ['password']),
   });
@@ -55,8 +53,16 @@ export const handleDeleteProfile = catchAsync(async (req, res) => {
   const result = await userServices.deleteProfile(req.body, req.jwtPayload);
 
   sendResponse(res, {
-    status: 200,
     message: 'Profile deleted successfully',
     data: excludeFields(result, ['password']),
   });
 });
+
+export const handleGetAllSentRequests = catchAsync(async (req, res) => {
+  const result = await userServices.getAllSentRequests(req.jwtPayload);
+
+  sendResponse(res, {
+    message: 'All sent requests retrieved successfully!',
+    data: result,
+  });
+});  

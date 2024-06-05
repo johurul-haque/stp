@@ -91,3 +91,12 @@ export async function deleteProfile(
 
   return db.user.delete({ where: { id: user.id } });
 }
+
+export async function getAllSentRequests(jwtPayload: JWTPayload) {
+  return db.travelPairRequest.findMany({
+    where: { userId: jwtPayload.userId },
+    include: {
+      trip: true,
+    },
+  });
+}
