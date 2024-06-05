@@ -92,7 +92,7 @@ export default async function TripPage({ params }: PropsType) {
 
                 {!user && (
                   <Link
-                    href={`/login?redirected_from=/trips/${trip.data.id}`}
+                    href={`/login?redirect_from=/trips/${trip.data.id}`}
                     className="underline underline-offset-2 text-xs font-light opacity-80"
                   >
                     Requires login
