@@ -9,6 +9,14 @@ export type Trip = {
   endDate: string;
   createdAt: Date;
   updatedAt: Date;
+  TravelPairRequest?: {
+    id: string;
+    tripId: string;
+    userId: string;
+    status: 'PENDING' | 'APPROVED' | 'REJECTED';
+    createdAt: string;
+    updatedAt: string;
+  }[];
 };
 
 export type getAllTripsResponse = {
