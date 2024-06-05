@@ -37,9 +37,11 @@ export function EditTripForm({ trip }: PropsType) {
   let isMarkdown: undefined | boolean;
 
   try {
-    JSON.parse(trip.description);
-    isMarkdown = true;
-  } catch (error) {}
+    const value = JSON.parse(trip.description);
+    if (typeof value !== 'string') isMarkdown = true;
+  } catch (error) {
+    console.log(isMarkdown);
+  }
 
   const form = useForm<updateTripFormSchema>({
     resolver: zodResolver(updateTripFormSchema),

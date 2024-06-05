@@ -6,7 +6,9 @@ export const createTripFormSchema = z.object({
   }),
   description: z
     .any()
-    .transform((value) => JSON.stringify(value))
+    .transform((value) =>
+      typeof value === 'string' ? value : JSON.stringify(value)
+    )
     .refine(
       (val) => val.length > 60,
       'Description must be at least 40 characters.'

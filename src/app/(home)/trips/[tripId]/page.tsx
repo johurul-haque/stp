@@ -17,18 +17,24 @@ export default async function TripPage({ params }: PropsType) {
     getUser(),
   ]);
 
-  const requestStatus = trip.data?.TravelPairRequest?.[0].status;
+  const requestStatus = trip.data?.TravelPairRequest?.[0]?.status;
 
   let description;
+
   try {
     const parsedValues = JSON.parse(trip.data.description);
-    description = (
-      <PlateEditor
-        initialValue={parsedValues}
-        className="min-h-full"
-        readOnly
-      />
-    );
+
+    if (typeof parsedValues !== 'string') {
+      description = (
+        <PlateEditor
+          initialValue={parsedValues}
+          className="min-h-full"
+          readOnly
+        />
+      );
+    } else {
+      throw new Error();
+    }
   } catch (error) {
     description = trip.data.description;
   }
