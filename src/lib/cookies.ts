@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 /**
  * @description Sets access_token cookie using the cookies function from next/headers and redirects to /dashboard.
  */
-export async function setAccessToken(value: string, redirectTo: string | null) {
+export async function setAccessToken(value: string, redirectTo?: string) {
   const oneDay = 24 * 60 * 60 * 1000;
 
   cookies().set('access_token', value, {

@@ -52,10 +52,7 @@ import {
   MARK_HIGHLIGHT,
   createHighlightPlugin,
 } from '@udecode/plate-highlight';
-import {
-  ELEMENT_HR,
-  createHorizontalRulePlugin,
-} from '@udecode/plate-horizontal-rule';
+import { createHorizontalRulePlugin } from '@udecode/plate-horizontal-rule';
 import { createIndentPlugin } from '@udecode/plate-indent';
 import { createIndentListPlugin } from '@udecode/plate-indent-list';
 import { createJuicePlugin } from '@udecode/plate-juice';
@@ -87,7 +84,6 @@ import { Editor } from '@/components/plate-ui/editor';
 import { EmojiCombobox } from '@/components/plate-ui/emoji-combobox';
 import { HeadingElement } from '@/components/plate-ui/heading-element';
 import { HighlightLeaf } from '@/components/plate-ui/highlight-leaf';
-import { HrElement } from '@/components/plate-ui/hr-element';
 import { ImageElement } from '@/components/plate-ui/image-element';
 import { KbdLeaf } from '@/components/plate-ui/kbd-leaf';
 import { LinkElement } from '@/components/plate-ui/link-element';
@@ -238,7 +234,6 @@ const plugins = createPlugins(
     components: withDraggables(
       withPlaceholders({
         [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
-        [ELEMENT_HR]: HrElement,
         [ELEMENT_IMAGE]: ImageElement,
         [ELEMENT_LINK]: LinkElement,
         [ELEMENT_TOGGLE]: ToggleElement,

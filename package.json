@@ -76,6 +76,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
+    "slate-react": "^0.105.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.1",

@@ -10,7 +10,7 @@ type ParamsType = {
   values: loginSchema;
   setIsLoading: SetStateActionType<boolean>;
   setError: SetStateActionType<string | undefined>;
-  redirectFrom: string | null;
+  redirectFrom?: string;
 };
 
 type Payload = {

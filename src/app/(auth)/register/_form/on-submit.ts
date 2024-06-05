@@ -9,7 +9,7 @@ type ParamsType = {
   values: registerSchema;
   setIsLoading: SetStateActionType<boolean>;
   setError: SetStateActionType<string | undefined>;
-  redirectFrom: string | null
+  redirectFrom?: string;
 };
 
 export async function onSubmit({ values, setIsLoading, setError, redirectFrom }: ParamsType) {

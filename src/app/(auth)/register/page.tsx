@@ -1,16 +1,11 @@
-'use client';
-
-import { AlertDestructive } from '@/components/ui/alert';
-import { useState } from 'react';
 import { RegisterForm } from './_form';
 
-export default function Register() {
-  const [error, setError] = useState<string | undefined>('');
+type PageProps = {
+  searchParams?: {
+    redirect_from?: string;
+  };
+};
 
-  return (
-    <>
-      {error && <AlertDestructive message={error} />}
-      <RegisterForm setError={setError} />
-    </>
-  );
+export default async function Register({ searchParams }: PageProps) {
+  return <RegisterForm redirectFrom={searchParams?.redirect_from} />;
 }
