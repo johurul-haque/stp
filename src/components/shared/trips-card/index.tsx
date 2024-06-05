@@ -27,7 +27,7 @@ export async function TripsCards({ isPrivate, query, data }: CardProps) {
     <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] @5xl:grid-cols-[repeat(auto-fill,minmax(31rem,1fr))] @6xl:grid-cols-[repeat(auto-fill,31rem)] justify-center gap-6 mt-6">
       {[...data, ...data, ...data].map((trip) => (
         <article key={trip.id} className="flex flex-col @container">
-          <div className="border border-b-0 dark:border-neutral-800 rounded-md rounded-b-none p-4 grid @md:grid-cols-2 gap-4 items-start flex-1">
+          <div className="border border-b-0 dark:border-neutral-800 rounded-md rounded-b-none p-4 grid content-start @md:grid-cols-2 gap-4 items-start flex-1">
             <Link
               href={`/trips/${trip.id}`}
               aria-label="View details of the trip"

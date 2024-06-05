@@ -19,7 +19,7 @@ type PropsType = {
 export function PreviewImagesModal({ images, destination }: PropsType) {
   return (
     <Dialog>
-      <div className="relative overflow-clip rounded group max-2xl:-order-1 mt-auto">
+      <div className="relative overflow-clip rounded group -order-1 @md:order-1">
         <Image
           src={images[0]}
           className="aspect-video object-cover max-w-full"

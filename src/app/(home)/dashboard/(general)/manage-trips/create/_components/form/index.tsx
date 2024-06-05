@@ -1,5 +1,6 @@
 'use client';
 
+import { PlateEditor } from '@/components/plate-editor';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Form,
@@ -10,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input, inputBaseStyles } from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X } from 'lucide-react';
@@ -81,21 +82,13 @@ export function CreateTripForm() {
 
         <FormField
           control={form.control}
-          name="description"
+          name="date"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <textarea
-                  disabled={!!requestStatus}
-                  className={cn(inputBaseStyles(), 'h-32')}
-                  placeholder="A 3-day trip to UAE. We'll be traveling through some exotic places."
-                  minLength={40}
-                  {...field}
-                />
-              </FormControl>
+            <FormItem className="flex flex-col">
+              <FormLabel>Travel Date</FormLabel>
+              <DatePickerField disabled={!!requestStatus} field={field} />
               <FormDescription>
-                Description must be in between 40-400 characters.
+                Select the start and end date of the trip.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -104,13 +97,16 @@ export function CreateTripForm() {
 
         <FormField
           control={form.control}
-          name="date"
+          name="description"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Travel Date</FormLabel>
-              <DatePickerField disabled={!!requestStatus} field={field} />
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <PlateEditor
+                readOnly={!!requestStatus}
+                onChange={field.onChange}
+              />
               <FormDescription>
-                Select the start and end date of the trip.
+                Description must be at least 40 characters. Supports markdown.
               </FormDescription>
               <FormMessage />
             </FormItem>

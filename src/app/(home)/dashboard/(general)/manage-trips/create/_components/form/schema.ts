@@ -5,9 +5,12 @@ export const createTripFormSchema = z.object({
     required_error: 'Please provide a destination of the trip.',
   }),
   description: z
-    .string()
-    .min(40, 'Description must be at least 40 characters.')
-    .max(400, 'Description must be at in-between 400 characters.'),
+    .any()
+    .transform((value) => JSON.stringify(value))
+    .refine(
+      (val) => val.length > 60,
+      'Description must be at least 40 characters.'
+    ),
   travelType: z.string(),
   date: z.object(
     {

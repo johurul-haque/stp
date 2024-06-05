@@ -8,15 +8,21 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 type PropsType = {
   images: string[];
   destination: string;
+  className?: string;
 };
 
-export function PreviewImagesCarousel({ images, destination }: PropsType) {
+export function PreviewImagesCarousel({
+  images,
+  destination,
+  className,
+}: PropsType) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -36,7 +42,7 @@ export function PreviewImagesCarousel({ images, destination }: PropsType) {
 
   return (
     <Carousel setApi={setApi}>
-      <CarouselContent>
+      <CarouselContent className={cn(className)}>
         {images.map((image) => (
           <CarouselItem key={image}>
             <Image
