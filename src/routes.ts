@@ -8,8 +8,7 @@ import { UserRoutes } from './modules/user/user.route';
 const router = Router();
 
 router
-  .use('/', UserRoutes)
-  .use('/', verifyToken('ADMIN'), AdminRoutes)
+  .use('/', [UserRoutes, AdminRoutes])
   .use('/trips', TripRoutes)
   .use('/travel-buddies', TripPairsRoutes);
 
