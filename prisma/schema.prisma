@@ -73,5 +73,5 @@ enum Role {
 
 enum Status {
   ACTIVE
-  DEACTIVE
+  INACTIVE
 }
