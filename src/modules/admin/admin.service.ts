@@ -10,6 +10,9 @@ export async function getAllUsers(jwtPayload: JWTPayload) {
         id: jwtPayload.userId,
       },
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 }
 
