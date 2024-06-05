@@ -26,10 +26,10 @@ export const handleTripUpdate = catchAsync(async (req, res) => {
   });
 });
 
-export const handleTripPairRequest = catchAsync(async (req, res) => {
-  const result = await tripServices.tripPairRequest(
-    req.body,
-    req.params.tripId
+export const handleTripJoinRequest = catchAsync(async (req, res) => {
+  const result = await tripServices.tripJoinRequest(
+    req.params.tripId,
+    req.jwtPayload
   );
 
   sendResponse(res, {
@@ -52,7 +52,10 @@ export const handleGetAllTrips = catchAsync(async (req, res) => {
 });
 
 export const handleGetSingleTrip = catchAsync(async (req, res) => {
-  const result = await tripServices.getSingleTrip(req.params.tripId);
+  const result = await tripServices.getSingleTrip(
+    req.params.tripId,
+    req.jwtPayload
+  );
 
   sendResponse(res, {
     message: 'Trip retrieved successfully',

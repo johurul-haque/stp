@@ -6,14 +6,10 @@ import {
   handleGetAllTrips,
   handleGetSingleTrip,
   handleTripDelete,
-  handleTripPairRequest,
+  handleTripJoinRequest,
   handleTripUpdate,
 } from './trip.controller';
-import {
-  createTripPayload,
-  tripPairRequestPayload,
-  updateTripPayload,
-} from './trip.validation';
+import { createTripPayload, updateTripPayload } from './trip.validation';
 
 const router = Router();
 
@@ -32,11 +28,7 @@ router.patch(
   handleTripUpdate
 );
 
-router.post(
-  '/:tripId/request',
-  [verifyToken(), validateRequest(tripPairRequestPayload)],
-  handleTripPairRequest
-);
+router.post('/:tripId/request', [verifyToken()], handleTripJoinRequest);
 
 router.delete('/:tripId', [verifyToken()], handleTripDelete);
 

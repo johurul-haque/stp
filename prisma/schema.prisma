@@ -47,7 +47,7 @@ model Trip {
 model TravelPairRequest {
   id     String @id @default(uuid())
   tripId String
-  userId String
+  userId String @unique
 
   status TravelPairRequestStatus
 

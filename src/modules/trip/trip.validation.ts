@@ -24,10 +24,6 @@ export const createTripPayload = z.object({
 export const updateTripPayload = createTripPayload.partial();
 export type updateTripPayload = z.infer<typeof updateTripPayload>;
 
-export const tripPairRequestPayload = z.object({
-  userId: z.string().uuid(),
-});
-
 function convertDateTime(value: string) {
   const date = new Date(value);
   const offset = date.getTimezoneOffset() * 60 * 1000;

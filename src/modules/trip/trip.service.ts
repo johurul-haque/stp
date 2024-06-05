@@ -4,7 +4,7 @@ import { AppError } from '@/utils';
 import { z } from 'zod';
 import { JWTPayload } from '../user/user.interface';
 import { findUserOrThrow } from '../user/user.utils';
-import { CreateTripPayload, TripPairRequestPayload } from './trip.interface';
+import { CreateTripPayload } from './trip.interface';
 import { generateFilters } from './trip.utils';
 import { updateTripPayload } from './trip.validation';
 
@@ -40,11 +40,8 @@ export async function updateTrip(
   }
 }
 
-export async function tripPairRequest(
-  payload: TripPairRequestPayload,
-  tripId: string
-) {
-  const user = await findUserOrThrow(payload.userId);
+export async function tripJoinRequest(tripId: string, jwtPayload: JWTPayload) {
+  const user = await findUserOrThrow(jwtPayload.userId);
 
   return db.travelPairRequest.create({
     data: {
@@ -86,8 +83,15 @@ export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
   return { meta, data };
 }
 
-export async function getSingleTrip(tripId: string) {
-  const result = await db.trip.findUnique({ where: { id: tripId } });
+export async function getSingleTrip(tripId: string, jwtPayload?: JWTPayload) {
+  const result = await db.trip.findUnique({
+    where: { id: tripId },
+    include: {
+      TravelPairRequest: !jwtPayload
+        ? false
+        : { where: { userId: jwtPayload?.userId } },
+    },
+  });
 
   if (!result) throw new AppError(404, 'Could not find the requested trip.');
 
