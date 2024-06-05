@@ -34,7 +34,7 @@ export default async function TripPage({ params }: PropsType) {
   }
 
   return (
-    <main className="container max-h-full flex-1 flex gap-8 py-8">
+    <main className="container max-h-full flex-1 flex max-xl:max-w-xl max-xl:flex-col gap-8 py-8">
       <div className="max-w-xl">
         <PreviewImagesCarousel
           images={trip.data.images}
@@ -42,8 +42,8 @@ export default async function TripPage({ params }: PropsType) {
         />
       </div>
 
-      <dl className="max-h-full flex flex-col flex-1 overflow-y-auto">
-        <div className="grid grid-cols-2 gap-y-4">
+      <dl className="xl:max-h-full flex flex-col xl:flex-1 xl:overflow-y-auto pb-6">
+        <div className="grid xs:grid-cols-2 gap-y-6 xs:gap-y-5">
           <div>
             <dt className="uppercase text-xs font-medium tracking-wide opacity-70">
               Destination
@@ -131,7 +131,7 @@ export default async function TripPage({ params }: PropsType) {
           </div>
         </div>
 
-        <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mt-4 mb-1">
+        <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mt-6 xs:mt-5 mb-1">
           Description
         </dt>
         <dd className="flex-1">{description}</dd>
