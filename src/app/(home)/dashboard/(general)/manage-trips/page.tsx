@@ -1,5 +1,6 @@
 import { SearchInput } from '@/components/shared/search-input';
 import { TripsCards } from '@/components/shared/trips-card';
+import { TripsCardSkeleton } from '@/components/shared/trips-card/skeleton';
 import { buttonVariants } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { BadgePlusIcon } from 'lucide-react';
@@ -43,7 +44,10 @@ export default async function ManageTripsPage({ searchParams }: PageProps) {
         </Link>
       </div>
 
-      <Suspense key={query + currentPage}>
+      <Suspense
+        key={query + currentPage}
+        fallback={<TripsCardSkeleton isPrivate />}
+      >
         <TripsCards isPrivate query={query} />
       </Suspense>
     </main>

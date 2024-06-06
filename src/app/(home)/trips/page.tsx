@@ -1,4 +1,5 @@
 import { SearchInput } from '@/components/shared/search-input';
+import { TripsCardSkeleton } from '@/components/shared/trips-card/skeleton';
 import { TripsCardWithPagination } from '@/components/shared/trips-card/with-pagination';
 import { Suspense } from 'react';
 
@@ -14,7 +15,7 @@ export default async function TripsPage({ searchParams }: PageProps) {
   const page = searchParams?.page || '';
 
   return (
-    <main className="container py-14">
+    <main className="container py-10">
       <h1 className="text-xl text-center font-medium underline underline-offset-4 decoration-wavy decoration-green-700 mb-6">
         All Trips
       </h1>
@@ -23,7 +24,7 @@ export default async function TripsPage({ searchParams }: PageProps) {
         <SearchInput />
       </div>
 
-      <Suspense key={query + page}>
+      <Suspense key={query + page} fallback={<TripsCardSkeleton />}>
         <TripsCardWithPagination page={page} query={query} />
       </Suspense>
     </main>

@@ -1,5 +1,6 @@
 import { SearchInput } from '@/components/shared/search-input';
 import { TripsCards } from '@/components/shared/trips-card';
+import { TripsCardSkeleton } from '@/components/shared/trips-card/skeleton';
 import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -15,7 +16,7 @@ export function RecentPosts({ query = '' }) {
         <SearchInput />
       </div>
 
-      <Suspense key={query}>
+      <Suspense key={query} fallback={<TripsCardSkeleton />}>
         <TripsCards query={query} />
       </Suspense>
 

@@ -75,7 +75,7 @@ export async function TripsCards({ isPrivate, query, data }: CardProps) {
 
           <footer
             className={cn(
-              'border dark:border-0 rounded-b-md overflow-clip text-sm divide-x dark:divide-neutral-700 group font-mono dark:text-neutral-300',
+              'border border-t-0 dark:border-0 rounded-b-md overflow-clip text-sm divide-x dark:divide-neutral-700 group font-mono dark:text-neutral-300',
               isPrivate && 'grid grid-cols-2'
             )}
           >
