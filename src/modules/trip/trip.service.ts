@@ -101,9 +101,14 @@ export async function getSingleTrip(tripId: string, jwtPayload?: JWTPayload) {
   return result;
 }
 
-export async function deleteOne(tripId: string, userId: string) {
+export async function deleteOne(tripId: string, jwtPayload: JWTPayload) {
   try {
-    return await db.trip.delete({ where: { id: tripId, userId } });
+    return await db.trip.delete({
+      where: {
+        id: tripId,
+        userId: jwtPayload.role === 'ADMIN' ? undefined : jwtPayload.userId,
+      },
+    });
   } catch (error) {
     throw new AppError(404, 'Record not found!');
   }

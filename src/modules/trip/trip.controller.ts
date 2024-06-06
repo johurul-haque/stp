@@ -66,7 +66,7 @@ export const handleGetSingleTrip = catchAsync(async (req, res) => {
 export const handleTripDelete = catchAsync(async (req, res) => {
   const result = await tripServices.deleteOne(
     req.params.tripId,
-    req.jwtPayload.userId
+    req.jwtPayload
   );
 
   sendResponse(res, {
