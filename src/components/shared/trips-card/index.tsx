@@ -24,7 +24,9 @@ type CardProps = {
 
 export async function TripsCards({ isPrivate, query, data }: CardProps) {
   if (!data) {
-    data = (await getAllTrips({ _q: query })).data;
+    data = (
+      await getAllTrips({ _q: query, is_public: isPrivate ? undefined : true })
+    ).data;
   }
 
   return (

@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 export function MostPopular() {
   return (
-    <section className="@container py-16">
+    <section className="@container pt-16 pb-32">
       <h2 className="text-xl text-center font-medium underline underline-offset-4 decoration-wavy decoration-green-700 mb-12">
         Most Popular
       </h2>
