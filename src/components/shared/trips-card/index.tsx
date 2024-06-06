@@ -7,9 +7,9 @@ import {
   ChevronRight,
   MapPinIcon,
   PenBoxIcon,
-  Trash2Icon,
 } from 'lucide-react';
 import Link from 'next/link';
+import { DeleteTripModal } from './delete-trip';
 import { PreviewImagesModal } from './preview-images/modal';
 
 type CardProps = {
@@ -81,10 +81,7 @@ export async function TripsCards({ isPrivate, query, data }: CardProps) {
           >
             {isPrivate ? (
               <>
-                <button className="hover:bg-rose-100 hover:text-rose-900 dark:hover:bg-rose-800/60 dark:hover:text-rose-100 py-2 flex justify-center items-center gap-2 bg-neutral-100 dark:bg-neutral-800 transition-all focus-visible:dark:bg-rose-800/60 focus-visible:dark:text-rose-100 focus-visible:bg-rose-100 focus-visible:text-rose-900 outline-none">
-                  <Trash2Icon size={17} strokeWidth={1.5} />
-                  Delete
-                </button>
+                <DeleteTripModal tripId={trip.id} />
 
                 <Link
                   href={`/dashboard/manage-trips/${trip.id}/edit`}
