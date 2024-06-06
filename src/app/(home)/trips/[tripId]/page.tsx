@@ -2,142 +2,100 @@ import { PlateEditor } from '@/components/plate-editor';
 import { PreviewImagesCarousel } from '@/components/shared/trips-card/preview-images';
 import { getSingleTrip } from '@/lib/api/get-single-trip';
 import { getUser } from '@/lib/api/get-user';
-import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import { SendIcon } from 'lucide-react';
-import Link from 'next/link';
+import { JoinRequestButton } from './_components/join-request-button';
 
 type PropsType = {
   params: { tripId: string };
 };
 
 export default async function TripPage({ params }: PropsType) {
-  const [trip, user] = await Promise.all([
+  const [{ data: trip }, user] = await Promise.all([
     getSingleTrip(params.tripId),
     getUser(),
   ]);
 
-  const requestStatus = trip.data?.TravelPairRequest?.[0]?.status;
+  const requestStatus = trip?.TravelPairRequest?.[0]?.status;
+  const isUsersPost = trip.userId === user?.data.id;
 
   let description;
 
   try {
-    const parsedValues = JSON.parse(trip.data.description);
+    const parsedValues = JSON.parse(trip.description);
 
-    if (typeof parsedValues !== 'string') {
-      description = (
-        <PlateEditor
-          initialValue={parsedValues}
-          className="min-h-full"
-          readOnly
-        />
-      );
-    } else {
-      throw new Error();
-    }
+    if (typeof parsedValues === 'string') throw new Error();
+
+    description = (
+      <PlateEditor
+        initialValue={parsedValues}
+        className="min-h-full"
+        readOnly
+      />
+    );
   } catch (error) {
-    description = trip.data.description;
+    description = trip.description;
   }
 
   return (
     <main className="container max-h-full flex-1 flex max-xl:max-w-xl max-xl:flex-col gap-8 py-8">
       <div className="max-w-xl">
         <PreviewImagesCarousel
-          images={trip.data.images}
-          destination={trip.data.destination}
+          images={trip.images}
+          destination={trip.destination}
         />
       </div>
 
       <dl className="xl:max-h-full flex flex-col xl:flex-1 xl:overflow-y-auto pb-6">
         <div className="grid xs:grid-cols-2 gap-y-6 xs:gap-y-5">
           <div>
-            <dt className="uppercase text-xs font-medium tracking-wide opacity-70">
+            <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mb-0.5">
               Destination
             </dt>
-            <dd>{trip.data.destination}</dd>
+            <dd>{trip.destination}</dd>
           </div>
 
           <div>
-            <dt className="uppercase text-xs tracking-wide font-medium opacity-70">
+            <dt className="uppercase text-xs tracking-wide font-medium opacity-70 mb-0.5">
               Date
             </dt>
             <dd>
-              {format(trip.data.startDate, 'LLL dd, y')} -{' '}
-              {format(trip.data.endDate, 'LLL dd, y')}
+              {format(trip.startDate, 'LLL dd, y')} -{' '}
+              {format(trip.endDate, 'LLL dd, y')}
             </dd>
           </div>
 
           <div>
-            <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mb-1">
+            <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mb-2">
               travel type
             </dt>
-            <dd className="px-4 py-0.5 rounded-full text-sm font-mono text-emerald-900 bg-emerald-100 dark:bg-emerald-900 dark:text-emerald-200 max-w-fit">
-              {trip.data.travelType}
+            <dd className="px-4 py-0.5 rounded-full text-sm font-mono text-emerald-900 bg-emerald-100 dark:bg-emerald-900 dark:text-neutral-200 max-w-fit">
+              {trip.travelType}
             </dd>
           </div>
 
           <div>
-            <dt className="uppercase text-xs tracking-wide font-medium opacity-70 mb-1">
-              Become companion
+            <dt className="uppercase text-xs tracking-wide font-medium opacity-70 mb-2">
+              {isUsersPost ? 'Action' : 'Become companion'}
             </dt>
-            {!requestStatus ? (
-              <dd>
-                {
-                  <Link
-                    aria-disabled={!user}
-                    href={`/dashboard/manage-trips/${trip.data.id}/send-request`}
-                    className="rounded-full flex items-center gap-2.5 justify-center text-sm hover:bg-emerald-700 transition-all bg-emerald-600 text-emerald-50 px-4 py-1.5 max-w-fit aria-disabled:opacity-60 aria-disabled:pointer-events-none group"
-                  >
-                    <SendIcon
-                      size={18}
-                      className="group-hover:rotate-45 transition-transform duration-300"
-                    />
-                    Send request
-                  </Link>
-                }
+            <dd>
+              <JoinRequestButton
+                isUsersPost={isUsersPost}
+                user={!!user}
+                tripId={trip.id}
+                requestStatus={requestStatus}
+              />
 
-                {!user && (
-                  <Link
-                    href={`/login?redirect_from=/trips/${trip.data.id}`}
-                    className="underline underline-offset-2 text-xs font-light opacity-80"
-                  >
-                    Requires login
-                  </Link>
-                )}
-              </dd>
-            ) : (
-              <dd className="flex items-center gap-2 justify-self-end self-start pl-3 pr-4 py-1 border dark:border-neutral-800 rounded-full max-w-fit">
-                <div
-                  title={requestStatus.toLowerCase()}
-                  className="relative flex size-3"
-                  aria-hidden
-                >
-                  <div
-                    className={cn(
-                      'absolute inline-flex size-full animate-ping rounded-full opacity-75',
-                      {
-                        'bg-amber-500': requestStatus === 'PENDING',
-                        'bg-emerald-500': requestStatus === 'APPROVED',
-                      }
-                    )}
-                  />
-                  <div
-                    className={cn(
-                      'relative inline-flex rounded-full size-full',
-                      {
-                        'bg-amber-500': requestStatus === 'PENDING',
-                        'bg-emerald-500': requestStatus === 'APPROVED',
-                      }
-                    )}
-                  />
-                </div>
-                <span className="text-sm font-mono">Request sent</span>
-              </dd>
-            )}
+              {/* !Temporary */}
+              {isUsersPost && (
+                <p className="text-xs mt-1">
+                  {"You can't send join request to your own post."}
+                </p>
+              )}
+            </dd>
           </div>
         </div>
 
-        <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mt-6 xs:mt-5 mb-1">
+        <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mt-6 xs:mt-5 mb-2">
           Description
         </dt>
         <dd className="flex-1">{description}</dd>
