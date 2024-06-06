@@ -113,3 +113,21 @@ export async function deleteOne(tripId: string, jwtPayload: JWTPayload) {
     throw new AppError(404, 'Record not found!');
   }
 }
+
+export async function getPopularTrips() {
+  return db.trip.findMany({
+    include: {
+      _count: {
+        select: {
+          TravelPairRequest: true,
+        },
+      },
+    },
+    orderBy: {
+      TravelPairRequest: {
+        _count: 'desc',
+      },
+    },
+    take: 6,
+  });
+}

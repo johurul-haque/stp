@@ -74,3 +74,12 @@ export const handleTripDelete = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+export const handleGetPopularTrips = catchAsync(async (req, res) => {
+  const result = await tripServices.getPopularTrips();
+
+  sendResponse(res, {
+    message: 'Popular trips retrieved successfully',
+    data: result,
+  });
+});

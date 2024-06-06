@@ -4,6 +4,7 @@ import { Router } from 'express';
 import {
   createTrip,
   handleGetAllTrips,
+  handleGetPopularTrips,
   handleGetSingleTrip,
   handleTripDelete,
   handleTripJoinRequest,
@@ -20,6 +21,7 @@ router.post(
 );
 
 router.get('/', [verifyToken(undefined, true)], handleGetAllTrips);
+router.get('/popular', handleGetPopularTrips);
 router.get('/:tripId', [verifyToken(undefined, true)], handleGetSingleTrip);
 
 router.patch(
