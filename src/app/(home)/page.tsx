@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/layout/homepage/hero-section';
+import { MostPopular } from '@/components/layout/homepage/most-popular';
 import { RecentPosts } from '@/components/layout/homepage/recent-posts';
 
 type PageProps = {
@@ -12,6 +13,7 @@ export default async function HomePage({ searchParams }: PageProps) {
     <main className="container flex flex-col min-h-full flex-1">
       <HeroSection />
       <RecentPosts query={searchParams?.query} />
+      <MostPopular />
     </main>
   );
 }

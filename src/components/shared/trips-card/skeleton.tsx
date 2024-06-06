@@ -8,10 +8,10 @@ import {
   Trash2Icon,
 } from 'lucide-react';
 
-export function TripsCardSkeleton({ isPrivate = false }) {
+export function TripsCardSkeleton({ isPrivate = false, length = 10 }) {
   return (
     <div className="grid max-sm:mx-auto max-sm:max-w-72 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] @5xl:grid-cols-[repeat(auto-fill,minmax(31rem,1fr))] @6xl:grid-cols-[repeat(auto-fill,31rem)] justify-center gap-6 mt-6">
-      {Array.from({ length: 10 }).map((_, i) => (
+      {Array.from({ length }).map((_, i) => (
         <article key={i} className="flex flex-col @container">
           <div className="border dark:border-neutral-800 rounded-md rounded-b-none p-4 grid content-start @md:grid-cols-2 gap-4 items-start flex-1">
             <dl className="flex flex-col min-h-full gap-1.5">
@@ -37,7 +37,7 @@ export function TripsCardSkeleton({ isPrivate = false }) {
 
               <dt className="sr-only">Description</dt>
               <dd className="mt-2 dark:text-neutral-300 flex-1 flex flex-col">
-                <Skeleton className="leading-5 w-full h-16 @md:h-auto @md:flex-1" />
+                <Skeleton className="leading-5 w-full h-14 @md:h-auto @md:flex-1" />
               </dd>
             </dl>
 

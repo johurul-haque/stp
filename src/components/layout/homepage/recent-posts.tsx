@@ -1,6 +1,7 @@
 import { SearchInput } from '@/components/shared/search-input';
 import { TripsCards } from '@/components/shared/trips-card';
 import { TripsCardSkeleton } from '@/components/shared/trips-card/skeleton';
+import { buttonVariants } from '@/components/ui/button';
 import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -20,13 +21,18 @@ export function RecentPosts({ query = '' }) {
         <TripsCards query={query} />
       </Suspense>
 
-      <Link
-        href={'/trips'}
-        className="flex justify-center gap-x-1.5 mt-8 group max-w-fit mx-auto"
-      >
-        View more
-        <ChevronRightIcon className="group-hover:translate-x-1 transition-transform" />
-      </Link>
+      <div className="flex justify-center mt-10">
+        <Link
+          href={'/trips'}
+          className={buttonVariants({
+            className: 'flex justify-center gap-x-1.5 group max-w-fit mx-auto',
+            variant: 'outline',
+          })}
+        >
+          View more
+          <ChevronRightIcon className="group-hover:translate-x-1 transition-transform dark:text-neutral-600 text-neutral-400" />
+        </Link>
+      </div>
     </section>
   );
 }
