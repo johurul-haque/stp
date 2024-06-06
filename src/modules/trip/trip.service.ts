@@ -71,7 +71,10 @@ export async function getAllTrips(query: Query, jwtPayload?: JWTPayload) {
   const data = await db.trip.findMany({
     where: {
       ...filters,
-      userId: jwtPayload?.role === 'ADMIN' ? undefined : jwtPayload?.userId,
+      userId:
+        jwtPayload?.role === 'ADMIN' || query.is_public
+          ? undefined
+          : jwtPayload?.userId,
     },
     skip: Math.abs(pagination.page - 1) * pagination.limit,
     take: pagination.limit,
