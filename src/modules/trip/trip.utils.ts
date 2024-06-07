@@ -5,7 +5,7 @@ export function generateFilters(query: Query) {
   let filters: Prisma.TripWhereInput = {};
 
   if (query._q) {
-    const fields = ['travelType', 'destination', 'description'];
+    const fields = ['travelType', 'destination'];
 
     const OR = fields.map((field) => ({
       [field]: {
@@ -17,6 +17,12 @@ export function generateFilters(query: Query) {
     filters = {
       OR: [
         ...OR,
+        {
+          description: {
+            search: query._q.split(' ').join(' | '),
+            mode: 'insensitive',
+          },
+        },
         { startDate: { contains: query._q } },
         { endDate: { contains: query._q } },
       ],
