@@ -1,7 +1,8 @@
 'use client';
 
-import { handleInfoChange } from '@/actions/user-info';
+import { handleInfoChange } from '@/actions/manage-user';
 import { Button } from '@/components/ui/button';
+import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 
@@ -30,6 +31,16 @@ export function ToggleUserInfo({ role, status, userId }: PropsType) {
         title: 'Uh oh! Could not process your request.',
         description: message,
         variant: 'destructive',
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => {
+              handleUpdate(payload);
+            }}
+          >
+            Try again
+          </ToastAction>
+        ),
       });
     } finally {
       setIsLoading(false);

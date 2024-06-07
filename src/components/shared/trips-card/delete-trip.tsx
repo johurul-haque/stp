@@ -13,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
@@ -36,6 +37,11 @@ export function DeleteTripModal({ tripId }: { tripId: string }) {
         title: 'Uh oh! Could not process your request.',
         description: message,
         variant: 'destructive',
+        action: (
+          <ToastAction altText="Try again" onClick={handleDelete}>
+            Try again
+          </ToastAction>
+        ),
       });
     } finally {
       setIsLoading(false);

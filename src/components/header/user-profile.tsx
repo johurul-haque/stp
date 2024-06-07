@@ -1,6 +1,6 @@
 'use client';
 
-import { logout } from '@/actions/logout';
+import { logout } from '@/actions/auth';
 import gradient from '@/assets/gradient.svg';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,8 +16,38 @@ import { User } from '@/types/user';
 import { LogOut, PlusIcon, Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import { ToastAction } from '../ui/toast';
+import { toast } from '../ui/use-toast';
 
 export function UserProfile({ user }: { user: User }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+
+      await logout();
+    } catch (error) {
+      let message = 'Something went wrong!';
+
+      if (error instanceof Error) message = error.message;
+
+      toast({
+        title: 'Uh oh! Could not process your request.',
+        description: message,
+        variant: 'destructive',
+        action: (
+          <ToastAction altText="Try again" onClick={handleLogout}>
+            Try again
+          </ToastAction>
+        ),
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -72,9 +102,8 @@ export function UserProfile({ user }: { user: User }) {
         <DropdownMenuItem asChild>
           <button
             className="w-full text-rose-600 focus:bg-rose-100 focus:text-rose-600"
-            onClick={() => {
-              logout();
-            }}
+            onClick={handleLogout}
+            disabled={isLoading}
           >
             Log out
             <DropdownMenuShortcut>

@@ -1,6 +1,6 @@
 'use client';
 
-import { resetPassword } from '@/actions/reset-password';
+import { resetPassword } from '@/actions/auth';
 import { AlertDestructive } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import * as D from '@/components/ui/dialog';

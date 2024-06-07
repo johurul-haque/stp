@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteProfile } from '@/actions/delete-profile';
+import { deleteProfile } from '@/actions/profile';
 import { AlertDestructive } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import * as D from '@/components/ui/dialog';
@@ -23,7 +23,7 @@ export function DeleteAccountModal({ children }: { children: ReactNode }) {
     try {
       await deleteProfile(inputValue);
     } catch (error) {
-      setError((error as Error).message ?? 'Something went wrong!');
+      setError((error as Error)?.message || 'Something went wrong!');
     } finally {
       setIsLoading(false);
     }

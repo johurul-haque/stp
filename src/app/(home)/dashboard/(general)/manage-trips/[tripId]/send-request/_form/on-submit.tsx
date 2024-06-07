@@ -1,4 +1,5 @@
-import { sendJoinRequest } from '@/actions/send-join-request';
+import { sendJoinRequest } from '@/actions/trip';
+import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { SetStateActionType } from '@/types/set-state-action';
@@ -6,7 +7,7 @@ import { RequestStatus } from '.';
 import { formSchema } from './schema';
 
 type ParamsType = {
-  values: formSchema;
+  values?: formSchema;
   tripId: string;
   setRequestStatus: SetStateActionType<RequestStatus | undefined>;
 };
@@ -27,6 +28,14 @@ export async function onSubmit({ tripId, setRequestStatus }: ParamsType) {
       title: 'Uh oh! Could not process your request.',
       description: message,
       variant: 'destructive',
+      action: (
+        <ToastAction
+          altText="Try again"
+          onClick={() => onSubmit({ tripId, setRequestStatus })}
+        >
+          Try again
+        </ToastAction>
+      ),
     });
   } finally {
     setRequestStatus(undefined);

@@ -1,4 +1,5 @@
-import { createTrip } from '@/actions/create-trip';
+import { createTrip } from '@/actions/trip';
+import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { SetStateActionType } from '@/types/set-state-action';
@@ -44,6 +45,14 @@ export async function onSubmit({ values, setRequestStatus }: OnSubmitParams) {
       title: 'Uh oh! Could not process your request.',
       description: message,
       variant: 'destructive',
+      action: (
+        <ToastAction
+          altText="Try again"
+          onClick={() => onSubmit({ values, setRequestStatus })}
+        >
+          Try again
+        </ToastAction>
+      ),
     });
   } finally {
     setRequestStatus(undefined);

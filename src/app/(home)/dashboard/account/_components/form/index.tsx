@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { updateProfile } from '@/actions/update-profile';
+import { updateProfile } from '@/actions/profile';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { User } from '@/types/user';
 import { useState } from 'react';
@@ -57,6 +58,11 @@ export function AccountForm({ user }: AccountFormProps) {
       toast({
         title: 'Uh oh!',
         description: (error as Error)?.message || 'Something went wrong',
+        action: (
+          <ToastAction altText="Try again" onClick={() => onSubmit(data)}>
+            Try again
+          </ToastAction>
+        ),
       });
     } finally {
       setIsLoading(false);
@@ -74,7 +80,7 @@ export function AccountForm({ user }: AccountFormProps) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="johurul" {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name. It can be your real name or a
