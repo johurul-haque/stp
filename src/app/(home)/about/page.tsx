@@ -1,33 +1,38 @@
 import johurulImg from '@/assets/johurul_haque.jpg';
 import Image from 'next/image';
 
-export default async function AboutPage() {
+export default function AboutPage() {
   return (
     <main className="container pb-20">
-      <h1 className="text-2xl font-semibold underline decoration-wavy decoration-green-600 text-center mb-10 mt-4">
-        About Us
+      <h1 className="text-2xl font-semibold underline underline-offset-4 font-mono decoration-wavy decoration-green-600 text-center mb-12 mt-16">
+        About{' '}
+        <abbr title="Social Travel Platform" className="no-underline">
+          STP
+        </abbr>
       </h1>
 
       <div className="space-y-8 max-w-[65ch] mx-auto [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mb-2 [&_p]:font-light">
         <section>
           <h2>Our Mission</h2>
           <p>
-            At Travel Buddy, our mission is to connect travelers from around the
-            world, fostering a community where adventurers can find like-minded
-            companions to share their journeys with. We believe that travel is
-            more enriching and enjoyable when experienced with others, and our
-            platform is dedicated to making travel safer, more social, and full
-            of unforgettable memories.
+            At <abbr title="Social Travel Platform">STP</abbr>, our mission is
+            to connect travelers from around the world, fostering a community
+            where adventurers can find like-minded companions to share their
+            journeys with. We believe that travel is more enriching and
+            enjoyable when experienced with others, and our platform is
+            dedicated to making travel safer, more social, and full of
+            unforgettable memories.
           </p>
         </section>
 
         <section>
           <h2>Who We Are</h2>
           <p>
-            STP was founded by johurul who does not understand the challenges
-            and joys of exploring new destinations. So he is dedicated to
-            providing a platform where travelers can find companions, share
-            experiences, and make new friends.
+            <abbr title="Social Travel Platform">STP</abbr> was founded by
+            johurul who does not understand the challenges and joys of exploring
+            new destinations. So he is dedicated to providing a platform where
+            travelers can find companions, share experiences, and make new
+            friends.
           </p>
         </section>
 

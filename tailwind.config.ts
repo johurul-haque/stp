@@ -22,6 +22,7 @@ const config = {
         },
       },
       animation: {
+        bounce: 'bounce 8s ease-in-out 1.5s infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
