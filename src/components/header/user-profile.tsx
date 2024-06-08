@@ -12,6 +12,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
 import { User } from '@/types/user';
 import {
   LogOut,
@@ -21,6 +22,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { ToastAction } from '../ui/toast';
 import { toast } from '../ui/use-toast';
@@ -28,6 +30,7 @@ import { NAV_LINKS } from './nav-bar';
 
 export function UserProfile({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false);
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     try {
@@ -108,7 +111,13 @@ export function UserProfile({ user }: { user: User }) {
 
           {NAV_LINKS.map(({ label, href }) => (
             <DropdownMenuItem key={href} asChild>
-              <Link href={href} className="w-full">
+              <Link
+                href={href}
+                className={cn('w-full', {
+                  'bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-50':
+                    pathname === href,
+                })}
+              >
                 {label}
                 <DropdownMenuShortcut>
                   <SquareArrowOutUpRight className="size-4 stroke-current" />
@@ -118,7 +127,13 @@ export function UserProfile({ user }: { user: User }) {
           ))}
 
           <DropdownMenuItem asChild>
-            <Link href={'/dashboard'} className="w-full">
+            <Link
+              href={'/dashboard'}
+              className={cn('w-full', {
+                'bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-50':
+                  pathname === '/dashboard',
+              })}
+            >
               Dashboard
               <DropdownMenuShortcut>
                 <SquareArrowOutUpRight className="size-4 stroke-current" />
