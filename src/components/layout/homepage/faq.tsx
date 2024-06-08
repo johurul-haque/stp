@@ -47,6 +47,17 @@ export function FAQ() {
             please read our Privacy Policy.
           </AccordionContent>
         </AccordionItem>
+        <AccordionItem value="item-4">
+          <AccordionTrigger>
+            What if I encounter inappropriate behavior or content?
+          </AccordionTrigger>
+          <AccordionContent className="text-base">
+            If you encounter any inappropriate behavior or contenty, please
+            report it to us immediately contact our support team at
+            <a href="mailto:support@stp.com">support@stp.com</a>. We take such
+            matters seriously and will take appropriate action.
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
     </section>
   );
