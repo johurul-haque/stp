@@ -1,17 +1,13 @@
 import johurulImg from '@/assets/johurul_haque.jpg';
 import strawhat from '@/assets/straw-hat.jpg';
-import { atma } from '@/lib/fonts';
-import { cn } from '@/lib/utils';
+import { atma, manrope } from '@/lib/fonts';
 import Image from 'next/image';
 
 export default function AboutPage() {
   return (
-    <main className="container pb-20">
+    <main className={`container pb-20 ${manrope.className}`}>
       <h1
-        className={cn(
-          'text-4xl font-bold font-mono text-center mb-10 mt-14',
-          atma.className
-        )}
+        className={`text-4xl font-bold font-mono text-center mb-10 mt-14 ${atma.className}`}
       >
         About{' '}
         <abbr title="Social Travel Platform" className="no-underline">
@@ -19,7 +15,7 @@ export default function AboutPage() {
         </abbr>
       </h1>
 
-      <div className="space-y-8 max-w-[65ch] mx-auto [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mb-2 [&_p]:font-light">
+      <div className="space-y-8 max-w-[65ch] mx-auto [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mb-2 [&_p]:tracking-wide [&_p]:leading-6">
         <section>
           <h2>Our Mission</h2>
           <p>
@@ -133,7 +129,7 @@ export default function AboutPage() {
             reach out to us.
           </p>
 
-          <dl className="text-sm font-light mt-6 space-y-2">
+          <dl className="text-sm [&_dd]:font-light mt-4 space-y-2">
             <div className="flex gap-x-4">
               <dt>Email</dt>
               <dd>
@@ -148,12 +144,19 @@ export default function AboutPage() {
 
             <div className="flex gap-x-4">
               <dt>Social</dt>
-              <dd>
+              <dd className="space-x-3">
                 <a
                   href="https://github.com/johurul-haque"
                   className="underline"
                 >
                   Github
+                </a>
+
+                <a
+                  href="https://linkedin.com/in/johurul-haque/"
+                  className="underline"
+                >
+                  Linkedin
                 </a>
               </dd>
             </div>

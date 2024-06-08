@@ -91,7 +91,7 @@ export function Footer() {
             <dt className="sr-only">Github Account</dt>
             <dd>
               <a
-                href="http://www.github.com/johurul-haque"
+                href="http://github.com/johurul-haque"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -107,7 +107,7 @@ export function Footer() {
             <dt className="sr-only">LinkedIn</dt>
             <dd>
               <a
-                href="http://www.github.com/johurul-haque"
+                href="http://linkedin.com/in/johurul-haque"
                 target="_blank"
                 rel="noopener noreferrer"
               >
