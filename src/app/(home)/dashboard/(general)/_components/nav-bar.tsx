@@ -33,7 +33,7 @@ export function NavBar({ role = '' }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex justify-between">
+    <nav className="flex justify-between max-w-full overflow-x-auto rounded overflow-clip">
       <div className="inline-flex items-center justify-center rounded bg-[hsl(240_4.8%_95.9%)] dark:bg-neutral-800 p-1 dark:text-[hsl(240_5%_64.9%)] text-[hsl(240_3.8%_46.1%)]">
         {NAV_ITEMS.map(({ label, href, isActive, forRole }) => {
           if (forRole && forRole !== role) return;

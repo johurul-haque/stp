@@ -13,12 +13,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { User } from '@/types/user';
-import { LogOut, PlusIcon, Settings } from 'lucide-react';
+import {
+  LogOut,
+  PlusIcon,
+  Settings,
+  SquareArrowOutUpRight,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ToastAction } from '../ui/toast';
 import { toast } from '../ui/use-toast';
+import { NAV_LINKS } from './nav-bar';
 
 export function UserProfile({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -68,13 +74,13 @@ export function UserProfile({ user }: { user: User }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user?.username}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user?.email}
-            </p>
-          </div>
+        <DropdownMenuLabel>
+          <p className="text-sm font-medium leading-none mb-1">
+            {user?.username}
+          </p>
+          <p className="text-xs leading-none opacity-70 font-light">
+            {user?.email}
+          </p>
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
@@ -96,6 +102,30 @@ export function UserProfile({ user }: { user: User }) {
             </DropdownMenuShortcut>
           </Link>
         </DropdownMenuItem>
+
+        <div className="xs:hidden">
+          <DropdownMenuSeparator />
+
+          {NAV_LINKS.map(({ label, href }) => (
+            <DropdownMenuItem key={href} asChild>
+              <Link href={href} className="w-full">
+                {label}
+                <DropdownMenuShortcut>
+                  <SquareArrowOutUpRight className="size-4 stroke-current" />
+                </DropdownMenuShortcut>
+              </Link>
+            </DropdownMenuItem>
+          ))}
+
+          <DropdownMenuItem asChild>
+            <Link href={'/dashboard'} className="w-full">
+              Dashboard
+              <DropdownMenuShortcut>
+                <SquareArrowOutUpRight className="size-4 stroke-current" />
+              </DropdownMenuShortcut>
+            </Link>
+          </DropdownMenuItem>
+        </div>
 
         <DropdownMenuSeparator />
 

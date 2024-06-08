@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 type NavLinks = { label: string; href: string };
 
-const NAV_LINKS: NavLinks[] = [
+export const NAV_LINKS: NavLinks[] = [
   {
     label: 'Home',
     href: '/',
@@ -21,7 +21,7 @@ export function NavBar({ session }: { session: boolean }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center gap-5 md:gap-6 max-md:text-sm font-medium">
+    <nav className="flex max-xs:hidden items-center gap-5 md:gap-6 max-md:text-sm font-medium">
       {NAV_LINKS.map(({ label, href }) => (
         <Link
           key={href}
