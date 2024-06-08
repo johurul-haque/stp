@@ -46,7 +46,7 @@ export default function AboutPage() {
             Our platform offers a variety of features designed to connect
             travelers:
           </p>
-          <ul className="mt-2 space-y-1.5 list-disc [&>li]:ml-4">
+          <ul className="mt-2 space-y-1.5 list-disc [&>li]:ml-4 marker:text-neutral-700/90">
             <li>
               Trip Sharing: Post your travel plans and find others who want to
               join.
@@ -71,14 +71,14 @@ export default function AboutPage() {
           <h2>Meet the Team</h2>
           <p>
             The team is composed of a <strong>one-man army.</strong> A guy with
-            enthusiasm for traveling, tech expert, and community builders who is
-            dedicated to enhancing your travel experience. I work very lazy but
-            still I get the job done to ensure that everything is user-friendly,
-            reliable.
+            no enthusiasm for traveling, a tech expert, and definitely not a
+            community builders who is dedicated to enhancing your travel
+            experience. {"He's"} lazy but still {"get's"} the job done and
+            ensures everything is user-friendly, and reliable.
           </p>
 
-          <div className="flex flex-wrap gap-x-8 gap-y-3 [&>figure]:max-w-[15rem]">
-            <figure className="mt-6">
+          <div className="flex flex-wrap gap-x-8 gap-y-3 [&>figure]:max-w-[15rem] mt-8">
+            <figure>
               <Image
                 width={800}
                 height={800}
@@ -89,17 +89,19 @@ export default function AboutPage() {
               />
               <figcaption className="mt-4 text-center">
                 <dl>
-                  <dt className="uppercase font-semibold text-sm opacity-70">
+                  <dt className="uppercase font-semibold text-xs opacity-70">
                     Founder
                   </dt>
-                  <dd className="text-lg font-semibold opacity-90">
+                  <dd
+                    className={`text-lg font-semibold opacity-80 ${atma.className}`}
+                  >
                     Straw Hat
                   </dd>
                 </dl>
               </figcaption>
             </figure>
 
-            <figure className="mt-6">
+            <figure>
               <Image
                 width={800}
                 height={800}
@@ -109,10 +111,12 @@ export default function AboutPage() {
               />
               <figcaption className="mt-4 text-center">
                 <dl>
-                  <dt className="uppercase font-semibold text-sm opacity-70">
+                  <dt className="uppercase font-semibold text-xs opacity-70">
                     Software Developer
                   </dt>
-                  <dd className="text-lg font-semibold opacity-90">
+                  <dd
+                    className={`text-lg font-semibold opacity-80 ${atma.className}`}
+                  >
                     Johurul Haque
                   </dd>
                 </dl>

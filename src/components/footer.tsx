@@ -7,7 +7,7 @@ export function Footer() {
     <footer
       className={`border-t dark:border-opacity-40 mt-16 ${manrope.className}`}
     >
-      <div className="container py-12">
+      <div className="container pt-12">
         <div className="grid gap-y-6 gap-x-4 xs:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr]">
           <div>
             <Logo
@@ -81,7 +81,7 @@ export function Footer() {
           </section>
         </div>
 
-        <div className="pt-6 flex justify-between mt-1">
+        <div className="pt-4 flex justify-between mt-8 lg:mt-12 border-t dark:border-opacity-40 pb-6">
           <p className="text-sm font-light">
             &copy; 2024 <abbr title="Social Travel Platform">STP</abbr>. All
             rights reserved.
