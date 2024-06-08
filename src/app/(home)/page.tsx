@@ -11,7 +11,7 @@ type PageProps = {
 
 export default async function HomePage({ searchParams }: PageProps) {
   return (
-    <main className="container flex flex-col min-h-full flex-1">
+    <main className="container flex flex-col">
       <HeroSection />
       <RecentPosts query={searchParams?.query} />
       <MostPopular />

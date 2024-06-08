@@ -1,10 +1,18 @@
 import johurulImg from '@/assets/johurul_haque.jpg';
+import strawhat from '@/assets/straw-hat.jpg';
+import { atma } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 export default function AboutPage() {
   return (
     <main className="container pb-20">
-      <h1 className="text-2xl font-semibold underline underline-offset-4 font-mono decoration-wavy decoration-green-600 text-center mb-12 mt-16">
+      <h1
+        className={cn(
+          'text-4xl font-bold font-mono text-center mb-10 mt-14',
+          atma.className
+        )}
+      >
         About{' '}
         <abbr title="Social Travel Platform" className="no-underline">
           STP
@@ -73,17 +81,48 @@ export default function AboutPage() {
             reliable.
           </p>
 
-          <figure className="max-w-xs mt-4">
-            <Image
-              width={800}
-              height={800}
-              src={johurulImg}
-              alt="Picture of Johurul Haque"
-            />
-            <figcaption className="mt-2 font-mono">
-              The guy, the myth 😎
-            </figcaption>
-          </figure>
+          <div className="flex flex-wrap gap-x-8 gap-y-3 [&>figure]:max-w-[15rem]">
+            <figure className="mt-6">
+              <Image
+                width={800}
+                height={800}
+                src={strawhat}
+                alt="Picture of Straw Hat"
+                className="rounded-full object-cover aspect-square"
+                quality={100}
+              />
+              <figcaption className="mt-4 text-center">
+                <dl>
+                  <dt className="uppercase font-semibold text-sm opacity-70">
+                    Founder
+                  </dt>
+                  <dd className="text-lg font-semibold opacity-90">
+                    Straw Hat
+                  </dd>
+                </dl>
+              </figcaption>
+            </figure>
+
+            <figure className="mt-6">
+              <Image
+                width={800}
+                height={800}
+                src={johurulImg}
+                alt="Picture of Johurul Haque"
+                className="rounded-full"
+              />
+              <figcaption className="mt-4 text-center">
+                <dl>
+                  <dt className="uppercase font-semibold text-sm opacity-70">
+                    Software Developer
+                  </dt>
+                  <dd className="text-lg font-semibold opacity-90">
+                    Johurul Haque
+                  </dd>
+                </dl>
+              </figcaption>
+            </figure>
+          </div>
         </section>
 
         <section>
@@ -100,21 +139,21 @@ export default function AboutPage() {
               <dd>
                 <a
                   href="mailto:johurulhaquejony@gmail.com"
-                  className="hover:underline"
+                  className="underline"
                 >
-                  johurulhaquejony@gmail.com
+                  contact@stp.com
                 </a>
               </dd>
             </div>
 
             <div className="flex gap-x-4">
-              <dt>Social handle</dt>
+              <dt>Social</dt>
               <dd>
                 <a
                   href="https://github.com/johurul-haque"
-                  className="hover:underline"
+                  className="underline"
                 >
-                  johurul-haque
+                  Github
                 </a>
               </dd>
             </div>
