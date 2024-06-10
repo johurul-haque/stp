@@ -1,0 +1,78 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  role      Role     @default(USER)
+  status    Status   @default(ACTIVE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Trip Trip[]
+
+  TravelPairRequest TravelPairRequest[]
+
+  @@map("users")
+}
+
+model Trip {
+  id          String   @id @default(uuid())
+  userId      String
+  destination String
+  description String
+  images      String[]
+  travelType  String
+  startDate   String
+  endDate     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(references: [id], fields: [userId])
+
+  TravelPairRequest TravelPairRequest[]
+
+  @@map("trips")
+}
+
+model TravelPairRequest {
+  id     String @id @default(uuid())
+  tripId String
+  userId String @unique
+
+  status TravelPairRequestStatus
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(references: [id], fields: [userId])
+  trip Trip @relation(references: [id], fields: [tripId])
+
+  @@map("travelPairRequests")
+}
+
+enum TravelPairRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
