@@ -19,6 +19,9 @@ type Props = {
 };
 
 export function DatePickerField({ field, disabled }: Props) {
+  const fromYear = new Date().getFullYear();
+  const toYear = fromYear + 1;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -51,12 +54,19 @@ export function DatePickerField({ field, disabled }: Props) {
         <Calendar
           mode="range"
           numberOfMonths={2}
+          captionLayout="dropdown-buttons"
+          fromYear={fromYear}
+          toYear={toYear}
           selected={field.value}
           onSelect={field.onChange}
           disabled={(date) => {
             const newDate = new Date();
             newDate.setDate(newDate.getDate() - 1);
-            return date < newDate;
+
+            if (date < newDate) return true;
+
+            newDate.setFullYear(toYear);
+            return date > newDate;
           }}
           initialFocus
         />
