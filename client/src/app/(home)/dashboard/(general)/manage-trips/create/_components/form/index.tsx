@@ -194,7 +194,7 @@ export function CreateTripForm() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={url}
-                  className="object-cover rounded-md size-auto shadow border"
+                  className="object-cover aspect-video rounded-md size-auto shadow border"
                   alt="Something went wrong! Please refresh the page and try again."
                 />
               }

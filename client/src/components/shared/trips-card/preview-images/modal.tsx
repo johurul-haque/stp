@@ -28,7 +28,7 @@ export function PreviewImagesModal({ images, destination }: PropsType) {
           height={800}
         />
 
-        {!!(images.length - 1) && (
+        {images.length > 1 && (
           <div className="bg-neutral-950/65 py-1 text-xs text-center absolute bottom-0 inset-x-0 text-white">
             +{images.length - 1} more <span className="sr-only">images</span>
           </div>

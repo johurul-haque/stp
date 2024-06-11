@@ -1,4 +1,4 @@
-import { Trip } from '@/types/trips';
+import { Trip } from '@/types/trip';
 import { serverFetch } from '../axios/server-fetch';
 
 export async function getAllSentRequests() {

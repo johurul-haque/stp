@@ -3,7 +3,7 @@ import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { SetStateActionType } from '@/types/set-state-action';
-import { Trip } from '@/types/trips';
+import { Trip } from '@/types/trip';
 import axios from 'axios';
 import type { RequestStatus } from '.';
 import { updateTripFormSchema } from './schema';
