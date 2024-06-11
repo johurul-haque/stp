@@ -1,6 +1,6 @@
-import axios from 'axios';
+import { CreateAxiosDefaults } from 'axios';
 
-export const instance = axios.create({
+export const axiosDefaults = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   transformResponse: (response) => {
     const result = JSON.parse(response);
@@ -15,4 +15,4 @@ export const instance = axios.create({
 
     return result;
   },
-});
+} satisfies CreateAxiosDefaults<any>;

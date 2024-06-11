@@ -1,3 +1,4 @@
-import { instance } from './instance';
+import axios from 'axios';
+import { axiosDefaults } from './defaults';
 
-export const clientFetch = instance;
+export const clientFetch = axios.create(axiosDefaults);
