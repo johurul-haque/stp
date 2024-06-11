@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { Input, inputBaseStyles } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Trip } from '@/types/trips';
+import { Trip } from '@/types/trip';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X } from 'lucide-react';
 import Link from 'next/link';
@@ -39,9 +39,7 @@ export function EditTripForm({ trip }: PropsType) {
   try {
     const value = JSON.parse(trip.description);
     if (typeof value !== 'string') isMarkdown = true;
-  } catch (error) {
-    console.log(isMarkdown);
-  }
+  } catch (error) {}
 
   const form = useForm<updateTripFormSchema>({
     resolver: zodResolver(updateTripFormSchema),
@@ -230,7 +228,7 @@ export function EditTripForm({ trip }: PropsType) {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={url}
-                  className="object-cover rounded-md size-auto shadow border"
+                  className="object-cover aspect-video rounded-md size-auto shadow border"
                   alt="Something went wrong! Please refresh the page and try again."
                 />
               }

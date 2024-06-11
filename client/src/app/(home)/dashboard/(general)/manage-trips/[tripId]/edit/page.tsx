@@ -1,5 +1,8 @@
 import { Separator } from '@/components/ui/separator';
 import { getSingleTrip } from '@/lib/api/get-single-trip';
+import { jwtDecode } from 'jwt-decode';
+import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { EditTripForm } from './_components/form';
 
 type PageProps = {
@@ -10,6 +13,13 @@ type PageProps = {
 
 export default async function EditPage({ params }: PageProps) {
   const { data } = await getSingleTrip(params.tripId);
+
+  const accessToken = cookies().get('access_token');
+  const jwtPayload = jwtDecode(accessToken!.value) as any;
+
+  if (jwtPayload.role === 'USER' && jwtPayload.userId !== data.userId) {
+    notFound();
+  }
 
   return (
     <main className="mt-6 space-y-6">

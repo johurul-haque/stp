@@ -10,12 +10,3 @@ export type Trip = {
   createdAt: Date;
   updatedAt: Date;
 };
-
-export type getAllTripsResponse = {
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-  };
-  data: Trip[];
-};
