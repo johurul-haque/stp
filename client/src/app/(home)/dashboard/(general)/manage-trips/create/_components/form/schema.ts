@@ -24,12 +24,13 @@ export const createTripFormSchema = z.object({
   images: z
     .custom<File[]>()
     .transform((fileList) => Object.values(fileList || {}))
-    .refine(isValidImageFile, 'Invalid image format.')
-    .refine(checkImageSize, 'Max size per image is 7MB.')
+    .refine((files) => files.length !== 0, 'Image is required.')
     .refine(
       (files) => files.length < 7,
       'You can upload a maximum of 7 images.'
-    ),
+    )
+    .refine(isValidImageFile, 'Invalid image format.')
+    .refine(checkImageSize, 'Max size per image is 7MB.'),
 });
 
 export type createTripFormSchema = z.infer<typeof createTripFormSchema>;
