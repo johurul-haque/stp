@@ -1,0 +1,55 @@
+{
+  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v10/terminal-keeper.json",
+  "theme": "tribe",
+  "active": "default",
+  "activateOnStartup": true,
+  "keepExistingTerminals": false,
+  "sessions": {
+    "default": [
+      {
+        "name": "root",
+        "icon": "root-folder",
+        "color": "terminal.ansiWhite",
+        "commands": [
+          ""
+        ]
+      },
+      {
+        "name": "client:dev",
+        "icon": "chevron-right",
+        "color": "terminal.ansiGreen",
+        "autoExecuteCommands": true,
+        "commands": [
+          "cd client && pnpm dev"
+        ]
+      },
+      {
+        "name": "client:dep",
+        "icon": "arrow-small-down",
+        "color": "terminal.ansiGreen",
+        "autoExecuteCommands": true,
+        "commands": [
+          "cd client && clear"
+        ]
+      },
+      {
+        "name": "server:dev",
+        "icon": "chevron-right",
+        "color": "terminal.ansiMagenta",
+        "autoExecuteCommands": true,
+        "commands": [
+          "cd server && pnpm dev"
+        ]
+      },
+      {
+        "name": "server:dep",
+        "icon": "arrow-small-down",
+        "color": "terminal.ansiMagenta",
+        "autoExecuteCommands": true,
+        "commands": [
+          "cd server && clear"
+        ]
+      }
+    ]
+  }
+}
