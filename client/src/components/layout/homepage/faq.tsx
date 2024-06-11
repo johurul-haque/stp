@@ -7,7 +7,7 @@ import {
 
 export function FAQ() {
   return (
-    <section className="grid items-center gap-x-4 py-14 sm:py-16 md:grid-cols-[1fr_30rem] lg:py-32">
+    <section className="grid items-center gap-x-4 py-14 sm:py-16 md:grid-cols-[1fr_30rem] lg:pt-28 lg:pb-36">
       <h2 className="space-x-5 self-center text-center font-serif text-[20vw] font-bold min-[300px]:space-x-7 sm:text-[17vw] md:text-[8vw] lg:text-[12vw] xl:text-[12rem]">
         <span className="inline-block animate-bounce">F</span>
         <span className="inline-block animate-bounce delay-75">A</span>
@@ -52,10 +52,15 @@ export function FAQ() {
             What if I encounter inappropriate behavior or content?
           </AccordionTrigger>
           <AccordionContent className="text-base">
-            If you encounter any inappropriate behavior or contenty, please
-            report it to us immediately contact our support team at
-            <a href="mailto:support@stp.com">support@stp.com</a>. We take such
-            matters seriously and will take appropriate action.
+            If you encounter any inappropriate behavior or content, please
+            report it to us immediately contact our support team at{' '}
+            <a
+              href="mailto:support@stp.com"
+              className="underline underline-offset-4"
+            >
+              support@stp.com
+            </a>
+            . We take such matters seriously and will take appropriate action.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

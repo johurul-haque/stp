@@ -16,11 +16,11 @@ export default async function TripsPage({ searchParams }: PageProps) {
 
   return (
     <main className="container py-10">
-      <h1 className="text-xl text-center font-medium underline underline-offset-4 decoration-wavy decoration-green-700 mb-6">
+      <h1 className="text-xl text-center font-medium underline underline-offset-8 decoration-wavy decoration-green-700 mb-8">
         All Trips
       </h1>
 
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-10">
         <SearchInput />
       </div>
 

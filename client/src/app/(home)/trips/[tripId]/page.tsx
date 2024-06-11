@@ -37,7 +37,7 @@ export default async function TripPage({ params }: PropsType) {
   }
 
   return (
-    <main className="container max-h-full flex-1 flex max-xl:max-w-xl max-xl:flex-col gap-8 py-8">
+    <main className="container lg:min-h-[40rem] max-h-full flex-1 flex max-xl:max-w-xl max-xl:flex-col gap-8 py-8">
       <div className="max-w-xl">
         <PreviewImagesCarousel
           images={trip.images}

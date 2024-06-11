@@ -3,17 +3,17 @@ import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { handleAxiosErrors } from '@/lib/axios/handle-errors';
 import { SetStateActionType } from '@/types/set-state-action';
-import { RequestStatus } from '.';
+import { FormStatus } from '.';
 import { formSchema } from './schema';
 
 type ParamsType = {
   values?: formSchema;
   tripId: string;
-  setRequestStatus: SetStateActionType<RequestStatus | undefined>;
+  setFormStatus: SetStateActionType<FormStatus | undefined>;
 };
 
-export async function onSubmit({ tripId, setRequestStatus }: ParamsType) {
-  setRequestStatus('submitting');
+export async function onSubmit({ tripId, setFormStatus }: ParamsType) {
+  setFormStatus('submitting');
 
   try {
     await sendJoinRequest(tripId);
@@ -31,13 +31,13 @@ export async function onSubmit({ tripId, setRequestStatus }: ParamsType) {
       action: (
         <ToastAction
           altText="Try again"
-          onClick={() => onSubmit({ tripId, setRequestStatus })}
+          onClick={() => onSubmit({ tripId, setFormStatus: setFormStatus })}
         >
           Try again
         </ToastAction>
       ),
     });
   } finally {
-    setRequestStatus(undefined);
+    setFormStatus(undefined);
   }
 }

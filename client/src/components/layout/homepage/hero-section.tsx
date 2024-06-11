@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export function HeroSection() {
   return (
-    <section className="flex-1 grid place-items-center content-center min-h-[88vh] relative text-center">
+    <section className="flex-1 grid place-items-center content-center min-h-[42rem] relative text-center">
       <h1
         className={cn(
           atma.className,

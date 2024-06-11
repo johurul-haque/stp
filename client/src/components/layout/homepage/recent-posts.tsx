@@ -9,11 +9,11 @@ import { Suspense } from 'react';
 export function RecentPosts({ query = '' }) {
   return (
     <section className="@container pb-16">
-      <h2 className="text-xl text-center font-medium underline underline-offset-4 decoration-wavy decoration-green-700 mb-6">
+      <h2 className="text-xl text-center font-medium underline underline-offset-8 decoration-wavy decoration-green-700 mb-8">
         Recent Posts
       </h2>
 
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-10">
         <SearchInput />
       </div>
 

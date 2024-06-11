@@ -24,10 +24,10 @@ type PropsType = {
   user: User;
 };
 
-export type RequestStatus = 'submitting';
+export type FormStatus = 'submitting';
 
 export function SendRequestForm({ tripId, user }: PropsType) {
-  const [requestStatus, setRequestStatus] = useState<RequestStatus>();
+  const [formStatus, setFormStatus] = useState<FormStatus>();
 
   const form = useForm<formSchema>({
     resolver: zodResolver(formSchema),
@@ -41,7 +41,7 @@ export function SendRequestForm({ tripId, user }: PropsType) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((values) => {
-          onSubmit({ values, tripId, setRequestStatus });
+          onSubmit({ values, tripId, setFormStatus });
         })}
         className="grid gap-5"
       >
@@ -79,7 +79,7 @@ export function SendRequestForm({ tripId, user }: PropsType) {
               <FormLabel>What makes you interested in this trip?</FormLabel>
               <FormControl>
                 <textarea
-                  disabled={!!requestStatus}
+                  disabled={!!formStatus}
                   className={cn(inputBaseStyles(), 'h-32')}
                   placeholder="I wanted to travel to Sundarbon for a while now"
                   {...field}
@@ -105,7 +105,7 @@ export function SendRequestForm({ tripId, user }: PropsType) {
                 <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   Accept terms and conditions
                 </FormLabel>
-                <p className="text-sm opacity-70">
+                <p className="text-sm text-neutral-400 dark:text-neutral-500">
                   {"We'll not be selling your data. 🫂"}
                 </p>
               </div>
@@ -116,16 +116,16 @@ export function SendRequestForm({ tripId, user }: PropsType) {
         <div className="mt-3 flex justify-center sm:justify-end items-center gap-4">
           <Link
             href={`/trips/${tripId}`}
-            aria-disabled={!!requestStatus}
+            aria-disabled={!!formStatus}
             className={buttonVariants({ variant: 'secondary' })}
           >
             Cancel and go back
           </Link>
 
-          <Button disabled={!!requestStatus} type="submit">
-            {requestStatus === 'submitting' && 'Sending...'}
+          <Button disabled={!!formStatus} type="submit">
+            {formStatus === 'submitting' && 'Sending...'}
 
-            {!requestStatus && 'Send'}
+            {!formStatus && 'Send'}
           </Button>
         </div>
       </form>
