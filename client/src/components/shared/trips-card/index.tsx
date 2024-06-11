@@ -1,6 +1,6 @@
 import { getAllTrips } from '@/lib/api/get-all-trips';
 import { cn } from '@/lib/utils';
-import { Trip } from '@/types/trips';
+import { Trip } from '@/types/trip';
 import { format } from 'date-fns';
 import {
   CalendarDaysIcon,
@@ -24,9 +24,7 @@ type CardProps = {
 
 export async function TripsCards({ isPrivate, query, data }: CardProps) {
   if (!data) {
-    data = (
-      await getAllTrips({ _q: query, is_public: isPrivate ? undefined : true })
-    ).data;
+    data = (await getAllTrips({ _q: query }, isPrivate)).data;
   }
 
   return (
@@ -46,7 +44,7 @@ export async function TripsCards({ isPrivate, query, data }: CardProps) {
                     size={20}
                     className="text-neutral-400 dark:text-neutral-700 flex-shrink-0"
                   />
-                  <span className="line-clamp-2 tracking-wide max-xl:text-sm dark:text-neutral-300">
+                  <span className="truncate tracking-wide max-xl:text-sm dark:text-neutral-300">
                     {trip.destination}
                   </span>
                 </dd>

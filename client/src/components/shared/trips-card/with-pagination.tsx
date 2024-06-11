@@ -18,7 +18,6 @@ export async function TripsCardWithPagination({ query, page }: PropsType) {
   const { data, meta } = await getAllTrips({
     _q: query,
     _page: page,
-    is_public: true,
   });
 
   const totalPages = Math.ceil(meta.total / meta.limit);
