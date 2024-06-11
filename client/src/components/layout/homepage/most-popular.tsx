@@ -1,4 +1,4 @@
-import { TripsCards } from '@/components/shared/trips-card';
+import { PopularTrips } from '@/components/shared/trips-card/popular';
 import { TripsCardSkeleton } from '@/components/shared/trips-card/skeleton';
 import { Suspense } from 'react';
 
@@ -10,7 +10,7 @@ export function MostPopular() {
       </h2>
 
       <Suspense fallback={<TripsCardSkeleton length={6} />}>
-        <TripsCards />
+        <PopularTrips />
       </Suspense>
     </section>
   );
