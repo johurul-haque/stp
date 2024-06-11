@@ -48,7 +48,7 @@ model Trip {
 model TravelPairRequest {
   id     String @id @default(uuid())
   tripId String
-  userId String @unique
+  userId String
 
   status TravelPairRequestStatus
 
@@ -58,6 +58,7 @@ model TravelPairRequest {
   user User @relation(references: [id], fields: [userId])
   trip Trip @relation(references: [id], fields: [tripId])
 
+  @@unique([tripId, userId])
   @@map("travelPairRequests")
 }
 
