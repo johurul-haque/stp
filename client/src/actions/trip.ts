@@ -1,20 +1,20 @@
-'use server';
+"use server";
 
-import { handleAxiosErrors } from '@/lib/axios/handle-errors';
-import { serverFetch } from '@/lib/axios/server-fetch';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { handleAxiosErrors } from "@/lib/axios/handle-errors";
+import { serverFetch } from "@/lib/axios/server-fetch";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function createTrip<T>(payload: T) {
   try {
-    await serverFetch.post('/api/trips', payload);
+    await serverFetch.post("/api/trips", payload);
   } catch (error) {
     handleAxiosErrors(error);
   }
 
-  revalidatePath('/trips');
-  revalidatePath('/dashboard', 'layout');
-  redirect('/dashboard');
+  revalidatePath("/trips");
+  revalidatePath("/dashboard", "layout");
+  redirect("/dashboard");
 }
 
 export async function updateTrip<T>(payload: T, tripId: string) {
@@ -24,8 +24,8 @@ export async function updateTrip<T>(payload: T, tripId: string) {
     handleAxiosErrors(error);
   }
 
-  revalidatePath('/trips');
-  revalidatePath('/dashboard', 'layout');
+  revalidatePath("/trips");
+  revalidatePath("/dashboard", "layout");
   redirect(`/trips/${tripId}`);
 }
 
@@ -36,13 +36,14 @@ export async function deleteTrip(tripId: string) {
     handleAxiosErrors(error);
   }
 
-  revalidatePath('/', 'layout');
+  revalidatePath("/", "layout");
 }
 
 export async function sendJoinRequest(tripId: string) {
   try {
     await serverFetch.post(`/api/trips/${tripId}/request`);
   } catch (error) {
+    console.error("from actions", error);
     handleAxiosErrors(error);
   }
 

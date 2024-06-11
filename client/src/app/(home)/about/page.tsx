@@ -1,15 +1,15 @@
-import johurulImg from '@/assets/johurul_haque.jpg';
-import strawhat from '@/assets/straw-hat.jpg';
-import { atma, manrope } from '@/lib/fonts';
-import Image from 'next/image';
+import johurulImg from "@/assets/johurul_haque.jpg";
+import strawhat from "@/assets/straw-hat.jpg";
+import { atma, manrope } from "@/lib/fonts";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
     <main className={`container pb-20 ${manrope.className}`}>
       <h1
-        className={`text-4xl font-bold font-mono text-center mb-10 mt-14 ${atma.className}`}
+        className={`text-4xl font-bold text-center mb-10 mt-14 ${atma.className}`}
       >
-        About{' '}
+        About{" "}
         <abbr title="Social Travel Platform" className="no-underline">
           STP
         </abbr>
@@ -56,7 +56,7 @@ export default function AboutPage() {
               and type of travel.
             </li>
             <li>
-              {' '}
+              {" "}
               Community Engagement: Connect with fellow travelers, share tips,
               and find travel advice.
             </li>

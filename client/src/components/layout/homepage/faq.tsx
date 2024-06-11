@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from "@/components/ui/accordion";
 
 export function FAQ() {
   return (
@@ -16,9 +16,7 @@ export function FAQ() {
 
       <Accordion type="multiple" className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger>
-            Is there a cost to use Travel Buddy?
-          </AccordionTrigger>
+          <AccordionTrigger>Is there a cost to use STP?</AccordionTrigger>
           <AccordionContent className="text-base">
             <abbr title="Social Travel Platform">STP</abbr> is free to use for
             all basic features, including creating an account, posting travel
@@ -53,7 +51,7 @@ export function FAQ() {
           </AccordionTrigger>
           <AccordionContent className="text-base">
             If you encounter any inappropriate behavior or content, please
-            report it to us immediately contact our support team at{' '}
+            report it to us immediately contact our support team at{" "}
             <a
               href="mailto:support@stp.com"
               className="underline underline-offset-4"
