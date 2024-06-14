@@ -1,12 +1,5 @@
 ## Getting Started
-After installing all of the dependencies change the `.env.example` file `.env` and add the necessary variables.
-
-```ini
-DATABASE_URL="postgres://..."
-
-NODE_ENV= # 'development' | 'production'
-JWT_SECRET=
-```
+- Rename `.env.example` to `.env.local` and add the variables.
 
 Use the following scripts to spin up your app.
 
@@ -18,8 +11,12 @@ pnpm dev
 # production build
 npm run build
 
+# will build and deploy to vercel.
+pnpm deploy:vercel
+
 # running in production
 pnpm start
+
 ```
 
 ## Tech stack

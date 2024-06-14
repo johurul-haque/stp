@@ -1,11 +1,11 @@
-import { createTrip } from '@/actions/trip';
-import { ToastAction } from '@/components/ui/toast';
-import { toast } from '@/components/ui/use-toast';
-import { handleAxiosErrors } from '@/lib/axios/handle-errors';
-import { SetStateActionType } from '@/types/set-state-action';
-import axios from 'axios';
-import type { RequestStatus } from '.';
-import { createTripFormSchema } from './schema';
+import { createTrip } from "@/actions/trip";
+import { ToastAction } from "@/components/ui/toast";
+import { toast } from "@/components/ui/use-toast";
+import { handleAxiosErrors } from "@/lib/axios/handle-errors";
+import { SetStateActionType } from "@/types/set-state-action";
+import type { RequestStatus } from ".";
+import { createTripFormSchema } from "./schema";
+import { handleUpload } from "@/lib/handle-upload";
 
 type OnSubmitParams = {
   values: createTripFormSchema;
@@ -13,7 +13,7 @@ type OnSubmitParams = {
 };
 
 export async function onSubmit({ values, setRequestStatus }: OnSubmitParams) {
-  setRequestStatus('uploading-image');
+  setRequestStatus("uploading-image");
 
   const { images: imageFiles, date, ...data } = values;
 
@@ -24,7 +24,7 @@ export async function onSubmit({ values, setRequestStatus }: OnSubmitParams) {
 
     const secureUrls = result.map((response) => response.data.secure_url);
 
-    setRequestStatus('submitting-data');
+    setRequestStatus("submitting-data");
 
     const payload = {
       ...data,
@@ -42,9 +42,9 @@ export async function onSubmit({ values, setRequestStatus }: OnSubmitParams) {
     }
 
     toast({
-      title: 'Uh oh! Could not process your request.',
+      title: "Uh oh! Could not process your request.",
       description: message,
-      variant: 'destructive',
+      variant: "destructive",
       action: (
         <ToastAction
           altText="Try again"
@@ -57,17 +57,4 @@ export async function onSubmit({ values, setRequestStatus }: OnSubmitParams) {
   } finally {
     setRequestStatus(undefined);
   }
-}
-
-async function handleUpload(image: File) {
-  const formData = new FormData();
-
-  formData.append('file', image);
-  formData.append('folder', 'stp-a-9');
-  formData.append(
-    'upload_preset',
-    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
-  );
-
-  return axios.post('/upload-image', formData);
 }

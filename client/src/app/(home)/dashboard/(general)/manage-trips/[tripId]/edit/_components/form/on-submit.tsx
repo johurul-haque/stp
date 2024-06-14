@@ -1,12 +1,12 @@
-import { updateTrip } from '@/actions/trip';
-import { ToastAction } from '@/components/ui/toast';
-import { toast } from '@/components/ui/use-toast';
-import { handleAxiosErrors } from '@/lib/axios/handle-errors';
-import { SetStateActionType } from '@/types/set-state-action';
-import { Trip } from '@/types/trip';
-import axios from 'axios';
-import type { RequestStatus } from '.';
-import { updateTripFormSchema } from './schema';
+import { updateTrip } from "@/actions/trip";
+import { ToastAction } from "@/components/ui/toast";
+import { toast } from "@/components/ui/use-toast";
+import { handleAxiosErrors } from "@/lib/axios/handle-errors";
+import { SetStateActionType } from "@/types/set-state-action";
+import { Trip } from "@/types/trip";
+import type { RequestStatus } from ".";
+import { updateTripFormSchema } from "./schema";
+import { handleUpload } from "@/lib/handle-upload";
 
 type OnSubmitParams = {
   values: updateTripFormSchema;
@@ -19,7 +19,7 @@ export async function onSubmit({
   setRequestStatus,
   trip,
 }: OnSubmitParams) {
-  setRequestStatus('uploading-image');
+  setRequestStatus("uploading-image");
 
   const data = getUpdatedValues(formValues, trip);
 
@@ -36,7 +36,7 @@ export async function onSubmit({
       secureUrls = result.map((response) => response.data.secure_url);
     }
 
-    setRequestStatus('submitting-data');
+    setRequestStatus("submitting-data");
 
     const payload = {
       ...data,
@@ -47,8 +47,8 @@ export async function onSubmit({
       await updateTrip(payload, trip.id);
     } else {
       toast({
-        title: 'Nothing to update. 😌',
-        description: 'Everything is already up to date.',
+        title: "Nothing to update. 😌",
+        description: "Everything is already up to date.",
       });
     }
   } catch (error) {
@@ -59,9 +59,9 @@ export async function onSubmit({
     }
 
     toast({
-      title: 'Uh oh! Could not process your request.',
+      title: "Uh oh! Could not process your request.",
       description: message,
-      variant: 'destructive',
+      variant: "destructive",
       action: (
         <ToastAction
           altText="Try again"
@@ -82,26 +82,13 @@ export async function onSubmit({
   }
 }
 
-async function handleUpload(image: File) {
-  const formData = new FormData();
-
-  formData.append('file', image);
-  formData.append('folder', 'stp-a-9');
-  formData.append(
-    'upload_preset',
-    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
-  );
-
-  return axios.post('/upload-image', formData);
-}
-
 function getUpdatedValues(
   formValues: updateTripFormSchema,
-  currentTrip: Trip
+  currentTrip: Trip,
 ): Partial<Trip> {
   const updatedTrip: Partial<Trip> = {};
 
-  const fields = ['destination', 'description', 'travelType'] as const;
+  const fields = ["destination", "description", "travelType"] as const;
 
   fields.forEach((field) => {
     if (formValues[field] !== currentTrip[field]) {
@@ -110,8 +97,8 @@ function getUpdatedValues(
   });
 
   const { from, to } = formValues.date;
-  const formStartDate = from.toISOString().split('T')[0];
-  const formEndDate = to.toISOString().split('T')[0];
+  const formStartDate = from.toISOString().split("T")[0];
+  const formEndDate = to.toISOString().split("T")[0];
 
   if (!currentTrip.startDate.includes(formStartDate)) {
     updatedTrip.startDate = formStartDate;

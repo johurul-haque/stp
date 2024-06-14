@@ -6,10 +6,6 @@ const nextConfig = {
         source: '/dashboard',
         destination: '/dashboard/manage-trips',
       },
-      {
-        source: '/upload-image',
-        destination: 'https://api.cloudinary.com/v1_1/dfysqj45y/image/upload',
-      },
     ];
   },
   images: {
