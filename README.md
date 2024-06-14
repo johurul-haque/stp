@@ -12,21 +12,13 @@
 
 ## Features
 
-- **Inventory Management:** Allows users to add, delete, and update eyeglasses details, with a robust filtering system
-  to narrow down selections.
-- **Sales Management:** Users can create sales records, download invoices, and update product quantities in real-time.
-- **Sales History Overview:** Provides detailed views of sales history with weekly, daily, monthly, and yearly
-  categorizations.
-- **Filtering:** Enables filtering by frame material, frame shape, lens type, brand, price range, gender, color, and
-  more.
-- **Secure Authentication with JWT:** Uses JSON Web Tokens for secure user authentication and authorization.
-- **Role-based Authorization:** Implements user roles for secure authorization, with distinct permissions for `user`
-  and `manager`.
-- **Invoice Generation:** After completing a sale, users can download an invoice as a PDF for record-keeping.
-- **Bulk Delete Functionality:** Allows users to select and delete multiple products at once for easy inventory
-  management.
-- **Duplicate & Edit Feature:** Provides the ability to duplicate product details to create new eyeglasses with minimal
-  effort.
+- Easily share your trip plans with detailed descriptions, photos, and details.
+- Connect with like-minded travelers to explore the world together.
+- **Comprehensive Search**: Search for trips by destination, dates, travel type, and keywords.
+- **Detailed Trip Information**: View detailed trip posts with photos, itineraries, and complete travel details.
+- **Travel Request System**: Request to join trips with a simple form, including prefilled user contact information.
+- **Your Profile**: Manage your profile, view travel request history, and manage your own travel posts.
+- **Admin Controls**: Manage user accounts and travel posts with robust admin features.
 - **Mobile Responsive Design:** Optimized for use on various devices, ensuring a smooth user experience on mobile and
   tablets.
 
