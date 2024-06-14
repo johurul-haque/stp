@@ -1,7 +1,6 @@
-'use client';
+"use client";
 
-import { AlertDestructive } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,32 +8,44 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { onSubmit } from './on-submit';
-import { loginSchema } from './schema';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { onSubmit } from "./on-submit";
+import { loginSchema } from "./schema";
+import { SetStateActionType } from "@/types/set-state-action";
+import { DemoCredentials } from "@/app/(auth)/_components/demo-accounts-modal";
 
-export function LoginForm({ redirectFrom }: { redirectFrom?: string }) {
-  const [error, setError] = useState<string>();
+type PropsType = {
+  redirectFrom: string | null;
+  setError: SetStateActionType<string>;
+  demoCredentials?: DemoCredentials;
+};
 
-  const [isShowing, setIsShowing] = useState(false);
+export function LoginForm({
+  redirectFrom,
+  setError,
+  demoCredentials,
+}: PropsType) {
+  const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<loginSchema>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      handle: demoCredentials?.email,
+      password: demoCredentials?.password,
+    },
   });
 
   return (
     <>
-      {error && <AlertDestructive message={error} />}
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((values) =>
-            onSubmit({ values, setIsLoading, setError, redirectFrom })
+            onSubmit({ values, setIsLoading, setError, redirectFrom }),
           )}
           className="grid gap-3"
         >
@@ -71,7 +82,7 @@ export function LoginForm({ redirectFrom }: { redirectFrom?: string }) {
                   <FormControl>
                     <Input
                       className="transition-all"
-                      type={isShowing ? 'text' : 'password'}
+                      type={isVisible ? "text" : "password"}
                       placeholder="****"
                       disabled={isLoading}
                       {...field}
@@ -79,15 +90,15 @@ export function LoginForm({ redirectFrom }: { redirectFrom?: string }) {
                   </FormControl>
                   <button
                     type="button"
-                    title={isShowing ? 'Hide password' : 'Show password'}
-                    onClick={() => setIsShowing(!isShowing)}
+                    title={isVisible ? "Hide password" : "Show password"}
+                    onClick={() => setIsVisible(!isVisible)}
                     disabled={isLoading}
                     className="absolute translate-y-1/2 bottom-1/2 right-3 disabled:opacity-50 disabled:pointer-events-none"
                   >
                     <span className="sr-only">
-                      {isShowing ? 'Hide' : 'Show'} password
+                      {isVisible ? "Hide" : "Show"} password
                     </span>
-                    {isShowing ? '👀' : '🫣'}
+                    {isVisible ? "👀" : "🫣"}
                   </button>
                 </div>
                 <FormMessage />
