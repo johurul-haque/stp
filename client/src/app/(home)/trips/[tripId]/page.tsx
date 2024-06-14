@@ -1,9 +1,10 @@
-import { PlateEditor } from '@/components/plate-editor';
-import { PreviewImagesCarousel } from '@/components/shared/trips-card/preview-images';
-import { getSingleTrip } from '@/lib/api/get-single-trip';
-import { getUser } from '@/lib/api/get-user';
-import { format } from 'date-fns';
-import { JoinRequestButton } from './_components/join-request-button';
+import { PlateEditor } from "@/components/plate-editor";
+import { PreviewImagesCarousel } from "@/components/shared/trips-card/preview-images";
+import { getSingleTrip } from "@/lib/api/get-single-trip";
+import { getUser } from "@/lib/api/get-user";
+import { format } from "date-fns";
+import { JoinRequestButton } from "./_components/join-request-button";
+import { Badge } from "@/components/ui/badge";
 
 type PropsType = {
   params: { tripId: string };
@@ -23,7 +24,7 @@ export default async function TripPage({ params }: PropsType) {
   try {
     const parsedValues = JSON.parse(trip.description);
 
-    if (typeof parsedValues === 'string') throw new Error();
+    if (typeof parsedValues === "string") throw new Error();
 
     description = (
       <PlateEditor
@@ -37,7 +38,7 @@ export default async function TripPage({ params }: PropsType) {
   }
 
   return (
-    <main className="container lg:min-h-[40rem] max-h-full flex-1 flex max-xl:max-w-xl max-xl:flex-col gap-8 py-8">
+    <main className="container lg:min-h-[40rem] flex max-xl:max-w-xl max-xl:flex-col gap-8 py-8">
       <div className="max-w-xl">
         <PreviewImagesCarousel
           images={trip.images}
@@ -59,8 +60,8 @@ export default async function TripPage({ params }: PropsType) {
               Date
             </dt>
             <dd>
-              {format(trip.startDate, 'LLL dd, y')} -{' '}
-              {format(trip.endDate, 'LLL dd, y')}
+              {format(trip.startDate, "LLL dd, y")} -{" "}
+              {format(trip.endDate, "LLL dd, y")}
             </dd>
           </div>
 
@@ -68,14 +69,16 @@ export default async function TripPage({ params }: PropsType) {
             <dt className="uppercase text-xs font-medium tracking-wide opacity-70 mb-2">
               travel type
             </dt>
-            <dd className="px-4 py-0.5 rounded-full text-sm font-mono text-emerald-900 bg-emerald-100 dark:bg-emerald-900 dark:text-neutral-200 max-w-fit">
-              {trip.travelType}
+            <dd>
+              <Badge className="font-medium" variant="secondary">
+                {trip.travelType}
+              </Badge>
             </dd>
           </div>
 
           <div>
             <dt className="uppercase text-xs tracking-wide font-medium opacity-70 mb-2">
-              {isUsersPost ? 'Action' : 'Become companion'}
+              {isUsersPost ? "Action" : "Become companion"}
             </dt>
             <dd>
               <JoinRequestButton

@@ -1,5 +1,4 @@
 import johurulImg from "@/assets/johurul_haque.jpg";
-import strawhat from "@/assets/straw-hat.jpg";
 import { atma, manrope } from "@/lib/fonts";
 import Image from "next/image";
 
@@ -72,57 +71,32 @@ export default function AboutPage() {
           <p>
             The team is composed of a <strong>one-man army.</strong> A guy with
             no enthusiasm for traveling, a tech expert, and definitely not a
-            community builders who is dedicated to enhancing your travel
-            experience. {"He's"} lazy but still {"get's"} the job done and
-            ensures everything is user-friendly, and reliable.
+            community builder. Who is dedicated to enhancing your travel
+            experience. {"He's"} lazy, yet still gets the job done and ensures
+            everything is user-friendly, and reliable.
           </p>
 
-          <div className="flex flex-wrap gap-x-8 gap-y-3 [&>figure]:max-w-[15rem] mt-8">
-            <figure>
-              <Image
-                width={800}
-                height={800}
-                src={strawhat}
-                alt="Picture of Straw Hat"
-                className="rounded-full object-cover aspect-square"
-                quality={100}
-              />
-              <figcaption className="mt-4 text-center">
-                <dl>
-                  <dt className="uppercase font-semibold text-xs opacity-70">
-                    Founder
-                  </dt>
-                  <dd
-                    className={`text-lg font-semibold opacity-80 ${atma.className}`}
-                  >
-                    Straw Hat
-                  </dd>
-                </dl>
-              </figcaption>
-            </figure>
-
-            <figure>
-              <Image
-                width={800}
-                height={800}
-                src={johurulImg}
-                alt="Picture of Johurul Haque"
-                className="rounded-full"
-              />
-              <figcaption className="mt-4 text-center">
-                <dl>
-                  <dt className="uppercase font-semibold text-xs opacity-70">
-                    Software Developer
-                  </dt>
-                  <dd
-                    className={`text-lg font-semibold opacity-80 ${atma.className}`}
-                  >
-                    Johurul Haque
-                  </dd>
-                </dl>
-              </figcaption>
-            </figure>
-          </div>
+          <figure className="max-w-[15rem] mt-8">
+            <Image
+              width={800}
+              height={800}
+              src={johurulImg}
+              alt="Picture of Johurul Haque"
+              className="rounded-full"
+            />
+            <figcaption className="mt-4 text-center">
+              <dl>
+                <dt className="uppercase font-semibold tracking-wide text-xs opacity-70">
+                  Software Developer
+                </dt>
+                <dd
+                  className={`text-lg font-semibold tracking-wide opacity-80 ${atma.className}`}
+                >
+                  Johurul Haque
+                </dd>
+              </dl>
+            </figcaption>
+          </figure>
         </section>
 
         <section>
@@ -141,7 +115,7 @@ export default function AboutPage() {
                   href="mailto:johurulhaquejony@gmail.com"
                   className="underline"
                 >
-                  contact@stp.com
+                  johurulhaquejony@gmail.com
                 </a>
               </dd>
             </div>

@@ -1,6 +1,6 @@
-import { manrope } from '@/lib/fonts';
-import { GithubIcon, LinkedinIcon, MailIcon, PhoneIcon } from 'lucide-react';
-import { Logo } from './header/logo';
+import { manrope } from "@/lib/fonts";
+import { GithubIcon, LinkedinIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { Logo } from "./header/logo";
 
 export function Footer() {
   return (
@@ -12,11 +12,11 @@ export function Footer() {
           <div>
             <Logo
               className={{
-                wrapper: 'text-4xl max-md:text-3xl gap-2.5',
-                logo: 'size-10',
+                wrapper: "text-4xl max-md:text-3xl gap-2.5",
+                logo: "size-10",
               }}
             />
-            <p className="mt-4 font-medium max-w-xs">
+            <p className="mt-4 max-w-xs">
               Social Travel Platform for finding travel companions by sharing
               and exploring trip plans.
             </p>
@@ -42,7 +42,7 @@ export function Footer() {
                   href="mailto:johurulhaquejony@gmail.com"
                   className="hover:underline"
                 >
-                  contact@stp.com
+                  johurulhaquejony@gmail.com
                 </a>
               </dd>
 
@@ -65,10 +65,10 @@ export function Footer() {
             <h3 className="mb-3 font-semibold">Help</h3>
             <ul className="space-y-3 text-sm">
               {[
-                'Customer Support',
-                'Delivery Details',
-                'Terms & Conditions',
-                'Privacy Policy',
+                "Customer Support",
+                "Delivery Details",
+                "Terms & Conditions",
+                "Privacy Policy",
               ].map((value) => (
                 <li
                   key={value}
@@ -76,7 +76,7 @@ export function Footer() {
                 >
                   {value}
                 </li>
-              ))}{' '}
+              ))}{" "}
             </ul>
           </section>
         </div>
@@ -91,7 +91,7 @@ export function Footer() {
             <dt className="sr-only">Github Account</dt>
             <dd>
               <a
-                href="http://github.com/johurul-haque"
+                href="https://github.com/johurul-haque"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -107,7 +107,7 @@ export function Footer() {
             <dt className="sr-only">LinkedIn</dt>
             <dd>
               <a
-                href="http://linkedin.com/in/johurul-haque"
+                href="https://linkedin.com/in/johurul-haque"
                 target="_blank"
                 rel="noopener noreferrer"
               >

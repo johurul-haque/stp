@@ -14,7 +14,7 @@ export function FAQ() {
         <span className="inline-block animate-bounce">Q</span>
       </h2>
 
-      <Accordion type="multiple" className="w-full">
+      <Accordion type="multiple" className="w-full text-left">
         <AccordionItem value="item-1">
           <AccordionTrigger>Is there a cost to use STP?</AccordionTrigger>
           <AccordionContent className="text-base">
