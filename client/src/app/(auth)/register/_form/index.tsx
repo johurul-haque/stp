@@ -17,14 +17,17 @@ import { onSubmit } from "./on-submit";
 import { PasswordField } from "./password-field";
 import { registerSchema } from "./schema";
 import { SetStateActionType } from "@/types/set-state-action";
+import { useSearchParams } from "next/navigation";
 
 type PropsType = {
-  redirectFrom: string | null;
   setError: SetStateActionType<string>;
 };
 
-export function RegisterForm({ redirectFrom, setError }: PropsType) {
+export function RegisterForm({ setError }: PropsType) {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+
+  const redirectFrom = searchParams.get("redirect_from");
 
   const form = useForm<registerSchema>({
     resolver: zodResolver(registerSchema),

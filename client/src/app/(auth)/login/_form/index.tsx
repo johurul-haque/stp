@@ -17,20 +17,19 @@ import { onSubmit } from "./on-submit";
 import { loginSchema } from "./schema";
 import { SetStateActionType } from "@/types/set-state-action";
 import { DemoCredentials } from "@/app/(auth)/_components/demo-accounts-modal";
+import { useSearchParams } from "next/navigation";
 
 type PropsType = {
-  redirectFrom: string | null;
   setError: SetStateActionType<string>;
   demoCredentials?: DemoCredentials;
 };
 
-export function LoginForm({
-  redirectFrom,
-  setError,
-  demoCredentials,
-}: PropsType) {
+export function LoginForm({ setError, demoCredentials }: PropsType) {
+  const searchParams = useSearchParams();
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const redirectFrom = searchParams.get("redirect_from");
 
   const form = useForm<loginSchema>({
     resolver: zodResolver(loginSchema),

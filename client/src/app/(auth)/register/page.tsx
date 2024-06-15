@@ -1,19 +1,15 @@
 "use client";
 
 import { RegisterForm } from "./_form";
-import { useSearchParams } from "next/navigation";
 import * as React from "react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MessageSquareWarningIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export default function Register() {
-  const searchParams = useSearchParams();
   const [error, setError] = useState("");
-
-  const redirectFrom = searchParams.get("redirect_from");
 
   return (
     <>
@@ -37,7 +33,9 @@ export default function Register() {
         />
       </Alert>
 
-      <RegisterForm setError={setError} redirectFrom={redirectFrom} />
+      <Suspense>
+        <RegisterForm setError={setError} />
+      </Suspense>
     </>
   );
 }
