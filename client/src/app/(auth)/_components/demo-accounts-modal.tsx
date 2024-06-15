@@ -57,7 +57,7 @@ export function DemoAccountsModal({ setDemoCredentials }: PropsType) {
                 "relative border dark:border-neutral-800 rounded-md px-4 py-2.5 hover:bg-neutral-200" +
                   " dark:hover:bg-neutral-800",
                 {
-                  "bg-gray-200 dark:bg-neutral-800": role === selectedRole,
+                  "bg-neutral-200 dark:bg-neutral-800": role === selectedRole,
                 },
               )}
             >
@@ -71,7 +71,7 @@ export function DemoAccountsModal({ setDemoCredentials }: PropsType) {
               </button>
 
               <div className="flex justify-between">
-                <h3 className="max-sm:text-sm font-semibold capitalize">
+                <h3 className="max-sm:text-sm font-semibold capitalize opacity-90">
                   {role}
                 </h3>
                 {role === selectedRole && (
@@ -79,7 +79,7 @@ export function DemoAccountsModal({ setDemoCredentials }: PropsType) {
                 )}
               </div>
 
-              <p className="text-xs sm:text-sm font-light opacity-50 mt-1 sm:mt-0.5">
+              <p className="text-xs sm:text-sm font-light opacity-70 mt-1 sm:mt-0.5">
                 {canDo}
               </p>
             </li>

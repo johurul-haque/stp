@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
-} from '@/components/ui/carousel';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type PropsType = {
   images: string[];
@@ -35,7 +35,7 @@ export function PreviewImagesCarousel({
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
-    api.on('select', () => {
+    api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
