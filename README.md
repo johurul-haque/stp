@@ -36,8 +36,8 @@
 
 - **TypeScript** - Static type checking
 - **Express.js** - Route handling and middleware
-- **MongoDB** - Storing and managing data
-- **Mongoose** - Data modeling and query building
+- **Postgres hosted on Supabase** - Storing and managing data
+- **Prisma** - Defining schema, handling query and mutations
 - **Zod** - Validating and parsing incoming and inferring types
 - **JSON Web Token** - Authenticating users
 
