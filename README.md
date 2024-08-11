@@ -36,7 +36,7 @@
 
 - **TypeScript** - Static type checking
 - **Express.js** - Route handling and middleware
-- **PostgreSQL hosted on Supabase** - Storing and managing data
+- **PostgreSQL** - Storing and managing data; hosted on Vercel Postges.
 - **Prisma** - Defining schema, handling query and mutations
 - **Zod** - Validating and parsing incoming and inferring types
 - **JSON Web Token** - Authenticating users

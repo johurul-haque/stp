@@ -22,7 +22,7 @@ pnpm start
 ## Tech stack
 - **TypeScript** - Static type checking
 - **Express.js** - Route handling and middleware
-- **PostgreSQL** - Storing and managing data
+- **PostgreSQL** - Storing and managing data; hosted on Vercel Postges.
 - **Prisma** - Data modeling and querying
 - **Zod** - Validating and parsing incoming and inferring types
 - **JSON Web Token** - Authenticating users
