@@ -100,10 +100,6 @@ export function CreateTripForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
-              {/* <PlateEditor
-                readOnly={!!requestStatus}
-                onChange={field.onChange}
-              /> */}
               <FormControl>
                 <textarea
                   disabled={!!requestStatus}
