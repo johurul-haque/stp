@@ -1,4 +1,4 @@
-import { buttonVariants } from '@/components/plate-ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';

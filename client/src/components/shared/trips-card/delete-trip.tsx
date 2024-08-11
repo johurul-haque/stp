@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteTrip } from '@/actions/trip';
-import { buttonVariants } from '@/components/plate-ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,6 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { buttonVariants } from '@/components/ui/button';
 import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
 import { Trash2Icon } from 'lucide-react';
