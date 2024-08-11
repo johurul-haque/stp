@@ -5,6 +5,7 @@ export const env = z
   .object({
     PORT: z.number().default(8080),
     DATABASE_URL: z.string(),
+    POSTGRES_URL_NON_POOLING: z.string(),
     JWT_SECRET: z.string(),
     IS_DEV: z.boolean().default(process.env.NODE_ENV !== 'production'),
   })

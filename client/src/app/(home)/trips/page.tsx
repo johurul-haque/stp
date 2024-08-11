@@ -24,7 +24,7 @@ export default async function TripsPage({ searchParams }: PageProps) {
         <SearchInput />
       </div>
 
-      <Suspense key={query + page} fallback={<TripsCardSkeleton />}>
+      <Suspense key={query + page} fallback={<TripsCardSkeleton length={8} />}>
         <TripsCardWithPagination page={page} query={query} />
       </Suspense>
     </main>

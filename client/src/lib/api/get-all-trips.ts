@@ -6,6 +6,7 @@ export async function getAllTrips(
   params?: {
     _q?: string;
     _page?: string;
+    _limit?: number;
   },
   is_private?: boolean
 ) {
