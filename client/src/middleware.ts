@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   if (!cookie && !authRoutes.includes(path)) {
     return redirectToLogin(path, request.url);
   }
-
+  
   if (!cookie) return;
 
   try {
