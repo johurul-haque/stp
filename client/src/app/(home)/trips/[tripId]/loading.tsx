@@ -50,7 +50,7 @@ export default function Loading() {
           Description
         </dt>
         <dd className="flex-1">
-          <Skeleton className="w-full h-48" />
+          <Skeleton className="w-full h-[9.5rem]" />
         </dd>
       </dl>
     </main>
